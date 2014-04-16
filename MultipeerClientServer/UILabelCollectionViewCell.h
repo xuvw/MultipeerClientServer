@@ -1,5 +1,5 @@
 //
-//  ViewController.h
+//  UILabelCollectionViewCell.h
 //  MultipeerClientServer
 //
 //  Created by Mark Stultz on 4/15/14.
@@ -8,6 +8,8 @@
 
 @import UIKit;
 
-@interface ViewController : UIViewController
+@interface UILabelCollectionViewCell : UICollectionViewCell
+
+@property (nonatomic, weak) IBOutlet UILabel *label;
 
 @end

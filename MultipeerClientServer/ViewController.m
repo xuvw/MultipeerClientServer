@@ -7,23 +7,60 @@
 //
 
 #import "ViewController.h"
+#import "MultipeerClient.h"
+#import "MultipeerServer.h"
+#import "ServerBrowserViewController.h"
 
 @interface ViewController ()
+
+@property (nonatomic, strong) MCPeerID *peerID;
+@property (nonatomic, strong) MCSession *session;
+@property (nonatomic, strong) MultipeerClient *client;
+@property (nonatomic, strong) MultipeerServer *server;
+
+- (IBAction)startClient:(id)sender;
+- (IBAction)startServer:(id)sender;
+
+- (void)createSession;
 
 @end
 
 @implementation ViewController
 
-- (void)viewDidLoad
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    [super viewDidLoad];
-	// Do any additional setup after loading the view, typically from a nib.
+	if ([segue.identifier isEqualToString:@"startClientSegue"]) {
+		ServerBrowserViewController *viewController = segue.destinationViewController;
+		viewController.multipeerClient = self.client;
+	}
+	else if ([segue.identifier isEqualToString:@"startServerSegue"]) {
+		
+	}
 }
 
-- (void)didReceiveMemoryWarning
+- (IBAction)startClient:(id)sender
 {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+	[self createSession];
+	self.client = [[MultipeerClient alloc] initWithSession:self.session serviceType:@"ms-multichat"];
+	[self performSegueWithIdentifier:@"startClientSegue" sender:sender];
+}
+
+- (IBAction)startServer:(id)sender
+{
+	[self createSession];
+	self.server = [[MultipeerServer alloc] initWithSession:self.session serviceType:@"ms-multichat" guid:[[NSUUID UUID] UUIDString]];
+	[self performSegueWithIdentifier:@"startServerSegue" sender:sender];
+}
+
+- (void)createSession
+{
+	self.client = nil;
+	self.server = nil;
+	
+	if (!self.session) {
+		self.peerID = [[MCPeerID alloc] initWithDisplayName:[UIDevice currentDevice].name];
+		self.session = [[MCSession alloc] initWithPeer:self.peerID];
+	}
 }
 
 @end

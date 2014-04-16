@@ -21,6 +21,12 @@
 		D868021218FE32C90035CE60 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D86801F418FE32C90035CE60 /* UIKit.framework */; };
 		D868021A18FE32C90035CE60 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D868021818FE32C90035CE60 /* InfoPlist.strings */; };
 		D868021C18FE32C90035CE60 /* MultipeerClientServerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D868021B18FE32C90035CE60 /* MultipeerClientServerTests.m */; };
+		D868022D18FE344A0035CE60 /* MultipeerClient.m in Sources */ = {isa = PBXBuildFile; fileRef = D868022618FE344A0035CE60 /* MultipeerClient.m */; };
+		D868022E18FE344A0035CE60 /* MultipeerServer.m in Sources */ = {isa = PBXBuildFile; fileRef = D868022818FE344A0035CE60 /* MultipeerServer.m */; };
+		D868022F18FE344A0035CE60 /* NearbyServer.m in Sources */ = {isa = PBXBuildFile; fileRef = D868022A18FE344A0035CE60 /* NearbyServer.m */; };
+		D868023018FE344A0035CE60 /* ServerBrowserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D868022C18FE344A0035CE60 /* ServerBrowserViewController.m */; };
+		D868023518FE34540035CE60 /* NearbyServersDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = D868023118FE34540035CE60 /* NearbyServersDataSource.m */; };
+		D868023618FE34540035CE60 /* UILabelCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D868023418FE34540035CE60 /* UILabelCollectionViewCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +59,18 @@
 		D868021718FE32C90035CE60 /* MultipeerClientServerTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "MultipeerClientServerTests-Info.plist"; sourceTree = "<group>"; };
 		D868021918FE32C90035CE60 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		D868021B18FE32C90035CE60 /* MultipeerClientServerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MultipeerClientServerTests.m; sourceTree = "<group>"; };
+		D868022518FE344A0035CE60 /* MultipeerClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MultipeerClient.h; sourceTree = "<group>"; };
+		D868022618FE344A0035CE60 /* MultipeerClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MultipeerClient.m; sourceTree = "<group>"; };
+		D868022718FE344A0035CE60 /* MultipeerServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MultipeerServer.h; sourceTree = "<group>"; };
+		D868022818FE344A0035CE60 /* MultipeerServer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MultipeerServer.m; sourceTree = "<group>"; };
+		D868022918FE344A0035CE60 /* NearbyServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NearbyServer.h; sourceTree = "<group>"; };
+		D868022A18FE344A0035CE60 /* NearbyServer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NearbyServer.m; sourceTree = "<group>"; };
+		D868022B18FE344A0035CE60 /* NearbyServersDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NearbyServersDataSource.h; sourceTree = "<group>"; };
+		D868022C18FE344A0035CE60 /* ServerBrowserViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServerBrowserViewController.m; sourceTree = "<group>"; };
+		D868023118FE34540035CE60 /* NearbyServersDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NearbyServersDataSource.m; sourceTree = "<group>"; };
+		D868023218FE34540035CE60 /* ServerBrowserViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServerBrowserViewController.h; sourceTree = "<group>"; };
+		D868023318FE34540035CE60 /* UILabelCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UILabelCollectionViewCell.h; sourceTree = "<group>"; };
+		D868023418FE34540035CE60 /* UILabelCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UILabelCollectionViewCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -112,11 +130,9 @@
 		D86801F618FE32C90035CE60 /* MultipeerClientServer */ = {
 			isa = PBXGroup;
 			children = (
-				D86801FF18FE32C90035CE60 /* AppDelegate.h */,
-				D868020018FE32C90035CE60 /* AppDelegate.m */,
-				D868020218FE32C90035CE60 /* Main.storyboard */,
-				D868020518FE32C90035CE60 /* ViewController.h */,
-				D868020618FE32C90035CE60 /* ViewController.m */,
+				D868023818FE34660035CE60 /* Classes */,
+				D868023718FE34570035CE60 /* Controllers */,
+				D868023918FE34840035CE60 /* Views */,
 				D868020818FE32C90035CE60 /* Images.xcassets */,
 				D86801F718FE32C90035CE60 /* Supporting Files */,
 			);
@@ -150,6 +166,44 @@
 				D868021818FE32C90035CE60 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		D868023718FE34570035CE60 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				D868020218FE32C90035CE60 /* Main.storyboard */,
+				D868023218FE34540035CE60 /* ServerBrowserViewController.h */,
+				D868022C18FE344A0035CE60 /* ServerBrowserViewController.m */,
+				D868020518FE32C90035CE60 /* ViewController.h */,
+				D868020618FE32C90035CE60 /* ViewController.m */,
+			);
+			name = Controllers;
+			sourceTree = "<group>";
+		};
+		D868023818FE34660035CE60 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				D86801FF18FE32C90035CE60 /* AppDelegate.h */,
+				D868020018FE32C90035CE60 /* AppDelegate.m */,
+				D868022518FE344A0035CE60 /* MultipeerClient.h */,
+				D868022618FE344A0035CE60 /* MultipeerClient.m */,
+				D868022718FE344A0035CE60 /* MultipeerServer.h */,
+				D868022818FE344A0035CE60 /* MultipeerServer.m */,
+				D868022918FE344A0035CE60 /* NearbyServer.h */,
+				D868022A18FE344A0035CE60 /* NearbyServer.m */,
+				D868022B18FE344A0035CE60 /* NearbyServersDataSource.h */,
+				D868023118FE34540035CE60 /* NearbyServersDataSource.m */,
+			);
+			name = Classes;
+			sourceTree = "<group>";
+		};
+		D868023918FE34840035CE60 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				D868023318FE34540035CE60 /* UILabelCollectionViewCell.h */,
+				D868023418FE34540035CE60 /* UILabelCollectionViewCell.m */,
+			);
+			name = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -251,7 +305,13 @@
 			files = (
 				D868020718FE32C90035CE60 /* ViewController.m in Sources */,
 				D868020118FE32C90035CE60 /* AppDelegate.m in Sources */,
+				D868023518FE34540035CE60 /* NearbyServersDataSource.m in Sources */,
+				D868022D18FE344A0035CE60 /* MultipeerClient.m in Sources */,
+				D868023018FE344A0035CE60 /* ServerBrowserViewController.m in Sources */,
+				D868022F18FE344A0035CE60 /* NearbyServer.m in Sources */,
+				D868022E18FE344A0035CE60 /* MultipeerServer.m in Sources */,
 				D86801FD18FE32C90035CE60 /* main.m in Sources */,
+				D868023618FE34540035CE60 /* UILabelCollectionViewCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -456,6 +516,7 @@
 				D868022118FE32C90035CE60 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		D868022218FE32C90035CE60 /* Build configuration list for PBXNativeTarget "MultipeerClientServerTests" */ = {
 			isa = XCConfigurationList;
@@ -464,6 +525,7 @@
 				D868022418FE32C90035CE60 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
