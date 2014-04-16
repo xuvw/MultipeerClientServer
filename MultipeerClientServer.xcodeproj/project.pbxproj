@@ -1,0 +1,471 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		D86801F118FE32C90035CE60 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D86801F018FE32C90035CE60 /* Foundation.framework */; };
+		D86801F318FE32C90035CE60 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D86801F218FE32C90035CE60 /* CoreGraphics.framework */; };
+		D86801F518FE32C90035CE60 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D86801F418FE32C90035CE60 /* UIKit.framework */; };
+		D86801FB18FE32C90035CE60 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D86801F918FE32C90035CE60 /* InfoPlist.strings */; };
+		D86801FD18FE32C90035CE60 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D86801FC18FE32C90035CE60 /* main.m */; };
+		D868020118FE32C90035CE60 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D868020018FE32C90035CE60 /* AppDelegate.m */; };
+		D868020418FE32C90035CE60 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D868020218FE32C90035CE60 /* Main.storyboard */; };
+		D868020718FE32C90035CE60 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D868020618FE32C90035CE60 /* ViewController.m */; };
+		D868020918FE32C90035CE60 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D868020818FE32C90035CE60 /* Images.xcassets */; };
+		D868021018FE32C90035CE60 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D868020F18FE32C90035CE60 /* XCTest.framework */; };
+		D868021118FE32C90035CE60 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D86801F018FE32C90035CE60 /* Foundation.framework */; };
+		D868021218FE32C90035CE60 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D86801F418FE32C90035CE60 /* UIKit.framework */; };
+		D868021A18FE32C90035CE60 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D868021818FE32C90035CE60 /* InfoPlist.strings */; };
+		D868021C18FE32C90035CE60 /* MultipeerClientServerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D868021B18FE32C90035CE60 /* MultipeerClientServerTests.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		D868021318FE32C90035CE60 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D86801E518FE32C90035CE60 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D86801EC18FE32C90035CE60;
+			remoteInfo = MultipeerClientServer;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		D86801ED18FE32C90035CE60 /* MultipeerClientServer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MultipeerClientServer.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		D86801F018FE32C90035CE60 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		D86801F218FE32C90035CE60 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		D86801F418FE32C90035CE60 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		D86801F818FE32C90035CE60 /* MultipeerClientServer-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "MultipeerClientServer-Info.plist"; sourceTree = "<group>"; };
+		D86801FA18FE32C90035CE60 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		D86801FC18FE32C90035CE60 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		D86801FE18FE32C90035CE60 /* MultipeerClientServer-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MultipeerClientServer-Prefix.pch"; sourceTree = "<group>"; };
+		D86801FF18FE32C90035CE60 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		D868020018FE32C90035CE60 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		D868020318FE32C90035CE60 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		D868020518FE32C90035CE60 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		D868020618FE32C90035CE60 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		D868020818FE32C90035CE60 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		D868020E18FE32C90035CE60 /* MultipeerClientServerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MultipeerClientServerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		D868020F18FE32C90035CE60 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		D868021718FE32C90035CE60 /* MultipeerClientServerTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "MultipeerClientServerTests-Info.plist"; sourceTree = "<group>"; };
+		D868021918FE32C90035CE60 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		D868021B18FE32C90035CE60 /* MultipeerClientServerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MultipeerClientServerTests.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		D86801EA18FE32C90035CE60 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D86801F318FE32C90035CE60 /* CoreGraphics.framework in Frameworks */,
+				D86801F518FE32C90035CE60 /* UIKit.framework in Frameworks */,
+				D86801F118FE32C90035CE60 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D868020B18FE32C90035CE60 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D868021018FE32C90035CE60 /* XCTest.framework in Frameworks */,
+				D868021218FE32C90035CE60 /* UIKit.framework in Frameworks */,
+				D868021118FE32C90035CE60 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		D86801E418FE32C90035CE60 = {
+			isa = PBXGroup;
+			children = (
+				D86801F618FE32C90035CE60 /* MultipeerClientServer */,
+				D868021518FE32C90035CE60 /* MultipeerClientServerTests */,
+				D86801EF18FE32C90035CE60 /* Frameworks */,
+				D86801EE18FE32C90035CE60 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		D86801EE18FE32C90035CE60 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				D86801ED18FE32C90035CE60 /* MultipeerClientServer.app */,
+				D868020E18FE32C90035CE60 /* MultipeerClientServerTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		D86801EF18FE32C90035CE60 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				D86801F018FE32C90035CE60 /* Foundation.framework */,
+				D86801F218FE32C90035CE60 /* CoreGraphics.framework */,
+				D86801F418FE32C90035CE60 /* UIKit.framework */,
+				D868020F18FE32C90035CE60 /* XCTest.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		D86801F618FE32C90035CE60 /* MultipeerClientServer */ = {
+			isa = PBXGroup;
+			children = (
+				D86801FF18FE32C90035CE60 /* AppDelegate.h */,
+				D868020018FE32C90035CE60 /* AppDelegate.m */,
+				D868020218FE32C90035CE60 /* Main.storyboard */,
+				D868020518FE32C90035CE60 /* ViewController.h */,
+				D868020618FE32C90035CE60 /* ViewController.m */,
+				D868020818FE32C90035CE60 /* Images.xcassets */,
+				D86801F718FE32C90035CE60 /* Supporting Files */,
+			);
+			path = MultipeerClientServer;
+			sourceTree = "<group>";
+		};
+		D86801F718FE32C90035CE60 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				D86801F818FE32C90035CE60 /* MultipeerClientServer-Info.plist */,
+				D86801F918FE32C90035CE60 /* InfoPlist.strings */,
+				D86801FC18FE32C90035CE60 /* main.m */,
+				D86801FE18FE32C90035CE60 /* MultipeerClientServer-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		D868021518FE32C90035CE60 /* MultipeerClientServerTests */ = {
+			isa = PBXGroup;
+			children = (
+				D868021B18FE32C90035CE60 /* MultipeerClientServerTests.m */,
+				D868021618FE32C90035CE60 /* Supporting Files */,
+			);
+			path = MultipeerClientServerTests;
+			sourceTree = "<group>";
+		};
+		D868021618FE32C90035CE60 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				D868021718FE32C90035CE60 /* MultipeerClientServerTests-Info.plist */,
+				D868021818FE32C90035CE60 /* InfoPlist.strings */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		D86801EC18FE32C90035CE60 /* MultipeerClientServer */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D868021F18FE32C90035CE60 /* Build configuration list for PBXNativeTarget "MultipeerClientServer" */;
+			buildPhases = (
+				D86801E918FE32C90035CE60 /* Sources */,
+				D86801EA18FE32C90035CE60 /* Frameworks */,
+				D86801EB18FE32C90035CE60 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = MultipeerClientServer;
+			productName = MultipeerClientServer;
+			productReference = D86801ED18FE32C90035CE60 /* MultipeerClientServer.app */;
+			productType = "com.apple.product-type.application";
+		};
+		D868020D18FE32C90035CE60 /* MultipeerClientServerTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D868022218FE32C90035CE60 /* Build configuration list for PBXNativeTarget "MultipeerClientServerTests" */;
+			buildPhases = (
+				D868020A18FE32C90035CE60 /* Sources */,
+				D868020B18FE32C90035CE60 /* Frameworks */,
+				D868020C18FE32C90035CE60 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				D868021418FE32C90035CE60 /* PBXTargetDependency */,
+			);
+			name = MultipeerClientServerTests;
+			productName = MultipeerClientServerTests;
+			productReference = D868020E18FE32C90035CE60 /* MultipeerClientServerTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		D86801E518FE32C90035CE60 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0510;
+				ORGANIZATIONNAME = "Mark Stultz";
+				TargetAttributes = {
+					D868020D18FE32C90035CE60 = {
+						TestTargetID = D86801EC18FE32C90035CE60;
+					};
+				};
+			};
+			buildConfigurationList = D86801E818FE32C90035CE60 /* Build configuration list for PBXProject "MultipeerClientServer" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = D86801E418FE32C90035CE60;
+			productRefGroup = D86801EE18FE32C90035CE60 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				D86801EC18FE32C90035CE60 /* MultipeerClientServer */,
+				D868020D18FE32C90035CE60 /* MultipeerClientServerTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		D86801EB18FE32C90035CE60 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D868020918FE32C90035CE60 /* Images.xcassets in Resources */,
+				D86801FB18FE32C90035CE60 /* InfoPlist.strings in Resources */,
+				D868020418FE32C90035CE60 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D868020C18FE32C90035CE60 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D868021A18FE32C90035CE60 /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		D86801E918FE32C90035CE60 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D868020718FE32C90035CE60 /* ViewController.m in Sources */,
+				D868020118FE32C90035CE60 /* AppDelegate.m in Sources */,
+				D86801FD18FE32C90035CE60 /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D868020A18FE32C90035CE60 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D868021C18FE32C90035CE60 /* MultipeerClientServerTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		D868021418FE32C90035CE60 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D86801EC18FE32C90035CE60 /* MultipeerClientServer */;
+			targetProxy = D868021318FE32C90035CE60 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		D86801F918FE32C90035CE60 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D86801FA18FE32C90035CE60 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		D868020218FE32C90035CE60 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D868020318FE32C90035CE60 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		D868021818FE32C90035CE60 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D868021918FE32C90035CE60 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		D868021D18FE32C90035CE60 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		D868021E18FE32C90035CE60 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		D868022018FE32C90035CE60 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "MultipeerClientServer/MultipeerClientServer-Prefix.pch";
+				INFOPLIST_FILE = "MultipeerClientServer/MultipeerClientServer-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		D868022118FE32C90035CE60 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "MultipeerClientServer/MultipeerClientServer-Prefix.pch";
+				INFOPLIST_FILE = "MultipeerClientServer/MultipeerClientServer-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		D868022318FE32C90035CE60 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/MultipeerClientServer.app/MultipeerClientServer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "MultipeerClientServer/MultipeerClientServer-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "MultipeerClientServerTests/MultipeerClientServerTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Debug;
+		};
+		D868022418FE32C90035CE60 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/MultipeerClientServer.app/MultipeerClientServer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "MultipeerClientServer/MultipeerClientServer-Prefix.pch";
+				INFOPLIST_FILE = "MultipeerClientServerTests/MultipeerClientServerTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		D86801E818FE32C90035CE60 /* Build configuration list for PBXProject "MultipeerClientServer" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D868021D18FE32C90035CE60 /* Debug */,
+				D868021E18FE32C90035CE60 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D868021F18FE32C90035CE60 /* Build configuration list for PBXNativeTarget "MultipeerClientServer" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D868022018FE32C90035CE60 /* Debug */,
+				D868022118FE32C90035CE60 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		D868022218FE32C90035CE60 /* Build configuration list for PBXNativeTarget "MultipeerClientServerTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D868022318FE32C90035CE60 /* Debug */,
+				D868022418FE32C90035CE60 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = D86801E518FE32C90035CE60 /* Project object */;
+}
