@@ -49,8 +49,9 @@
                     </view>
                     <navigationItem key="navigationItem" title="MultipeerClientServer" id="veP-0k-tIs"/>
                     <connections>
-                        <segue destination="RlC-V9-NQB" kind="push" identifier="startClientSegue" id="8HB-V2-PVr"/>
+                        <segue destination="RlC-V9-NQB" kind="modal" identifier="startClientSegue" id="8HB-V2-PVr"/>
                         <segue destination="jFq-ET-Ay3" kind="push" identifier="startServerSegue" id="vYq-Ji-NAO"/>
+                        <segue destination="jFq-ET-Ay3" kind="push" identifier="joinServerSegue" id="2ut-Hx-3yg"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
@@ -69,8 +70,18 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <collectionView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" minimumZoomScale="0.0" maximumZoomScale="0.0" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="gXb-5L-w5H">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2NF-Mc-X8s">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="64"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="64" id="Itx-Kr-27s"/>
+                                </constraints>
+                                <items>
+                                    <navigationItem title="Connect to Server" id="Io8-nU-G0M"/>
+                                </items>
+                            </navigationBar>
+                            <collectionView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" minimumZoomScale="0.0" maximumZoomScale="0.0" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="gXb-5L-w5H">
+                                <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="EsI-Gv-nN1">
@@ -81,7 +92,7 @@
                                 </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="nearbyServerCell" id="JCy-H1-lN5" customClass="UILabelCollectionViewCell">
-                                        <rect key="frame" x="0.0" y="64" width="320" height="48"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="48"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="48"/>
@@ -108,6 +119,15 @@
                             </collectionView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="gXb-5L-w5H" firstAttribute="top" secondItem="2NF-Mc-X8s" secondAttribute="bottom" id="3Fy-uU-mvB"/>
+                            <constraint firstItem="2NF-Mc-X8s" firstAttribute="top" secondItem="jlx-jd-VxS" secondAttribute="top" id="7Wi-20-HIJ"/>
+                            <constraint firstItem="2NF-Mc-X8s" firstAttribute="leading" secondItem="jlx-jd-VxS" secondAttribute="leading" id="T6Z-Lr-E6a"/>
+                            <constraint firstItem="gXb-5L-w5H" firstAttribute="leading" secondItem="jlx-jd-VxS" secondAttribute="leading" id="abd-fG-W2Y"/>
+                            <constraint firstAttribute="trailing" secondItem="2NF-Mc-X8s" secondAttribute="trailing" id="g49-Z8-STm"/>
+                            <constraint firstAttribute="bottom" secondItem="gXb-5L-w5H" secondAttribute="bottom" id="ikb-xL-qnF"/>
+                            <constraint firstAttribute="trailing" secondItem="gXb-5L-w5H" secondAttribute="trailing" id="yC3-2f-0PV"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Connect to Server" id="Ot7-Xn-k6S"/>
                     <connections>
@@ -116,12 +136,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zLq-m5-afD" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="885" y="-454"/>
+            <point key="canvasLocation" x="885" y="-480"/>
         </scene>
-        <!--View Controller-->
+        <!--Connected View Controller - Server-->
         <scene sceneID="gxq-aF-XiO">
             <objects>
-                <viewController id="jFq-ET-Ay3" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ConnectedViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="jFq-ET-Ay3" customClass="ConnectedViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="RRS-sk-gxx"/>
                         <viewControllerLayoutGuide type="bottom" id="PMT-UR-fdF"/>
@@ -130,19 +150,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mo3-m4-dma">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="64"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="64" id="i7i-ch-VYw"/>
-                                </constraints>
-                                <items>
-                                    <navigationItem title="Server" id="M5s-9q-Yjc">
-                                        <barButtonItem key="leftBarButtonItem" title="Disconnect" id="LgS-Rl-wtZ"/>
-                                    </navigationItem>
-                                </items>
-                            </navigationBar>
-                            <collectionView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" minimumZoomScale="0.0" maximumZoomScale="0.0" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="ER0-Rt-3ho">
+                            <collectionView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" minimumZoomScale="0.0" maximumZoomScale="0.0" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="ER0-Rt-3ho">
                                 <rect key="frame" x="0.0" y="112" width="320" height="456"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -154,7 +162,7 @@
                                 </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="cell" id="xRY-vc-6Se" customClass="UILabelCollectionViewCell">
-                                        <rect key="frame" x="0.0" y="0.0" width="320" height="48"/>
+                                        <rect key="frame" x="0.0" y="64" width="320" height="48"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="48"/>
@@ -186,22 +194,25 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="mo3-m4-dma" firstAttribute="leading" secondItem="tcD-yB-hqE" secondAttribute="leading" id="0xr-Ap-pNV"/>
                             <constraint firstItem="ER0-Rt-3ho" firstAttribute="leading" secondItem="tcD-yB-hqE" secondAttribute="leading" id="5xw-QR-rBv"/>
                             <constraint firstAttribute="trailing" secondItem="ER0-Rt-3ho" secondAttribute="trailing" id="EOu-Ju-Rq8"/>
+                            <constraint firstItem="nLB-CS-FJd" firstAttribute="top" secondItem="RRS-sk-gxx" secondAttribute="bottom" constant="18" id="J6a-Xp-2uL"/>
                             <constraint firstItem="ER0-Rt-3ho" firstAttribute="top" secondItem="nLB-CS-FJd" secondAttribute="bottom" constant="8" id="Wzy-PB-ny6"/>
-                            <constraint firstItem="mo3-m4-dma" firstAttribute="top" secondItem="tcD-yB-hqE" secondAttribute="top" id="deb-mU-LXg"/>
                             <constraint firstItem="nLB-CS-FJd" firstAttribute="leading" secondItem="tcD-yB-hqE" secondAttribute="leading" constant="16" id="i0r-Wy-y9e"/>
                             <constraint firstItem="PMT-UR-fdF" firstAttribute="top" secondItem="ER0-Rt-3ho" secondAttribute="bottom" id="jhm-ks-mqn"/>
-                            <constraint firstItem="nLB-CS-FJd" firstAttribute="top" secondItem="mo3-m4-dma" secondAttribute="bottom" constant="18" id="nDj-w3-5Gp"/>
-                            <constraint firstAttribute="trailing" secondItem="mo3-m4-dma" secondAttribute="trailing" id="vbg-4N-TU2"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="ADv-c7-D61"/>
+                    <navigationItem key="navigationItem" title="Server" id="ADv-c7-D61">
+                        <barButtonItem key="backBarButtonItem" title="Back" id="4se-nS-wDo">
+                            <connections>
+                                <action selector="backPressed:" destination="jFq-ET-Ay3" id="s9M-2W-RVb"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="V5M-U0-G5o" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="885" y="221"/>
+            <point key="canvasLocation" x="885" y="214"/>
         </scene>
         <!--Navigation Controller - MultipeerClientServer-->
         <scene sceneID="5Va-PF-Sen">
@@ -225,4 +236,7 @@
         <simulatedOrientationMetrics key="orientation"/>
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
+    <inferredMetricsTieBreakers>
+        <segue reference="2ut-Hx-3yg"/>
+    </inferredMetricsTieBreakers>
 </document>

@@ -1,5 +1,5 @@
 //
-//  MultipeerClient.h
+//  MCSMultipeerClient.h
 //  MultipeerClientServer
 //
 //  Created by Mark Stultz on 4/15/14.
@@ -11,7 +11,7 @@
 
 @protocol MultipeerClientDelegate;
 
-@interface MultipeerClient : NSObject
+@interface MCSMultipeerClient : NSObject
 
 @property (nonatomic, strong, readonly) NSArray *nearbyServers;
 @property (nonatomic, weak) id<MultipeerClientDelegate> delegate;
@@ -27,8 +27,8 @@
 
 @protocol MultipeerClientDelegate <NSObject>
 
-- (void)multipeerClient:(MultipeerClient *)multipeerClient isConnectingToHost:(MCPeerID *)hostPeerID;
-- (void)multipeerClient:(MultipeerClient *)multipeerClient didConnectToHost:(MCPeerID *)hostPeerID;
-- (void)multipeerClient:(MultipeerClient *)multipeerClient didDisconnectFromHost:(MCPeerID *)hostPeerID;
+- (void)multipeerClient:(MCSMultipeerClient *)multipeerClient isConnectingToHost:(MCPeerID *)hostPeerID;
+- (void)multipeerClient:(MCSMultipeerClient *)multipeerClient didConnectToHost:(MCPeerID *)hostPeerID;
+- (void)multipeerClient:(MCSMultipeerClient *)multipeerClient didDisconnectFromHost:(MCPeerID *)hostPeerID;
 
 @end

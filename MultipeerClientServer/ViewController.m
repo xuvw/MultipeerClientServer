@@ -7,16 +7,16 @@
 //
 
 #import "ViewController.h"
-#import "MultipeerClient.h"
-#import "MultipeerServer.h"
+#import "MCSMultipeerClient.h"
+#import "MCSMultipeerServer.h"
 #import "ServerBrowserViewController.h"
 
-@interface ViewController ()
+@interface ViewController () <ServerBrowserViewControllerDelegate>
 
 @property (nonatomic, strong) MCPeerID *peerID;
 @property (nonatomic, strong) MCSession *session;
-@property (nonatomic, strong) MultipeerClient *client;
-@property (nonatomic, strong) MultipeerServer *server;
+@property (nonatomic, strong) MCSMultipeerClient *client;
+@property (nonatomic, strong) MCSMultipeerServer *server;
 
 - (IBAction)startClient:(id)sender;
 - (IBAction)startServer:(id)sender;
@@ -32,8 +32,12 @@
 	if ([segue.identifier isEqualToString:@"startClientSegue"]) {
 		ServerBrowserViewController *viewController = segue.destinationViewController;
 		viewController.multipeerClient = self.client;
+		viewController.delegate = self;
 	}
 	else if ([segue.identifier isEqualToString:@"startServerSegue"]) {
+		
+	}
+	else if ([segue.identifier isEqualToString:@"joinServerSegue"]) {
 		
 	}
 }
@@ -41,14 +45,14 @@
 - (IBAction)startClient:(id)sender
 {
 	[self createSession];
-	self.client = [[MultipeerClient alloc] initWithSession:self.session serviceType:@"ms-multichat"];
+	self.client = [[MCSMultipeerClient alloc] initWithSession:self.session serviceType:@"ms-multichat"];
 	[self performSegueWithIdentifier:@"startClientSegue" sender:sender];
 }
 
 - (IBAction)startServer:(id)sender
 {
 	[self createSession];
-	self.server = [[MultipeerServer alloc] initWithSession:self.session serviceType:@"ms-multichat" guid:[[NSUUID UUID] UUIDString]];
+	self.server = [[MCSMultipeerServer alloc] initWithSession:self.session serviceType:@"ms-multichat" guid:[[NSUUID UUID] UUIDString]];
 	[self performSegueWithIdentifier:@"startServerSegue" sender:sender];
 }
 
@@ -60,6 +64,18 @@
 	if (!self.session) {
 		self.peerID = [[MCPeerID alloc] initWithDisplayName:[UIDevice currentDevice].name];
 		self.session = [[MCSession alloc] initWithPeer:self.peerID];
+	}
+}
+
+#pragma mark ServerBrowserViewControllerDelegate
+
+- (void)serverBrowserViewController:(ServerBrowserViewController *)viewController wantsToJoinPeer:(MCPeerID *)peerID
+{
+	if (self.client) {
+		[self.client connectToHost:peerID];
+		[self dismissViewControllerAnimated:YES completion:^{
+			[self performSegueWithIdentifier:@"joinServerSegue" sender:self];
+		}];
 	}
 }
 

@@ -7,9 +7,10 @@
 //
 
 #import "ServerBrowserViewController.h"
+#import "SVProgressHUD.h"
 #import "NearbyServersDataSource.h"
-#import "MultipeerClient.h"
-#import "NearbyServer.h"
+#import "MCSMultipeerClient.h"
+#import "MCSNearbyServer.h"
 
 @interface ServerBrowserViewController () <UICollectionViewDelegate>
 
@@ -33,9 +34,26 @@
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
 	if (indexPath.row < self.multipeerClient.nearbyServers.count) {
-		NearbyServer *nearbyServer = self.multipeerClient.nearbyServers[ indexPath.row ];
-		[self.multipeerClient connectToHost:nearbyServer.peerID];
+		UICollectionViewCell *cell = [collectionView cellForItemAtIndexPath:indexPath];
+		cell.backgroundColor = [UIColor colorWithHue:0.f saturation:0.f brightness:0.85f alpha:1.f];
+		
+		MCSNearbyServer *nearbyServer = self.multipeerClient.nearbyServers[ indexPath.row ];
+		if ([self.delegate respondsToSelector:@selector(serverBrowserViewController:wantsToJoinPeer:)]) {
+			[self.delegate serverBrowserViewController:self wantsToJoinPeer:nearbyServer.peerID];
+		}
 	}
+}
+
+- (void)collectionView:(UICollectionView *)collectionView didHighlightItemAtIndexPath:(NSIndexPath *)indexPath
+{
+	UICollectionViewCell *cell = [collectionView cellForItemAtIndexPath:indexPath];
+	cell.backgroundColor = [UIColor colorWithHue:0.f saturation:0.f brightness:0.85f alpha:1.f];
+}
+
+- (void)collectionView:(UICollectionView *)collectionView didUnhighlightItemAtIndexPath:(NSIndexPath *)indexPath
+{
+	UICollectionViewCell *cell = [collectionView cellForItemAtIndexPath:indexPath];
+	cell.backgroundColor = [UIColor whiteColor];
 }
 
 @end

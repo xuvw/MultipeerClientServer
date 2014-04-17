@@ -1,5 +1,5 @@
 //
-//  NearbyServer.h
+//  MCSNearbyServer.h
 //  MultipeerClientServer
 //
 //  Created by Mark Stultz on 4/15/14.
@@ -9,7 +9,7 @@
 @import Foundation;
 @import MultipeerConnectivity;
 
-@interface NearbyServer : NSObject
+@interface MCSNearbyServer : NSObject
 
 @property (nonatomic, copy, readonly) MCPeerID *peerID;
 @property (nonatomic, copy, readonly) NSString *guid;

@@ -1,21 +1,21 @@
 //
-//  NearbyServer.m
+//  MCSNearbyServer.m
 //  MultipeerClientServer
 //
 //  Created by Mark Stultz on 4/15/14.
 //  Copyright (c) 2014 Mark Stultz. All rights reserved.
 //
 
-#import "NearbyServer.h"
+#import "MCSNearbyServer.h"
 
-@interface NearbyServer ()
+@interface MCSNearbyServer ()
 
 @property (nonatomic, copy) MCPeerID *peerID;
 @property (nonatomic, copy) NSString *guid;
 
 @end
 
-@implementation NearbyServer
+@implementation MCSNearbyServer
 
 - (id)initWithPeerID:(MCPeerID *)peerID discoveryInfo:(NSDictionary *)discoveryInfo
 {

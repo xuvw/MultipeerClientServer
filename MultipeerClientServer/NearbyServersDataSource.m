@@ -8,15 +8,15 @@
 
 #import "NearbyServersDataSource.h"
 #import "UILabelCollectionViewCell.h"
-#import "MultipeerClient.h"
-#import "NearbyServer.h"
+#import "MCSMultipeerClient.h"
+#import "MCSNearbyServer.h"
 
 static void *NearbyServersContext = &NearbyServersContext;
 
 @interface NearbyServersDataSource () <UICollectionViewDataSource>
 
 @property (nonatomic, strong) UICollectionView *collectionView;
-@property (nonatomic, strong) MultipeerClient *multipeerClient;
+@property (nonatomic, strong) MCSMultipeerClient *multipeerClient;
 
 @end
 
@@ -65,7 +65,7 @@ static void *NearbyServersContext = &NearbyServersContext;
 	if (cell) {
 		NSString *nearbyServerName = @"Untitled Server";
 		if (indexPath.row < self.multipeerClient.nearbyServers.count) {
-			NearbyServer *nearbyServer = self.multipeerClient.nearbyServers[ indexPath.row ];
+			MCSNearbyServer *nearbyServer = self.multipeerClient.nearbyServers[ indexPath.row ];
 			nearbyServerName = nearbyServer.peerID.displayName;
 		}
 		

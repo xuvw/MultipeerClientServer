@@ -1,14 +1,15 @@
 //
-//  MultipeerServer.m
+//  MCSMultipeerServer.m
 //  MultipeerClientServer
 //
 //  Created by Mark Stultz on 4/15/14.
 //  Copyright (c) 2014 Mark Stultz. All rights reserved.
 //
 
-#import "MultipeerServer.h"
+#import "MCSMultipeerServer.h"
+#import "Util.h"
 
-@interface MultipeerServer () <MCSessionDelegate, MCNearbyServiceAdvertiserDelegate>
+@interface MCSMultipeerServer () <MCSessionDelegate, MCNearbyServiceAdvertiserDelegate>
 
 @property (nonatomic, strong) MCSession *session;
 @property (nonatomic, copy) NSString *guid;
@@ -18,7 +19,7 @@
 
 @end
 
-@implementation MultipeerServer
+@implementation MCSMultipeerServer
 
 - (id)initWithSession:(MCSession *)session serviceType:(NSString *)serviceType guid:(NSString *)guid
 {
@@ -54,7 +55,7 @@
 
 - (void)session:(MCSession *)session peer:(MCPeerID *)peerID didChangeState:(MCSessionState)state
 {
-	NSLog(@"Peer %@ did change state: %d", peerID.displayName, (int)state);
+	NSLog(@"%@ did change state with peer, %@: %@", peerID.displayName, peerID, [Util stringForSessionState:state]);
 }
 
 - (void)session:(MCSession *)session didReceiveData:(NSData *)data fromPeer:(MCPeerID *)peerID

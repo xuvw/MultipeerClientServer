@@ -7,11 +7,21 @@
 //
 
 @import UIKit;
+@import MultipeerConnectivity;
 
-@class MultipeerClient;
+@class MCSMultipeerClient;
+
+@protocol ServerBrowserViewControllerDelegate;
 
 @interface ServerBrowserViewController : UIViewController
 
-@property (nonatomic, strong) MultipeerClient *multipeerClient;
+@property (nonatomic, strong) MCSMultipeerClient *multipeerClient;
+@property (nonatomic, weak) id<ServerBrowserViewControllerDelegate> delegate;
+
+@end
+
+@protocol ServerBrowserViewControllerDelegate <NSObject>
+
+- (void)serverBrowserViewController:(ServerBrowserViewController *)viewController wantsToJoinPeer:(MCPeerID *)peerID;
 
 @end

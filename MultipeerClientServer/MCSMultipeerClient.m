@@ -1,15 +1,16 @@
 //
-//  MultipeerClient.m
+//  MCSMultipeerClient.m
 //  MultipeerClientServer
 //
 //  Created by Mark Stultz on 4/15/14.
 //  Copyright (c) 2014 Mark Stultz. All rights reserved.
 //
 
-#import "MultipeerClient.h"
-#import "NearbyServer.h"
+#import "MCSMultipeerClient.h"
+#import "MCSNearbyServer.h"
+#import "Util.h"
 
-@interface MultipeerClient () <MCSessionDelegate, MCNearbyServiceBrowserDelegate>
+@interface MCSMultipeerClient () <MCSessionDelegate, MCNearbyServiceBrowserDelegate>
 
 @property (nonatomic, strong) MCSession *session;
 @property (nonatomic, strong) MCNearbyServiceBrowser *browser;
@@ -19,11 +20,9 @@
 @property (nonatomic, strong) void (^onConnectBlock)(void);
 @property (nonatomic, strong) NSMutableDictionary *activeRequests;
 
-- (NSString *)stringForSessionState:(MCSessionState)state;
-
 @end
 
-@implementation MultipeerClient
+@implementation MCSMultipeerClient
 
 - (id)initWithSession:(MCSession *)session serviceType:(NSString *)serviceType
 {
@@ -65,25 +64,11 @@
 	[self.browser invitePeer:hostPeerID toSession:self.session withContext:nil timeout:20.f];
 }
 
-- (NSString *)stringForSessionState:(MCSessionState)state
-{
-	switch (state) {
-		case MCSessionStateNotConnected:
-			return @"MCSessionStateNotConnected";
-		case MCSessionStateConnecting:
-			return @"MCSessionStateConnecting";
-		case MCSessionStateConnected:
-			return @"MCSessionStateConnected";
-		default:
-			return @"Invalid state";
-	}
-}
-
 #pragma mark MCSessionDelegate
 
 - (void)session:(MCSession *)session peer:(MCPeerID *)peerID didChangeState:(MCSessionState)state
 {
-	NSLog(@"%@ did change state with peer, %@: %@", peerID.displayName, peerID, [self stringForSessionState:state]);
+	NSLog(@"%@ did change state with peer, %@: %@", peerID.displayName, peerID, [Util stringForSessionState:state]);
 	
 	switch (state) {
 		case MCSessionStateNotConnected: {
@@ -149,7 +134,7 @@
 {
 	NSLog(@"Client: Discovered potential host: %@", peerID.displayName);
 	
-	NearbyServer *nearbyServer = [[NearbyServer alloc] initWithPeerID:peerID discoveryInfo:info];
+	MCSNearbyServer *nearbyServer = [[MCSNearbyServer alloc] initWithPeerID:peerID discoveryInfo:info];
 	if (nearbyServer.guid) {
 		self.nearbyServers = [self.nearbyServers arrayByAddingObject:nearbyServer];
 	}
@@ -159,8 +144,8 @@
 {
 	NSLog(@"Client: Lost potential host: %@", peerID.displayName);
 	
-	NearbyServer *nearbyServerToRemove = nil;
-	for (NearbyServer *nearbyServer in self.nearbyServers) {
+	MCSNearbyServer *nearbyServerToRemove = nil;
+	for (MCSNearbyServer *nearbyServer in self.nearbyServers) {
 		if (nearbyServer.peerID == peerID) {
 			nearbyServerToRemove = nearbyServer;
 			break;
