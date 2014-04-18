@@ -22,7 +22,7 @@ static void *NearbyServersContext = &NearbyServersContext;
 
 @implementation NearbyServersDataSource
 
-- (id)initWithCollectionView:(UICollectionView *)collectionView multipeerClient:(MultipeerClient *)multipeerClient
+- (id)initWithCollectionView:(UICollectionView *)collectionView multipeerClient:(MCSMultipeerClient *)multipeerClient
 {
 	self = [super init];
 	if (self)
