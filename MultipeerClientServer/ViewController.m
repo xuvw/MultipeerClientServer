@@ -7,16 +7,17 @@
 //
 
 #import "ViewController.h"
-#import "MCSMultipeerClient.h"
-#import "MCSMultipeerServer.h"
+#import "MCSClient.h"
+#import "MCSServer.h"
 #import "ServerBrowserViewController.h"
+#import "ConnectedViewController.h"
 
 @interface ViewController () <ServerBrowserViewControllerDelegate>
 
 @property (nonatomic, strong) MCPeerID *peerID;
 @property (nonatomic, strong) MCSession *session;
-@property (nonatomic, strong) MCSMultipeerClient *client;
-@property (nonatomic, strong) MCSMultipeerServer *server;
+@property (nonatomic, strong) MCSClient *client;
+@property (nonatomic, strong) MCSServer *server;
 
 - (IBAction)startClient:(id)sender;
 - (IBAction)startServer:(id)sender;
@@ -34,25 +35,24 @@
 		viewController.multipeerClient = self.client;
 		viewController.delegate = self;
 	}
-	else if ([segue.identifier isEqualToString:@"startServerSegue"]) {
-		
-	}
-	else if ([segue.identifier isEqualToString:@"joinServerSegue"]) {
-		
+	else if ([segue.identifier isEqualToString:@"startServerSegue"]
+				|| [segue.identifier isEqualToString:@"joinServerSegue"]) {
+		ConnectedViewController *viewController = segue.destinationViewController;
+		viewController.peer = self.server ? self.server : self.client;
 	}
 }
 
 - (IBAction)startClient:(id)sender
 {
 	[self createSession];
-	self.client = [[MCSMultipeerClient alloc] initWithSession:self.session serviceType:@"ms-multichat"];
+	self.client = [[MCSClient alloc] initWithSession:self.session serviceType:@"ms-multichat"];
 	[self performSegueWithIdentifier:@"startClientSegue" sender:sender];
 }
 
 - (IBAction)startServer:(id)sender
 {
 	[self createSession];
-	self.server = [[MCSMultipeerServer alloc] initWithSession:self.session serviceType:@"ms-multichat" guid:[[NSUUID UUID] UUIDString]];
+	self.server = [[MCSServer alloc] initWithSession:self.session serviceType:@"ms-multichat"];
 	[self performSegueWithIdentifier:@"startServerSegue" sender:sender];
 }
 

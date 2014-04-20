@@ -9,13 +9,15 @@
 #import "ServerBrowserViewController.h"
 #import "SVProgressHUD.h"
 #import "NearbyServersDataSource.h"
-#import "MCSMultipeerClient.h"
 #import "MCSNearbyServer.h"
+#import "MCSClient.h"
 
 @interface ServerBrowserViewController () <UICollectionViewDelegate>
 
 @property (nonatomic, weak) IBOutlet UICollectionView *collectionView;
 @property (nonatomic, strong) NearbyServersDataSource *nearbyServersDataSource;
+
+- (IBAction)back:(id)sender;
 
 @end
 
@@ -27,6 +29,11 @@
 	
 	self.nearbyServersDataSource = [[NearbyServersDataSource alloc] initWithCollectionView:self.collectionView multipeerClient:self.multipeerClient];
 	self.collectionView.delegate = self;
+}
+
+- (IBAction)back:(id)sender
+{
+	[self dismissViewControllerAnimated:YES completion:nil];
 }
 
 #pragma mark UICollectionViewDelegate

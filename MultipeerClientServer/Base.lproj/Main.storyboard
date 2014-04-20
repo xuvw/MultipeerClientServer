@@ -77,7 +77,13 @@
                                     <constraint firstAttribute="height" constant="64" id="Itx-Kr-27s"/>
                                 </constraints>
                                 <items>
-                                    <navigationItem title="Connect to Server" id="Io8-nU-G0M"/>
+                                    <navigationItem title="Connect to Server" id="Io8-nU-G0M">
+                                        <barButtonItem key="leftBarButtonItem" title="Back" id="Zs3-1q-xQp">
+                                            <connections>
+                                                <action selector="back:" destination="RlC-V9-NQB" id="nbn-ny-eIm"/>
+                                            </connections>
+                                        </barButtonItem>
+                                    </navigationItem>
                                 </items>
                             </navigationBar>
                             <collectionView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" minimumZoomScale="0.0" maximumZoomScale="0.0" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="gXb-5L-w5H">
@@ -141,7 +147,7 @@
         <!--Connected View Controller - Server-->
         <scene sceneID="gxq-aF-XiO">
             <objects>
-                <viewController storyboardIdentifier="ConnectedViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="jFq-ET-Ay3" customClass="ConnectedViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ConnectedViewController" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="jFq-ET-Ay3" customClass="ConnectedViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="RRS-sk-gxx"/>
                         <viewControllerLayoutGuide type="bottom" id="PMT-UR-fdF"/>
@@ -161,8 +167,8 @@
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="cell" id="xRY-vc-6Se" customClass="UILabelCollectionViewCell">
-                                        <rect key="frame" x="0.0" y="64" width="320" height="48"/>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="connectedPeerCell" id="xRY-vc-6Se" customClass="UILabelCollectionViewCell">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="48"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="48"/>
@@ -181,6 +187,9 @@
                                             <constraint firstAttribute="centerY" secondItem="4wZ-vO-RrM" secondAttribute="centerY" id="6ai-K5-xu3"/>
                                             <constraint firstItem="4wZ-vO-RrM" firstAttribute="leading" secondItem="xRY-vc-6Se" secondAttribute="leading" constant="24" id="Ao3-tE-Tdx"/>
                                         </constraints>
+                                        <connections>
+                                            <outlet property="label" destination="4wZ-vO-RrM" id="LLG-x6-kuD"/>
+                                        </connections>
                                     </collectionViewCell>
                                 </cells>
                             </collectionView>
@@ -209,6 +218,9 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="collectionView" destination="ER0-Rt-3ho" id="c07-d9-n8t"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="V5M-U0-G5o" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

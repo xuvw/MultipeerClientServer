@@ -1,18 +1,16 @@
 //
-//  MCSMultipeerClient.m
+//  MCSClient.m
 //  MultipeerClientServer
 //
-//  Created by Mark Stultz on 4/15/14.
+//  Created by Mark Stultz on 4/20/14.
 //  Copyright (c) 2014 Mark Stultz. All rights reserved.
 //
 
-#import "MCSMultipeerClient.h"
+#import "MCSClient.h"
 #import "MCSNearbyServer.h"
-#import "Util.h"
 
-@interface MCSMultipeerClient () <MCSessionDelegate, MCNearbyServiceBrowserDelegate>
+@interface MCSClient () <MCNearbyServiceBrowserDelegate>
 
-@property (nonatomic, strong) MCSession *session;
 @property (nonatomic, strong) MCNearbyServiceBrowser *browser;
 @property (nonatomic, strong) NSArray *nearbyServers;
 @property (nonatomic, strong) MCPeerID *hostPeerID;
@@ -22,14 +20,12 @@
 
 @end
 
-@implementation MCSMultipeerClient
+@implementation MCSClient
 
 - (id)initWithSession:(MCSession *)session serviceType:(NSString *)serviceType
 {
-	self = [super init];
+	self = [super initWithSession:session serviceType:serviceType];
 	if (self) {
-		self.session = session;
-		self.session.delegate = self;
 		self.browser = [[MCNearbyServiceBrowser alloc] initWithPeer:session.myPeerID serviceType:serviceType];
 		self.browser.delegate = self;
 		self.nearbyServers = [NSMutableArray array];
@@ -68,7 +64,7 @@
 
 - (void)session:(MCSession *)session peer:(MCPeerID *)peerID didChangeState:(MCSessionState)state
 {
-	NSLog(@"%@ did change state with peer, %@: %@", peerID.displayName, peerID, [Util stringForSessionState:state]);
+	[super session:session peer:peerID didChangeState:state];
 	
 	switch (state) {
 		case MCSessionStateNotConnected: {

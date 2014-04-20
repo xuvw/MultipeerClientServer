@@ -8,7 +8,7 @@
 
 #import "NearbyServersDataSource.h"
 #import "UILabelCollectionViewCell.h"
-#import "MCSMultipeerClient.h"
+#import "MCSClient.h"
 #import "MCSNearbyServer.h"
 
 static void *NearbyServersContext = &NearbyServersContext;
@@ -16,20 +16,20 @@ static void *NearbyServersContext = &NearbyServersContext;
 @interface NearbyServersDataSource () <UICollectionViewDataSource>
 
 @property (nonatomic, strong) UICollectionView *collectionView;
-@property (nonatomic, strong) MCSMultipeerClient *multipeerClient;
+@property (nonatomic, strong) MCSClient *multipeerClient;
 
 @end
 
 @implementation NearbyServersDataSource
 
-- (id)initWithCollectionView:(UICollectionView *)collectionView multipeerClient:(MCSMultipeerClient *)multipeerClient
+- (id)initWithCollectionView:(UICollectionView *)collectionView multipeerClient:(MCSClient *)client
 {
 	self = [super init];
 	if (self)
 	{
 		self.collectionView = collectionView;
 		self.collectionView.dataSource = self;
-		self.multipeerClient = multipeerClient;
+		self.multipeerClient = client;
 		
 		[self.multipeerClient addObserver:self forKeyPath:@"nearbyServers" options:NSKeyValueObservingOptionNew context:NearbyServersContext];
 	}
@@ -45,7 +45,9 @@ static void *NearbyServersContext = &NearbyServersContext;
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
 	if (context == NearbyServersContext) {
-		[self.collectionView reloadData];
+		dispatch_async(dispatch_get_main_queue(), ^{
+			[self.collectionView reloadData];
+		});
 	}
 	else {
 		return [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];

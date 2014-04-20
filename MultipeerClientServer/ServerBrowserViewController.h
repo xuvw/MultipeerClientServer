@@ -9,13 +9,13 @@
 @import UIKit;
 @import MultipeerConnectivity;
 
-@class MCSMultipeerClient;
+@class MCSClient;
 
 @protocol ServerBrowserViewControllerDelegate;
 
 @interface ServerBrowserViewController : UIViewController
 
-@property (nonatomic, strong) MCSMultipeerClient *multipeerClient;
+@property (nonatomic, strong) MCSClient *multipeerClient;
 @property (nonatomic, weak) id<ServerBrowserViewControllerDelegate> delegate;
 
 @end

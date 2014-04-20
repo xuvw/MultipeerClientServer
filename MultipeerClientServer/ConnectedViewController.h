@@ -8,6 +8,10 @@
 
 @import UIKit;
 
+@class MCSPeer;
+
 @interface ConnectedViewController : UIViewController
+
+@property (nonatomic, strong) MCSPeer *peer;
 
 @end

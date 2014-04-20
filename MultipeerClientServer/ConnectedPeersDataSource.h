@@ -6,8 +6,13 @@
 //  Copyright (c) 2014 Mark Stultz. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+@import Foundation;
+@import MultipeerConnectivity;
+
+@class MCSPeer;
 
 @interface ConnectedPeersDataSource : NSObject
+
+- (id)initWithCollectionView:(UICollectionView *)collectionView peer:(MCSPeer *)peer;
 
 @end

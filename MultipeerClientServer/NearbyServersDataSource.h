@@ -8,10 +8,10 @@
 
 @import Foundation;
 
-@class MCSMultipeerClient;
+@class MCSClient;
 
 @interface NearbyServersDataSource : NSObject
 
-- (id)initWithCollectionView:(UICollectionView *)collectionView multipeerClient:(MCSMultipeerClient *)multipeerClient;
+- (id)initWithCollectionView:(UICollectionView *)collectionView multipeerClient:(MCSClient *)client;
 
 @end

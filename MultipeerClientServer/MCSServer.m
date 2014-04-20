@@ -1,33 +1,27 @@
 //
-//  MCSMultipeerServer.m
+//  MCSServer.m
 //  MultipeerClientServer
 //
-//  Created by Mark Stultz on 4/15/14.
+//  Created by Mark Stultz on 4/20/14.
 //  Copyright (c) 2014 Mark Stultz. All rights reserved.
 //
 
-#import "MCSMultipeerServer.h"
-#import "Util.h"
+#import "MCSServer.h"
 
-@interface MCSMultipeerServer () <MCSessionDelegate, MCNearbyServiceAdvertiserDelegate>
+@interface MCSServer () <MCNearbyServiceAdvertiserDelegate>
 
-@property (nonatomic, strong) MCSession *session;
-@property (nonatomic, copy) NSString *guid;
 @property (nonatomic, copy, readonly) NSDictionary *discoveryInfo;
 @property (nonatomic, strong) MCNearbyServiceAdvertiser *advertiser;
 @property (nonatomic, strong) NSOperationQueue *operationQueue;
 
 @end
 
-@implementation MCSMultipeerServer
+@implementation MCSServer
 
-- (id)initWithSession:(MCSession *)session serviceType:(NSString *)serviceType guid:(NSString *)guid
+- (id)initWithSession:(MCSession *)session serviceType:(NSString *)serviceType
 {
-	self = [super init];
+	self = [super initWithSession:session serviceType:serviceType];
 	if (self) {
-		self.session = session;
-		self.session.delegate = self;
-		self.guid = guid;
 		self.advertiser = [[MCNearbyServiceAdvertiser alloc] initWithPeer:session.myPeerID discoveryInfo:self.discoveryInfo serviceType:serviceType];
 		self.advertiser.delegate = self;
 		self.operationQueue = [[NSOperationQueue alloc] init];
@@ -55,7 +49,7 @@
 
 - (void)session:(MCSession *)session peer:(MCPeerID *)peerID didChangeState:(MCSessionState)state
 {
-	NSLog(@"%@ did change state with peer, %@: %@", peerID.displayName, peerID, [Util stringForSessionState:state]);
+	[super session:session peer:peerID didChangeState:state];
 }
 
 - (void)session:(MCSession *)session didReceiveData:(NSData *)data fromPeer:(MCPeerID *)peerID
@@ -96,3 +90,4 @@
 }
 
 @end
+
