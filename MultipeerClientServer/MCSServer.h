@@ -7,7 +7,10 @@
 //
 
 #import "MCSPeer.h"
+#import "MCSRequestHandler.h"
 
 @interface MCSServer : MCSPeer
+
+@property (nonatomic, strong, readonly) MCSRequestHandler *requestHandler;
 
 @end

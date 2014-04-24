@@ -11,7 +11,7 @@
 @interface MCSNearbyServer ()
 
 @property (nonatomic, copy) MCPeerID *peerID;
-@property (nonatomic, copy) NSString *guid;
+@property (nonatomic, copy) NSString *uuid;
 
 @end
 
@@ -22,7 +22,7 @@
 	self = [super init];
 	if (self) {
 		self.peerID = peerID;
-		self.guid = discoveryInfo[ @"guid" ];
+		self.uuid = discoveryInfo[ @"uuid" ];
 	}
 	
 	return self;

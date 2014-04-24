@@ -8,6 +8,7 @@
 
 #import "MCSClient.h"
 #import "MCSNearbyServer.h"
+#import "MCSRequestController.h"
 
 @interface MCSClient () <MCNearbyServiceBrowserDelegate>
 
@@ -16,22 +17,18 @@
 @property (nonatomic, strong) MCPeerID *hostPeerID;
 @property (nonatomic, assign) BOOL connected;
 @property (nonatomic, strong) void (^onConnectBlock)(void);
-@property (nonatomic, strong) NSMutableDictionary *activeRequests;
+@property (nonatomic, strong) MCSRequestController *requestController;
 
 @end
 
 @implementation MCSClient
 
-- (id)initWithSession:(MCSession *)session serviceType:(NSString *)serviceType
+- (id)initWithServiceType:(NSString *)serviceType
 {
-	self = [super initWithSession:session serviceType:serviceType];
+	self = [super initWithServiceType:serviceType];
 	if (self) {
-		self.browser = [[MCNearbyServiceBrowser alloc] initWithPeer:session.myPeerID serviceType:serviceType];
-		self.browser.delegate = self;
 		self.nearbyServers = [NSMutableArray array];
-		self.activeRequests = [NSMutableDictionary dictionary];
-		
-		[self startBrowsingForHosts];
+		self.requestController = [[MCSRequestController alloc] init];
 	}
 	
 	return self;
@@ -58,6 +55,20 @@
 	self.hostPeerID = hostPeerID;
 	self.connected = NO;
 	[self.browser invitePeer:hostPeerID toSession:self.session withContext:nil timeout:20.f];
+}
+
+- (void)start
+{
+	[super start];
+	
+	self.browser = [[MCNearbyServiceBrowser alloc] initWithPeer:self.session.myPeerID serviceType:self.serviceType];
+	self.browser.delegate = self;
+	[self startBrowsingForHosts];
+}
+
+- (void)sendRequest:(MCSRequest *)request
+{
+	[self.requestController sendRequest:request toPeer:self.hostPeerID withSession:self.session];
 }
 
 #pragma mark MCSessionDelegate
@@ -106,22 +117,9 @@
 
 - (void)session:(MCSession *)session didReceiveData:(NSData *)data fromPeer:(MCPeerID *)peerID
 {
-	/**/
-}
-
-- (void)session:(MCSession *)session didReceiveStream:(NSInputStream *)stream withName:(NSString *)streamName fromPeer:(MCPeerID *)peerID
-{
-	/**/
-}
-
-- (void)session:(MCSession *)session didStartReceivingResourceWithName:(NSString *)resourceName fromPeer:(MCPeerID *)peerID withProgress:(NSProgress *)progress
-{
-	/**/
-}
-
-- (void)session:(MCSession *)session didFinishReceivingResourceWithName:(NSString *)resourceName fromPeer:(MCPeerID *)peerID atURL:(NSURL *)localURL withError:(NSError *)error
-{
-	/**/
+	if (peerID == self.hostPeerID) {
+		[self.requestController processResponseData:data];
+	}
 }
 
 #pragma mark MCNearbyServiceBrowserDelegate
@@ -131,7 +129,7 @@
 	NSLog(@"Client: Discovered potential host: %@", peerID.displayName);
 	
 	MCSNearbyServer *nearbyServer = [[MCSNearbyServer alloc] initWithPeerID:peerID discoveryInfo:info];
-	if (nearbyServer.guid) {
+	if (nearbyServer.uuid) {
 		self.nearbyServers = [self.nearbyServers arrayByAddingObject:nearbyServer];
 	}
 }

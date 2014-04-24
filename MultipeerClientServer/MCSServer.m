@@ -12,22 +12,17 @@
 
 @property (nonatomic, copy, readonly) NSDictionary *discoveryInfo;
 @property (nonatomic, strong) MCNearbyServiceAdvertiser *advertiser;
-@property (nonatomic, strong) NSOperationQueue *operationQueue;
+@property (nonatomic, strong) MCSRequestHandler *requestHandler;
 
 @end
 
 @implementation MCSServer
 
-- (id)initWithSession:(MCSession *)session serviceType:(NSString *)serviceType
+- (id)initWithServiceType:(NSString *)serviceType
 {
-	self = [super initWithSession:session serviceType:serviceType];
+	self = [super initWithServiceType:serviceType];
 	if (self) {
-		self.advertiser = [[MCNearbyServiceAdvertiser alloc] initWithPeer:session.myPeerID discoveryInfo:self.discoveryInfo serviceType:serviceType];
-		self.advertiser.delegate = self;
-		self.operationQueue = [[NSOperationQueue alloc] init];
-		self.operationQueue.maxConcurrentOperationCount = 2;
-		
-		[self.advertiser startAdvertisingPeer];
+		self.requestHandler = [[MCSRequestHandler alloc] init];
 	}
 	
 	return self;
@@ -41,8 +36,22 @@
 - (NSDictionary *)discoveryInfo
 {
 	return @{
-		@"guid" : self.guid
+		@"uuid" : self.uuid
 	};
+}
+
+- (void)start
+{
+	[super start];
+	
+	self.advertiser = [[MCNearbyServiceAdvertiser alloc] initWithPeer:self.session.myPeerID discoveryInfo:self.discoveryInfo serviceType:self.serviceType];
+	self.advertiser.delegate = self;
+	[self.advertiser startAdvertisingPeer];
+}
+
+- (void)sendRequest:(MCSRequest *)request
+{
+	[self.requestHandler processLocalRequest:request withServer:self];
 }
 
 #pragma mark MCSessionDelegate
@@ -57,21 +66,8 @@
 	if (peerID == self.session.myPeerID) {
 		return;
 	}
-}
-
-- (void)session:(MCSession *)session didReceiveStream:(NSInputStream *)stream withName:(NSString *)streamName fromPeer:(MCPeerID *)peerID
-{
-	/**/
-}
-
-- (void)session:(MCSession *)session didStartReceivingResourceWithName:(NSString *)resourceName fromPeer:(MCPeerID *)peerID withProgress:(NSProgress *)progress
-{
-	/**/
-}
-
-- (void)session:(MCSession *)session didFinishReceivingResourceWithName:(NSString *)resourceName fromPeer:(MCPeerID *)peerID atURL:(NSURL *)localURL withError:(NSError *)error
-{
-	/**/
+	
+	[self.requestHandler handleRequestData:data fromPeer:peerID withServer:self];
 }
 
 #pragma mark MCNearbyServiceAdvertiserDelegate

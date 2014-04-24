@@ -8,25 +8,30 @@
 
 #import "ViewController.h"
 #import "MCSClient.h"
-#import "MCSServer.h"
+#import "ListServer.h"
 #import "ServerBrowserViewController.h"
-#import "ConnectedViewController.h"
+#import "ListViewController.h"
+#import "ListAPIClient.h"
 
 @interface ViewController () <ServerBrowserViewControllerDelegate>
 
-@property (nonatomic, strong) MCPeerID *peerID;
-@property (nonatomic, strong) MCSession *session;
 @property (nonatomic, strong) MCSClient *client;
-@property (nonatomic, strong) MCSServer *server;
+@property (nonatomic, strong) ListServer *server;
+@property (nonatomic, strong) ListServerState *state;
 
 - (IBAction)startClient:(id)sender;
 - (IBAction)startServer:(id)sender;
 
-- (void)createSession;
-
 @end
 
 @implementation ViewController
+
+- (void)viewDidLoad
+{
+	[super viewDidLoad];
+	
+	self.state = [[ListServerState alloc] init];
+}
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
@@ -37,34 +42,24 @@
 	}
 	else if ([segue.identifier isEqualToString:@"startServerSegue"]
 				|| [segue.identifier isEqualToString:@"joinServerSegue"]) {
-		ConnectedViewController *viewController = segue.destinationViewController;
-		viewController.peer = self.server ? self.server : self.client;
+		ListViewController *viewController = segue.destinationViewController;
+		viewController.state = self.state;
+		viewController.listAPIClient = [[ListAPIClient alloc] initWithPeer:(self.server ? self.server : self.client)];
 	}
 }
 
 - (IBAction)startClient:(id)sender
 {
-	[self createSession];
-	self.client = [[MCSClient alloc] initWithSession:self.session serviceType:@"ms-multichat"];
+	self.client = [[MCSClient alloc] initWithServiceType:@"ms-multichat"];
+	[self.client start];
 	[self performSegueWithIdentifier:@"startClientSegue" sender:sender];
 }
 
 - (IBAction)startServer:(id)sender
 {
-	[self createSession];
-	self.server = [[MCSServer alloc] initWithSession:self.session serviceType:@"ms-multichat"];
+	self.server = [[ListServer alloc] initWithServiceType:@"ms-multichat" state:self.state];
+	[self.server start];
 	[self performSegueWithIdentifier:@"startServerSegue" sender:sender];
-}
-
-- (void)createSession
-{
-	self.client = nil;
-	self.server = nil;
-	
-	if (!self.session) {
-		self.peerID = [[MCPeerID alloc] initWithDisplayName:[UIDevice currentDevice].name];
-		self.session = [[MCSession alloc] initWithPeer:self.peerID];
-	}
 }
 
 #pragma mark ServerBrowserViewControllerDelegate

@@ -9,12 +9,19 @@
 @import Foundation;
 @import MultipeerConnectivity;
 
+#import "MCSRequest.h"
+
 @interface MCSPeer : NSObject <MCSessionDelegate>
 
 @property (nonatomic, strong, readonly) MCSession *session;
-@property (nonatomic, copy, readonly) NSString *guid;
+@property (nonatomic, copy, readonly) NSString *serviceType;
+@property (nonatomic, copy, readonly) NSString *uuid;
 @property (nonatomic, copy, readonly) NSArray *connectedPeers;
 
-- (id)initWithSession:(MCSession *)session serviceType:(NSString *)serviceType;
+- (id)initWithServiceType:(NSString *)serviceType;
+
+- (void)start;
+
+- (void)sendRequest:(MCSRequest *)request;
 
 @end

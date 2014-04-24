@@ -144,10 +144,10 @@
             </objects>
             <point key="canvasLocation" x="885" y="-480"/>
         </scene>
-        <!--Connected View Controller - Server-->
+        <!--List View Controller - Collaborative List-->
         <scene sceneID="gxq-aF-XiO">
             <objects>
-                <viewController storyboardIdentifier="ConnectedViewController" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="jFq-ET-Ay3" customClass="ConnectedViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ListViewController" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="jFq-ET-Ay3" customClass="ListViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="RRS-sk-gxx"/>
                         <viewControllerLayoutGuide type="bottom" id="PMT-UR-fdF"/>
@@ -157,7 +157,7 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <collectionView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" minimumZoomScale="0.0" maximumZoomScale="0.0" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="ER0-Rt-3ho">
-                                <rect key="frame" x="0.0" y="112" width="320" height="456"/>
+                                <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="fCW-xP-iuf">
@@ -167,7 +167,7 @@
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="connectedPeerCell" id="xRY-vc-6Se" customClass="UILabelCollectionViewCell">
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="listItemCell" id="xRY-vc-6Se" customClass="UILabelCollectionViewCell">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="48"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
@@ -193,28 +193,24 @@
                                     </collectionViewCell>
                                 </cells>
                             </collectionView>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Connected Clients" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nLB-CS-FJd">
-                                <rect key="frame" x="16" y="82" width="150" height="22"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="PMT-UR-fdF" firstAttribute="top" secondItem="ER0-Rt-3ho" secondAttribute="bottom" id="0k0-c3-kqB"/>
                             <constraint firstItem="ER0-Rt-3ho" firstAttribute="leading" secondItem="tcD-yB-hqE" secondAttribute="leading" id="5xw-QR-rBv"/>
                             <constraint firstAttribute="trailing" secondItem="ER0-Rt-3ho" secondAttribute="trailing" id="EOu-Ju-Rq8"/>
-                            <constraint firstItem="nLB-CS-FJd" firstAttribute="top" secondItem="RRS-sk-gxx" secondAttribute="bottom" constant="18" id="J6a-Xp-2uL"/>
-                            <constraint firstItem="ER0-Rt-3ho" firstAttribute="top" secondItem="nLB-CS-FJd" secondAttribute="bottom" constant="8" id="Wzy-PB-ny6"/>
-                            <constraint firstItem="nLB-CS-FJd" firstAttribute="leading" secondItem="tcD-yB-hqE" secondAttribute="leading" constant="16" id="i0r-Wy-y9e"/>
-                            <constraint firstItem="PMT-UR-fdF" firstAttribute="top" secondItem="ER0-Rt-3ho" secondAttribute="bottom" id="jhm-ks-mqn"/>
+                            <constraint firstItem="ER0-Rt-3ho" firstAttribute="top" secondItem="RRS-sk-gxx" secondAttribute="bottom" id="sR1-cm-H1q"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Server" id="ADv-c7-D61">
+                    <navigationItem key="navigationItem" title="Collaborative List" id="ADv-c7-D61">
                         <barButtonItem key="backBarButtonItem" title="Back" id="4se-nS-wDo">
                             <connections>
                                 <action selector="backPressed:" destination="jFq-ET-Ay3" id="s9M-2W-RVb"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="3Kt-5O-lsu">
+                            <connections>
+                                <action selector="addItem:" destination="jFq-ET-Ay3" id="oh0-nF-l2a"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>

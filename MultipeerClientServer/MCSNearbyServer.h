@@ -12,7 +12,7 @@
 @interface MCSNearbyServer : NSObject
 
 @property (nonatomic, copy, readonly) MCPeerID *peerID;
-@property (nonatomic, copy, readonly) NSString *guid;
+@property (nonatomic, copy, readonly) NSString *uuid;
 
 - (id)initWithPeerID:(MCPeerID *)peerID discoveryInfo:(NSDictionary *)discoveryInfo;
 

@@ -10,8 +10,10 @@
 
 @interface MCSPeer ()
 
+@property (nonatomic, strong) MCPeerID *peerID;
 @property (nonatomic, strong) MCSession *session;
-@property (nonatomic, copy) NSString *guid;
+@property (nonatomic, copy) NSString *serviceType;
+@property (nonatomic, copy) NSString *uuid;
 @property (nonatomic, copy) NSArray *connectedPeers;
 
 - (NSString *)stringForSessionState:(MCSessionState)state;
@@ -20,17 +22,28 @@
 
 @implementation MCSPeer
 
-- (id)initWithSession:(MCSession *)session serviceType:(NSString *)serviceType
+- (id)initWithServiceType:(NSString *)serviceType
 {
 	self = [super init];
 	if (self) {
-		self.session = session;
-		self.session.delegate = self;
-		self.guid = [[NSUUID UUID] UUIDString];
+		self.serviceType = serviceType;
+		self.uuid = [[NSUUID UUID] UUIDString];
 		self.connectedPeers = [NSArray array];
 	}
 	
 	return self;
+}
+
+- (void)start
+{
+	self.peerID = [[MCPeerID alloc] initWithDisplayName:[UIDevice currentDevice].name];
+	self.session = [[MCSession alloc] initWithPeer:self.peerID];
+	self.session.delegate = self;
+}
+
+- (void)sendRequest:(MCSRequest *)request
+{
+	/**/
 }
 
 - (NSString *)stringForSessionState:(MCSessionState)state
