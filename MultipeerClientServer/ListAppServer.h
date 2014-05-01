@@ -7,9 +7,8 @@
 //
 
 #import "MCSServer.h"
+#import "ListAppAsyncAPI.h"
 
-@interface ListAppServer : MCSServer
-
-
+@interface ListAppServer : MCSServer <ListAppAsyncAPI>
 
 @end

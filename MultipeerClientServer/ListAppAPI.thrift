@@ -2,6 +2,6 @@ struct ListItem {
 	1: required string text;
 }
 
-service ListApp {
+service ListAppAPI {
 	bool addListItem(1:ListItem listItem)
 }

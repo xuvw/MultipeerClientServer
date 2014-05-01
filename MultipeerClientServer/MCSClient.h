@@ -11,6 +11,7 @@
 @interface MCSClient : MCSPeer
 
 @property (nonatomic, strong, readonly) NSArray *nearbyServers;
+@property (nonatomic, assign, readonly) BOOL connected;
 
 - (void)startBrowsingForHosts;
 - (void)stopBrowsingForHosts;

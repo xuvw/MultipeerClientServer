@@ -7,7 +7,7 @@
 //
 
 #import "ViewController.h"
-#import "MCSClient.h"
+#import "ListAppClient.h"
 #import "ListAppServer.h"
 #import "ListAppAPI.h"
 #import "ServerBrowserViewController.h"
@@ -15,7 +15,7 @@
 
 @interface ViewController () <ServerBrowserViewControllerDelegate>
 
-@property (nonatomic, strong) MCSClient *client;
+@property (nonatomic, strong) ListAppClient *client;
 @property (nonatomic, strong) ListAppServer *server;
 //@property (nonatomic, strong) ListServerState *state;
 
@@ -43,14 +43,14 @@
 	else if ([segue.identifier isEqualToString:@"startServerSegue"]
 				|| [segue.identifier isEqualToString:@"joinServerSegue"]) {
 		ListViewController *viewController = segue.destinationViewController;
+		viewController.listAppAPI = self.server ? self.server : self.client;
 		//viewController.state = self.state;
-		viewController.listAppAPI = [[ListAppAPI alloc] initWithPeer:(self.server ? self.server : self.client) maxConcurrentOperationCount:3];
 	}
 }
 
 - (IBAction)startClient:(id)sender
 {
-	self.client = [[MCSClient alloc] initWithServiceType:@"ms-multichat"];
+	self.client = [[ListAppClient alloc] initWithServiceType:@"ms-multichat" maxConcurrentOperationCount:3];
 	[self.client start];
 	[self performSegueWithIdentifier:@"startClientSegue" sender:sender];
 }

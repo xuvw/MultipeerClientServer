@@ -7,13 +7,13 @@
 //
 
 #import "ListAppServer.h"
-#import "ListApp.h"
+#import "ListAppAPI.h"
 #import "TSharedProcessorFactory.h"
 #import "TBinaryProtocol.h"
 #import "TNSStreamTransport.h"
 #import "TTransportException.h"
 
-@interface ListAppServer () <ListApp, MCSServerDelegate>
+@interface ListAppServer () <ListAppAPI, MCSServerDelegate>
 
 @property (nonatomic, strong) NSMutableDictionary *peerProcessorMap;
 
@@ -45,7 +45,17 @@
 	[processors addObject:processor];
 }
 
-#pragma mark ListApp
+#pragma mark ListAppAsyncAPI
+
+- (void)addListItem:(ListItem *)listItem withCompletion:(void(^)(BOOL success))completion
+{
+	BOOL result = [self addListItem:listItem];
+	if (completion) {
+		completion(result);
+	}
+}
+
+#pragma mark ListAppAPI
 
 - (BOOL)addListItem:(ListItem *)listItem
 {
@@ -64,7 +74,7 @@
 {
 	TNSStreamTransport *transport = [[TNSStreamTransport alloc] initWithInputStream:inputStream outputStream:outputStream];
 	TBinaryProtocol *protocol = [[TBinaryProtocol alloc] initWithTransport:transport strictRead:YES strictWrite:YES];
-	ListAppProcessor *processor = [[ListAppProcessor alloc] initWithListApp:self];
+	ListAppAPIProcessor *processor = [[ListAppAPIProcessor alloc] initWithListAppAPI:self];
 	
 	@try {
 		BOOL result = NO;
