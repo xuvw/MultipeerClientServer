@@ -9,8 +9,6 @@
 @import Foundation;
 @import MultipeerConnectivity;
 
-#import "MCSRequest.h"
-
 @interface MCSPeer : NSObject <MCSessionDelegate>
 
 @property (nonatomic, strong, readonly) MCSession *session;
@@ -22,6 +20,6 @@
 
 - (void)start;
 
-- (void)sendRequest:(MCSRequest *)request;
+- (void)createStreamToHostWithCompletion:(void(^)(NSInputStream *inputStream, NSOutputStream *outputStream))completion;
 
 @end

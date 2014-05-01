@@ -7,10 +7,17 @@
 //
 
 #import "MCSPeer.h"
-#import "MCSRequestHandler.h"
+
+@protocol MCSServerDelegate;
 
 @interface MCSServer : MCSPeer
 
-@property (nonatomic, strong, readonly) MCSRequestHandler *requestHandler;
+@property (nonatomic, weak) id<MCSServerDelegate> delegate;
 
+@end
+
+@protocol MCSServerDelegate <NSObject>
+@optional
+- (void)multipeerServer:(MCSServer *)server didDisconnectPeer:(MCPeerID *)peerID;
+- (void)multipeerServer:(MCSServer *)server didStartInputStream:(NSInputStream *)inputStream outputStream:(NSOutputStream *)outputStream forPeer:(MCPeerID *)peerID;
 @end

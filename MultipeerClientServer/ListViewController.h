@@ -9,11 +9,11 @@
 @import UIKit;
 
 @class ListServerState;
-@class ListAPIClient;
+@class ListAppAPI;
 
 @interface ListViewController : UIViewController
 
 @property (nonatomic, strong) ListServerState *state;
-@property (nonatomic, strong) ListAPIClient *listAPIClient;
+@property (nonatomic, strong) ListAppAPI *listAppAPI;
 
 @end
