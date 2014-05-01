@@ -11,6 +11,7 @@
 #import "TSharedProcessorFactory.h"
 #import "TBinaryProtocol.h"
 #import "TNSStreamTransport.h"
+#import "TTransportException.h"
 
 @interface ListAppServer () <ListApp, MCSServerDelegate>
 
@@ -64,7 +65,18 @@
 	TNSStreamTransport *transport = [[TNSStreamTransport alloc] initWithInputStream:inputStream outputStream:outputStream];
 	TBinaryProtocol *protocol = [[TBinaryProtocol alloc] initWithTransport:transport strictRead:YES strictWrite:YES];
 	ListAppProcessor *processor = [[ListAppProcessor alloc] initWithListApp:self];
-	[processor processOnInputProtocol:protocol outputProtocol:protocol];
+	
+	@try {
+		BOOL result = NO;
+		do {
+			@autoreleasepool {
+				result = [processor processOnInputProtocol:protocol outputProtocol:protocol];
+			}
+		} while (result);
+	}
+	@catch (TTransportException *exception) {
+		NSLog(@"Caught transport exception, abandoning client connection: %@", exception);
+	}
 	
 	[self addProcessor:processor forPeer:peerID];
 }
