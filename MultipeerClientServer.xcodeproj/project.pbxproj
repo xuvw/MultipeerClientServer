@@ -31,7 +31,7 @@
 		D868023618FE34540035CE60 /* UILabelCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D868023418FE34540035CE60 /* UILabelCollectionViewCell.m */; };
 		D8AB854E190754150030F19A /* ListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D8AB854D190754150030F19A /* ListViewController.m */; };
 		D8AB8551190754A40030F19A /* ListDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = D8AB8550190754A40030F19A /* ListDataSource.m */; };
-		D8AB856E1908CA020030F19A /* ListServerState.m in Sources */ = {isa = PBXBuildFile; fileRef = D8AB856D1908CA020030F19A /* ListServerState.m */; };
+		D8AB856E1908CA020030F19A /* ListAppState.m in Sources */ = {isa = PBXBuildFile; fileRef = D8AB856D1908CA020030F19A /* ListAppState.m */; };
 		D8AB857B190D8B9E0030F19A /* ListAppAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = D8AB8579190D8B9E0030F19A /* ListAppAPI.m */; };
 		D8AB857C190D8B9E0030F19A /* ListAppAPI.thrift in Resources */ = {isa = PBXBuildFile; fileRef = D8AB857A190D8B9E0030F19A /* ListAppAPI.thrift */; };
 		D8AB8582190F69C60030F19A /* MCSStreamRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = D8AB8581190F69C60030F19A /* MCSStreamRequest.m */; };
@@ -89,8 +89,8 @@
 		D8AB854D190754150030F19A /* ListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ListViewController.m; sourceTree = "<group>"; };
 		D8AB854F190754A40030F19A /* ListDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ListDataSource.h; sourceTree = "<group>"; };
 		D8AB8550190754A40030F19A /* ListDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ListDataSource.m; sourceTree = "<group>"; };
-		D8AB856C1908CA020030F19A /* ListServerState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ListServerState.h; sourceTree = "<group>"; };
-		D8AB856D1908CA020030F19A /* ListServerState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ListServerState.m; sourceTree = "<group>"; };
+		D8AB856C1908CA020030F19A /* ListAppState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ListAppState.h; sourceTree = "<group>"; };
+		D8AB856D1908CA020030F19A /* ListAppState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ListAppState.m; sourceTree = "<group>"; };
 		D8AB8578190D8B9E0030F19A /* ListAppAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ListAppAPI.h; sourceTree = "<group>"; };
 		D8AB8579190D8B9E0030F19A /* ListAppAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ListAppAPI.m; sourceTree = "<group>"; };
 		D8AB857A190D8B9E0030F19A /* ListAppAPI.thrift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ListAppAPI.thrift; sourceTree = "<group>"; };
@@ -259,8 +259,6 @@
 				D868020018FE32C90035CE60 /* AppDelegate.m */,
 				D8AB854F190754A40030F19A /* ListDataSource.h */,
 				D8AB8550190754A40030F19A /* ListDataSource.m */,
-				D8AB856C1908CA020030F19A /* ListServerState.h */,
-				D8AB856D1908CA020030F19A /* ListServerState.m */,
 				D868022B18FE344A0035CE60 /* NearbyServersDataSource.h */,
 				D868023118FE34540035CE60 /* NearbyServersDataSource.m */,
 			);
@@ -278,6 +276,8 @@
 				D8B3D9F51911FCD700368238 /* ListAppClient.m */,
 				D8B3D9F01911DE4F00368238 /* ListAppServer.h */,
 				D8B3D9F11911DE4F00368238 /* ListAppServer.m */,
+				D8AB856C1908CA020030F19A /* ListAppState.h */,
+				D8AB856D1908CA020030F19A /* ListAppState.m */,
 			);
 			name = ListApp;
 			sourceTree = "<group>";
@@ -427,7 +427,7 @@
 				D868023518FE34540035CE60 /* NearbyServersDataSource.m in Sources */,
 				D868023018FE344A0035CE60 /* ServerBrowserViewController.m in Sources */,
 				D868022F18FE344A0035CE60 /* MCSNearbyServer.m in Sources */,
-				D8AB856E1908CA020030F19A /* ListServerState.m in Sources */,
+				D8AB856E1908CA020030F19A /* ListAppState.m in Sources */,
 				D86801FD18FE32C90035CE60 /* main.m in Sources */,
 				D8AB857B190D8B9E0030F19A /* ListAppAPI.m in Sources */,
 				D8B3D9F61911FCD700368238 /* ListAppClient.m in Sources */,

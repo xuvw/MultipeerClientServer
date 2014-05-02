@@ -25,7 +25,7 @@
 {
 	[super viewDidLoad];
 	
-	self.dataSource = [[ListDataSource alloc] initWithCollectionView:self.collectionView listServerState:self.state];
+	self.dataSource = [[ListDataSource alloc] initWithCollectionView:self.collectionView listAppState:self.listAppState];
 	self.collectionView.delegate = self;
 }
 

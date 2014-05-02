@@ -18,8 +18,6 @@
 
 - (id)initWithServiceType:(NSString *)serviceType;
 
-- (void)start;
-
 - (void)createStreamToHostWithCompletion:(void(^)(NSInputStream *inputStream, NSOutputStream *outputStream))completion;
 
 @end
