@@ -15,6 +15,7 @@
 
 @interface ListAppServer () <ListAppAPI, MCSServerDelegate>
 
+@property (nonatomic, strong) ListAppState *listAppState;
 @property (nonatomic, strong) NSMutableDictionary *peerProcessorMap;
 
 - (void)addProcessor:(id<TProcessor>)processor forPeer:(MCPeerID *)peerID;
@@ -23,10 +24,11 @@
 
 @implementation ListAppServer
 
-- (id)initWithServiceType:(NSString *)serviceType
+- (id)initWithServiceType:(NSString *)serviceType listAppState:(ListAppState *)listAppState
 {
 	self = [super initWithServiceType:serviceType];
 	if (self) {
+		self.listAppState = listAppState;
 		self.peerProcessorMap = [NSMutableDictionary dictionary];
 		self.delegate = self;
 	}
@@ -59,7 +61,7 @@
 
 - (BOOL)addListItem:(ListItem *)listItem
 {
-	NSLog(@"Server: addListItem %@", listItem.text);
+	self.listAppState.listItems = [self.listAppState.listItems arrayByAddingObject:listItem.text];
 	return NO;
 }
 

@@ -31,7 +31,10 @@ static void *ConnectedContext = &ConnectedContext;
 	if (self) {
 		self.nearbyServers = [NSMutableArray array];
 		self.streamRequests = [NSMutableDictionary dictionary];
-		
+		self.browser = [[MCNearbyServiceBrowser alloc] initWithPeer:self.session.myPeerID serviceType:self.serviceType];
+		self.browser.delegate = self;
+		[self startBrowsingForHosts];
+
 		[self addObserver:self forKeyPath:@"connected" options:NSKeyValueObservingOptionNew context:ConnectedContext];
 	}
 	
@@ -73,15 +76,6 @@ static void *ConnectedContext = &ConnectedContext;
 	self.hostPeerID = hostPeerID;
 	self.connected = NO;
 	[self.browser invitePeer:hostPeerID toSession:self.session withContext:nil timeout:20.f];
-}
-
-- (void)start
-{
-	[super start];
-	
-	self.browser = [[MCNearbyServiceBrowser alloc] initWithPeer:self.session.myPeerID serviceType:self.serviceType];
-	self.browser.delegate = self;
-	[self startBrowsingForHosts];
 }
 
 - (void)createStreamToHostWithCompletion:(void(^)(NSInputStream *inputStream, NSOutputStream *outputStream))completion

@@ -23,6 +23,9 @@ static void *ConnectedPeersContext = &ConnectedPeersContext;
 {
 	self = [super initWithServiceType:serviceType];
 	if (self) {
+		self.advertiser = [[MCNearbyServiceAdvertiser alloc] initWithPeer:self.session.myPeerID discoveryInfo:self.discoveryInfo serviceType:self.serviceType];
+		self.advertiser.delegate = self;
+		[self.advertiser startAdvertisingPeer];
 	}
 	
 	return self;
@@ -38,15 +41,6 @@ static void *ConnectedPeersContext = &ConnectedPeersContext;
 	return @{
 		@"uuid" : self.uuid
 	};
-}
-
-- (void)start
-{
-	[super start];
-	
-	self.advertiser = [[MCNearbyServiceAdvertiser alloc] initWithPeer:self.session.myPeerID discoveryInfo:self.discoveryInfo serviceType:self.serviceType];
-	self.advertiser.delegate = self;
-	[self.advertiser startAdvertisingPeer];
 }
 
 #pragma mark MCSessionDelegate

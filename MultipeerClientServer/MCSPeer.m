@@ -29,16 +29,12 @@
 		self.serviceType = serviceType;
 		self.uuid = [[NSUUID UUID] UUIDString];
 		self.connectedPeers = [NSArray array];
+		self.peerID = [[MCPeerID alloc] initWithDisplayName:[UIDevice currentDevice].name];
+		self.session = [[MCSession alloc] initWithPeer:self.peerID];
+		self.session.delegate = self;
 	}
 	
 	return self;
-}
-
-- (void)start
-{
-	self.peerID = [[MCPeerID alloc] initWithDisplayName:[UIDevice currentDevice].name];
-	self.session = [[MCSession alloc] initWithPeer:self.peerID];
-	self.session.delegate = self;
 }
 
 - (NSString *)stringForSessionState:(MCSessionState)state

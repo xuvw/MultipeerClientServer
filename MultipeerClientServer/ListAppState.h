@@ -1,5 +1,5 @@
 //
-//  ListServerState.h
+//  ListAppState.h
 //  MultipeerClientServer
 //
 //  Created by Mark Stultz on 4/23/14.
@@ -8,7 +8,7 @@
 
 @import Foundation;
 
-@interface ListServerState : NSObject
+@interface ListAppState : NSObject
 
 @property (nonatomic, copy) NSArray *listItems;
 

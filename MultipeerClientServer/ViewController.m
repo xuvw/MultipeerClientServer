@@ -10,6 +10,7 @@
 #import "ListAppClient.h"
 #import "ListAppServer.h"
 #import "ListAppAPI.h"
+#import "listAppState.h"
 #import "ServerBrowserViewController.h"
 #import "ListViewController.h"
 
@@ -17,7 +18,7 @@
 
 @property (nonatomic, strong) ListAppClient *client;
 @property (nonatomic, strong) ListAppServer *server;
-//@property (nonatomic, strong) ListServerState *state;
+@property (nonatomic, strong) ListAppState *state;
 
 - (IBAction)startClient:(id)sender;
 - (IBAction)startServer:(id)sender;
@@ -30,7 +31,7 @@
 {
 	[super viewDidLoad];
 	
-	//self.state = [[ListServerState alloc] init];
+	self.state = [[ListAppState alloc] init];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
@@ -44,23 +45,21 @@
 				|| [segue.identifier isEqualToString:@"joinServerSegue"]) {
 		ListViewController *viewController = segue.destinationViewController;
 		viewController.listAppAPI = self.server ? self.server : self.client;
-		//viewController.state = self.state;
+		viewController.listAppState = self.state;
 	}
 }
 
 - (IBAction)startClient:(id)sender
 {
-	self.client = [[ListAppClient alloc] initWithServiceType:@"ms-multichat" maxConcurrentOperationCount:3];
-	[self.client start];
+	self.state = [[ListAppState alloc] init];
+	self.client = [[ListAppClient alloc] initWithServiceType:@"ms-multilist" maxConcurrentOperationCount:3];
 	[self performSegueWithIdentifier:@"startClientSegue" sender:sender];
 }
 
 - (IBAction)startServer:(id)sender
 {
-	//self.state = [[ListServerState alloc] init];
-
-	self.server = [[ListAppServer alloc] initWithServiceType:@"ms-multichat"];
-	[self.server start];
+	self.state = [[ListAppState alloc] init];
+	self.server = [[ListAppServer alloc] initWithServiceType:@"ms-multilist" listAppState:self.state];
 	[self performSegueWithIdentifier:@"startServerSegue" sender:sender];
 }
 

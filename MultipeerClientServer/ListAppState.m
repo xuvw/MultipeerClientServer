@@ -1,14 +1,14 @@
 //
-//  ListServerState.m
+//  ListAppState.m
 //  MultipeerClientServer
 //
 //  Created by Mark Stultz on 4/23/14.
 //  Copyright (c) 2014 Mark Stultz. All rights reserved.
 //
 
-#import "ListServerState.h"
+#import "ListAppState.h"
 
-@implementation ListServerState
+@implementation ListAppState
 
 - (id)init
 {
