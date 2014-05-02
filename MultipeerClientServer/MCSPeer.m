@@ -41,11 +41,6 @@
 	self.session.delegate = self;
 }
 
-- (void)sendRequest:(MCSRequest *)request
-{
-	/**/
-}
-
 - (NSString *)stringForSessionState:(MCSessionState)state
 {
 	switch (state) {
@@ -58,6 +53,11 @@
 		default:
 			return @"Invalid state";
 	}
+}
+
+- (void)createStreamToHostWithCompletion:(void(^)(NSInputStream *inputStream, NSOutputStream *outputStream))completion
+{
+	/**/
 }
 
 #pragma mark MCSessionDelegate

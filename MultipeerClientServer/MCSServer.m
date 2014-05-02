@@ -8,11 +8,12 @@
 
 #import "MCSServer.h"
 
-@interface MCSServer () <MCNearbyServiceAdvertiserDelegate>
+static void *ConnectedPeersContext = &ConnectedPeersContext;
+
+@interface MCSServer () <MCNearbyServiceAdvertiserDelegate, NSStreamDelegate>
 
 @property (nonatomic, copy, readonly) NSDictionary *discoveryInfo;
 @property (nonatomic, strong) MCNearbyServiceAdvertiser *advertiser;
-@property (nonatomic, strong) MCSRequestHandler *requestHandler;
 
 @end
 
@@ -22,7 +23,6 @@
 {
 	self = [super initWithServiceType:serviceType];
 	if (self) {
-		self.requestHandler = [[MCSRequestHandler alloc] init];
 	}
 	
 	return self;
@@ -49,25 +49,37 @@
 	[self.advertiser startAdvertisingPeer];
 }
 
-- (void)sendRequest:(MCSRequest *)request
-{
-	[self.requestHandler processLocalRequest:request withServer:self];
-}
-
 #pragma mark MCSessionDelegate
 
 - (void)session:(MCSession *)session peer:(MCPeerID *)peerID didChangeState:(MCSessionState)state
 {
 	[super session:session peer:peerID didChangeState:state];
+	
+	if (state == MCSessionStateNotConnected) {
+		if ([self.delegate respondsToSelector:@selector(multipeerServer:didDisconnectPeer:)]) {
+			[self.delegate multipeerServer:self didDisconnectPeer:peerID];
+		}
+	}
 }
 
-- (void)session:(MCSession *)session didReceiveData:(NSData *)data fromPeer:(MCPeerID *)peerID
+- (void)session:(MCSession *)session didReceiveStream:(NSInputStream *)stream withName:(NSString *)streamName fromPeer:(MCPeerID *)peerID
 {
-	if (peerID == self.session.myPeerID) {
-		return;
-	}
+	NSError *error = nil;
+	NSOutputStream *outputStream = [self.session startStreamWithName:streamName toPeer:peerID error:&error];
+	outputStream.delegate = self;
+	[outputStream open];
 	
-	[self.requestHandler handleRequestData:data fromPeer:peerID withServer:self];
+	stream.delegate = self;
+	[stream open];
+	
+	if (error) {
+		NSLog(@"error: %@", error.localizedDescription);
+	}
+	else {
+		if ([self.delegate respondsToSelector:@selector(multipeerServer:didStartInputStream:outputStream:forPeer:)]) {
+			[self.delegate multipeerServer:self didStartInputStream:stream outputStream:outputStream forPeer:peerID];
+		}
+	}
 }
 
 #pragma mark MCNearbyServiceAdvertiserDelegate

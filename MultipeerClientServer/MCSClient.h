@@ -8,24 +8,14 @@
 
 #import "MCSPeer.h"
 
-@protocol MCSClientDelegate;
-
 @interface MCSClient : MCSPeer
 
 @property (nonatomic, strong, readonly) NSArray *nearbyServers;
-@property (nonatomic, weak) id<MCSClientDelegate> delegate;
+@property (nonatomic, assign, readonly) BOOL connected;
 
 - (void)startBrowsingForHosts;
 - (void)stopBrowsingForHosts;
 
-- (void)connectToHost:(MCPeerID *)hostPeerID;
-
-@end
-
-@protocol MCSClientDelegate <NSObject>
-
-- (void)multipeerClient:(MCSClient *)client isConnectingToHost:(MCPeerID *)hostPeerID;
-- (void)multipeerClient:(MCSClient *)client didConnectToHost:(MCPeerID *)hostPeerID;
-- (void)multipeerClient:(MCSClient *)client didDisconnectFromHost:(MCPeerID *)hostPeerID;
+- (void)connectToHost:(MCPeerID *)hostPeerID completion:(void(^)())completion;
 
 @end

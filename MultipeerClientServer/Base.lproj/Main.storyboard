@@ -210,7 +210,7 @@
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="3Kt-5O-lsu">
                             <connections>
-                                <action selector="addItem:" destination="jFq-ET-Ay3" id="oh0-nF-l2a"/>
+                                <action selector="addItem:" destination="jFq-ET-Ay3" id="kL9-mu-Rf4"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>

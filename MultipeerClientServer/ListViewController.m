@@ -7,8 +7,8 @@
 //
 
 #import "ListViewController.h"
+#import "ListAppAsyncAPI.h"
 #import "ListDataSource.h"
-#import "ListAPIClient.h"
 
 @interface ListViewController () <UICollectionViewDelegate>
 
@@ -31,7 +31,8 @@
 
 - (IBAction)addItem:(id)sender;
 {
-	[self.listAPIClient addListItem:@"Test" withCompletion:^(BOOL success) {
+	ListItem *listItem = [[ListItem alloc] initWithText:@"Test"];
+	[self.listAppAPI addListItem:listItem withCompletion:^(BOOL success) {
 		NSLog(@"addListItem: %d", success);
 	}];
 }

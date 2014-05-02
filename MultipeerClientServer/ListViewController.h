@@ -8,12 +8,13 @@
 
 @import UIKit;
 
+#import "ListAppAsyncAPI.h"
+
 @class ListServerState;
-@class ListAPIClient;
 
 @interface ListViewController : UIViewController
 
 @property (nonatomic, strong) ListServerState *state;
-@property (nonatomic, strong) ListAPIClient *listAPIClient;
+@property (nonatomic, strong) id<ListAppAsyncAPI> listAppAPI;
 
 @end

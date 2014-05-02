@@ -8,16 +8,18 @@
 
 #import "MCSClient.h"
 #import "MCSNearbyServer.h"
-#import "MCSRequestController.h"
+#import "MCSStreamRequest.h"
 
-@interface MCSClient () <MCNearbyServiceBrowserDelegate>
+static void *ConnectedContext = &ConnectedContext;
+
+@interface MCSClient () <MCNearbyServiceBrowserDelegate, NSStreamDelegate>
 
 @property (nonatomic, strong) MCNearbyServiceBrowser *browser;
 @property (nonatomic, strong) NSArray *nearbyServers;
 @property (nonatomic, strong) MCPeerID *hostPeerID;
 @property (nonatomic, assign) BOOL connected;
 @property (nonatomic, strong) void (^onConnectBlock)(void);
-@property (nonatomic, strong) MCSRequestController *requestController;
+@property (nonatomic, strong) NSMutableDictionary *streamRequests;
 
 @end
 
@@ -28,7 +30,9 @@
 	self = [super initWithServiceType:serviceType];
 	if (self) {
 		self.nearbyServers = [NSMutableArray array];
-		self.requestController = [[MCSRequestController alloc] init];
+		self.streamRequests = [NSMutableDictionary dictionary];
+		
+		[self addObserver:self forKeyPath:@"connected" options:NSKeyValueObservingOptionNew context:ConnectedContext];
 	}
 	
 	return self;
@@ -37,6 +41,19 @@
 - (void)dealloc
 {
 	[self stopBrowsingForHosts];
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+{
+	if (context == ConnectedContext) {
+		if (self.connected && self.onConnectBlock) {
+			self.onConnectBlock();
+			self.onConnectBlock = nil;
+		}
+	}
+	else {
+		return [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
+	}
 }
 
 - (void)startBrowsingForHosts
@@ -50,8 +67,9 @@
 	[self.browser stopBrowsingForPeers];
 }
 
-- (void)connectToHost:(MCPeerID *)hostPeerID
+- (void)connectToHost:(MCPeerID *)hostPeerID completion:(void(^)())completion
 {
+	self.onConnectBlock = completion;
 	self.hostPeerID = hostPeerID;
 	self.connected = NO;
 	[self.browser invitePeer:hostPeerID toSession:self.session withContext:nil timeout:20.f];
@@ -66,9 +84,16 @@
 	[self startBrowsingForHosts];
 }
 
-- (void)sendRequest:(MCSRequest *)request
+- (void)createStreamToHostWithCompletion:(void(^)(NSInputStream *inputStream, NSOutputStream *outputStream))completion
 {
-	[self.requestController sendRequest:request toPeer:self.hostPeerID withSession:self.session];
+	NSString *uuid = [[NSUUID UUID] UUIDString];
+	
+	NSError *error = nil;
+	NSOutputStream *outputStream = [self.session startStreamWithName:uuid toPeer:self.hostPeerID error:&error];
+	outputStream.delegate = self;
+	[outputStream open];
+	MCSStreamRequest *request = [[MCSStreamRequest alloc] initWithOutputStream:outputStream completion:completion];
+	self.streamRequests[ uuid ] = request;
 }
 
 #pragma mark MCSessionDelegate
@@ -82,19 +107,12 @@
 			dispatch_async(dispatch_get_main_queue(), ^{
 				if (peerID == self.hostPeerID) {
 					self.connected = NO;
-					
-					if ([self.delegate respondsToSelector:@selector(multipeerClient:didDisconnectFromHost:)]) {
-						[self.delegate multipeerClient:self didDisconnectFromHost:peerID];
-					}
 				}
 			});
 		}
 			break;
 		case MCSessionStateConnecting: {
 			dispatch_async(dispatch_get_main_queue(), ^{
-				if ([self.delegate respondsToSelector:@selector(multipeerClient:isConnectingToHost:)]) {
-					[self.delegate multipeerClient:self isConnectingToHost:peerID];
-				}
 			});
 		}
 			break;
@@ -102,9 +120,6 @@
 			dispatch_async(dispatch_get_main_queue(), ^{
 				if (peerID == self.hostPeerID) {
 					self.connected = YES;
-					if ([self.delegate respondsToSelector:@selector(multipeerClient:didConnectToHost:)]) {
-						[self.delegate multipeerClient:self didConnectToHost:peerID];
-					}
 				}
 			});
 		}
@@ -115,10 +130,16 @@
 	}
 }
 
-- (void)session:(MCSession *)session didReceiveData:(NSData *)data fromPeer:(MCPeerID *)peerID
+- (void)session:(MCSession *)session didReceiveStream:(NSInputStream *)stream withName:(NSString *)streamName fromPeer:(MCPeerID *)peerID
 {
 	if (peerID == self.hostPeerID) {
-		[self.requestController processResponseData:data];
+		MCSStreamRequest *streamRequest = self.streamRequests[ streamName ];
+		if (streamRequest && streamRequest.completion) {
+			stream.delegate = self;
+			[stream open];
+			streamRequest.completion(stream, streamRequest.outputStream);
+			[self.streamRequests removeObjectForKey:streamName];
+		}
 	}
 }
 
