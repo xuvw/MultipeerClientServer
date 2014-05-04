@@ -7,15 +7,18 @@
 //
 
 #import "ListViewController.h"
-#import "ListAppAsyncAPI.h"
 #import "ListDataSource.h"
 
 @interface ListViewController () <UICollectionViewDelegate>
 
 @property (nonatomic, weak) IBOutlet UICollectionView *collectionView;
 @property (nonatomic, strong) ListDataSource *dataSource;
+@property (nonatomic, strong) NSTimer *timer;
 
 - (IBAction)addItem:(id)sender;
+
+- (void)scheduleListPolling;
+- (void)pollList:(id)sender;
 
 @end
 
@@ -25,15 +28,55 @@
 {
 	[super viewDidLoad];
 	
-	self.dataSource = [[ListDataSource alloc] initWithCollectionView:self.collectionView listAppState:self.listAppState];
+	self.dataSource = [[ListDataSource alloc] initWithCollectionView:self.collectionView list:self.list];
 	self.collectionView.delegate = self;
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+	[super viewWillAppear:animated];
+	
+	[self scheduleListPolling];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+	[super viewWillDisappear:animated];
+}
+
+- (void)scheduleListPolling
+{
+	dispatch_async(dispatch_get_main_queue(), ^{
+		self.timer = [NSTimer scheduledTimerWithTimeInterval:0.5f target:self selector:@selector(pollList:) userInfo:nil repeats:NO];
+	});
+}
+
+- (void)pollList:(id)sender
+{
+	[self.listAppAPI getListRevisionWithCompletion:^(int32_t revision) {
+		if (self.list.revision < revision) {
+			[self.listAppAPI getListWithCompletion:^(List *list) {
+				if (list) {
+					dispatch_async(dispatch_get_main_queue(), ^{
+						self.list.revision = list.revision;
+						self.list.listItems = list.listItems;
+					});
+				}
+
+				[self scheduleListPolling];
+			}];
+		}
+		else {
+			[self scheduleListPolling];
+		}
+	}];
 }
 
 - (IBAction)addItem:(id)sender;
 {
 	ListItem *listItem = [[ListItem alloc] initWithText:@"Test"];
-	[self.listAppAPI addListItem:listItem withCompletion:^(BOOL success) {
-		NSLog(@"addListItem: %d", success);
+	[self.listAppAPI addListItem:listItem withCompletion:^(int32_t revision) {
+		/**/
 	}];
 }
 

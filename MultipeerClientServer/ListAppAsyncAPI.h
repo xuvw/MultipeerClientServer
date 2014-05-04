@@ -10,6 +10,8 @@
 
 @protocol ListAppAsyncAPI <NSObject>
 
-- (void)addListItem:(ListItem *)listItem withCompletion:(void(^)(BOOL success))completion;
+- (void)addListItem:(ListItem *)listItem withCompletion:(void(^)(int32_t revision))completion;
+- (void)getListRevisionWithCompletion:(void(^)(int32_t revision))completion;
+- (void)getListWithCompletion:(void(^)(List *list))completion;
 
 @end

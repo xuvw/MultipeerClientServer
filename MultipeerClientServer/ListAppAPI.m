@@ -145,6 +145,200 @@
 
 @end
 
+@implementation List
+
+- (id) init
+{
+  self = [super init];
+#if TARGET_OS_IPHONE || (MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5)
+#endif
+  return self;
+}
+
+- (id) initWithRevision: (int32_t) revision listItems: (NSMutableArray *) listItems
+{
+  self = [super init];
+  __revision = revision;
+  __revision_isset = YES;
+  __listItems = [listItems retain_stub];
+  __listItems_isset = YES;
+  return self;
+}
+
+- (id) initWithCoder: (NSCoder *) decoder
+{
+  self = [super init];
+  if ([decoder containsValueForKey: @"revision"])
+  {
+    __revision = [decoder decodeInt32ForKey: @"revision"];
+    __revision_isset = YES;
+  }
+  if ([decoder containsValueForKey: @"listItems"])
+  {
+    __listItems = [[decoder decodeObjectForKey: @"listItems"] retain_stub];
+    __listItems_isset = YES;
+  }
+  return self;
+}
+
+- (void) encodeWithCoder: (NSCoder *) encoder
+{
+  if (__revision_isset)
+  {
+    [encoder encodeInt32: __revision forKey: @"revision"];
+  }
+  if (__listItems_isset)
+  {
+    [encoder encodeObject: __listItems forKey: @"listItems"];
+  }
+}
+
+- (void) dealloc
+{
+  [__listItems release_stub];
+  [super dealloc_stub];
+}
+
+- (int32_t) revision {
+  return __revision;
+}
+
+- (void) setRevision: (int32_t) revision {
+  __revision = revision;
+  __revision_isset = YES;
+}
+
+- (BOOL) revisionIsSet {
+  return __revision_isset;
+}
+
+- (void) unsetRevision {
+  __revision_isset = NO;
+}
+
+- (NSMutableArray *) listItems {
+  return [[__listItems retain_stub] autorelease_stub];
+}
+
+- (void) setListItems: (NSMutableArray *) listItems {
+  [listItems retain_stub];
+  [__listItems release_stub];
+  __listItems = listItems;
+  __listItems_isset = YES;
+}
+
+- (BOOL) listItemsIsSet {
+  return __listItems_isset;
+}
+
+- (void) unsetListItems {
+  [__listItems release_stub];
+  __listItems = nil;
+  __listItems_isset = NO;
+}
+
+- (void) read: (id <TProtocol>) inProtocol
+{
+  NSString * fieldName;
+  int fieldType;
+  int fieldID;
+
+  [inProtocol readStructBeginReturningName: NULL];
+  while (true)
+  {
+    [inProtocol readFieldBeginReturningName: &fieldName type: &fieldType fieldID: &fieldID];
+    if (fieldType == TType_STOP) { 
+      break;
+    }
+    switch (fieldID)
+    {
+      case 1:
+        if (fieldType == TType_I32) {
+          int32_t fieldValue = [inProtocol readI32];
+          [self setRevision: fieldValue];
+        } else { 
+          [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+        }
+        break;
+      case 2:
+        if (fieldType == TType_LIST) {
+          int _size0;
+          [inProtocol readListBeginReturningElementType: NULL size: &_size0];
+          NSMutableArray * fieldValue = [[NSMutableArray alloc] initWithCapacity: _size0];
+          int _i1;
+          for (_i1 = 0; _i1 < _size0; ++_i1)
+          {
+            ListItem *_elem2 = [[ListItem alloc] init];
+            [_elem2 read: inProtocol];
+            [fieldValue addObject: _elem2];
+            [_elem2 release_stub];
+          }
+          [inProtocol readListEnd];
+          [self setListItems: fieldValue];
+          [fieldValue release_stub];
+        } else { 
+          [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+        }
+        break;
+      default:
+        [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+        break;
+    }
+    [inProtocol readFieldEnd];
+  }
+  [inProtocol readStructEnd];
+}
+
+- (void) write: (id <TProtocol>) outProtocol {
+  [outProtocol writeStructBeginWithName: @"List"];
+  if (__revision_isset) {
+    [outProtocol writeFieldBeginWithName: @"revision" type: TType_I32 fieldID: 1];
+    [outProtocol writeI32: __revision];
+    [outProtocol writeFieldEnd];
+  }
+  if (__listItems_isset) {
+    if (__listItems != nil) {
+      [outProtocol writeFieldBeginWithName: @"listItems" type: TType_LIST fieldID: 2];
+      {
+        [outProtocol writeListBeginWithElementType: TType_STRUCT size: [__listItems count]];
+        int i4;
+        for (i4 = 0; i4 < [__listItems count]; i4++)
+        {
+          [[__listItems objectAtIndex: i4] write: outProtocol];
+        }
+        [outProtocol writeListEnd];
+      }
+      [outProtocol writeFieldEnd];
+    }
+  }
+  [outProtocol writeFieldStop];
+  [outProtocol writeStructEnd];
+}
+
+- (void) validate {
+  // check for required fields
+  if (!__revision_isset) {
+    @throw [TProtocolException exceptionWithName: @"TProtocolException"
+                               reason: @"Required field 'revision' is not set."];
+  }
+  if (!__listItems_isset) {
+    @throw [TProtocolException exceptionWithName: @"TProtocolException"
+                               reason: @"Required field 'listItems' is not set."];
+  }
+}
+
+- (NSString *) description {
+  NSMutableString * ms = [NSMutableString stringWithString: @"List("];
+  [ms appendString: @"revision:"];
+  [ms appendFormat: @"%i", __revision];
+  [ms appendString: @",listItems:"];
+  [ms appendFormat: @"%@", __listItems];
+  [ms appendString: @")"];
+  return [NSString stringWithString: ms];
+}
+
+@end
+
 
 @implementation ListAppAPIConstants
 + (void) initialize {
@@ -303,17 +497,17 @@
 @end
 
 @interface AddListItem_result : NSObject <TBase, NSCoding> {
-  BOOL __success;
+  int32_t __success;
 
   BOOL __success_isset;
 }
 
 #if TARGET_OS_IPHONE || (MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5)
-@property (nonatomic, getter=success, setter=setSuccess:) BOOL success;
+@property (nonatomic, getter=success, setter=setSuccess:) int32_t success;
 #endif
 
 - (id) init;
-- (id) initWithSuccess: (BOOL) success;
+- (id) initWithSuccess: (int32_t) success;
 
 - (void) read: (id <TProtocol>) inProtocol;
 - (void) write: (id <TProtocol>) outProtocol;
@@ -321,8 +515,8 @@
 - (void) validate;
 
 #if !__has_feature(objc_arc)
-- (BOOL) success;
-- (void) setSuccess: (BOOL) success;
+- (int32_t) success;
+- (void) setSuccess: (int32_t) success;
 #endif
 - (BOOL) successIsSet;
 
@@ -338,7 +532,7 @@
   return self;
 }
 
-- (id) initWithSuccess: (BOOL) success
+- (id) initWithSuccess: (int32_t) success
 {
   self = [super init];
   __success = success;
@@ -351,7 +545,7 @@
   self = [super init];
   if ([decoder containsValueForKey: @"success"])
   {
-    __success = [decoder decodeBoolForKey: @"success"];
+    __success = [decoder decodeInt32ForKey: @"success"];
     __success_isset = YES;
   }
   return self;
@@ -361,7 +555,7 @@
 {
   if (__success_isset)
   {
-    [encoder encodeBool: __success forKey: @"success"];
+    [encoder encodeInt32: __success forKey: @"success"];
   }
 }
 
@@ -370,11 +564,11 @@
   [super dealloc_stub];
 }
 
-- (BOOL) success {
+- (int32_t) success {
   return __success;
 }
 
-- (void) setSuccess: (BOOL) success {
+- (void) setSuccess: (int32_t) success {
   __success = success;
   __success_isset = YES;
 }
@@ -403,8 +597,8 @@
     switch (fieldID)
     {
       case 0:
-        if (fieldType == TType_BOOL) {
-          BOOL fieldValue = [inProtocol readBool];
+        if (fieldType == TType_I32) {
+          int32_t fieldValue = [inProtocol readI32];
           [self setSuccess: fieldValue];
         } else { 
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
@@ -423,8 +617,8 @@
   [outProtocol writeStructBeginWithName: @"AddListItem_result"];
 
   if (__success_isset) {
-    [outProtocol writeFieldBeginWithName: @"success" type: TType_BOOL fieldID: 0];
-    [outProtocol writeBool: __success];
+    [outProtocol writeFieldBeginWithName: @"success" type: TType_I32 fieldID: 0];
+    [outProtocol writeI32: __success];
     [outProtocol writeFieldEnd];
   }
   [outProtocol writeFieldStop];
@@ -439,6 +633,445 @@
   NSMutableString * ms = [NSMutableString stringWithString: @"AddListItem_result("];
   [ms appendString: @"success:"];
   [ms appendFormat: @"%i", __success];
+  [ms appendString: @")"];
+  return [NSString stringWithString: ms];
+}
+
+@end
+
+@interface getListRevision_args : NSObject <TBase, NSCoding> {
+}
+
+- (id) init;
+
+- (void) read: (id <TProtocol>) inProtocol;
+- (void) write: (id <TProtocol>) outProtocol;
+
+- (void) validate;
+
+@end
+
+@implementation getListRevision_args
+
+- (id) init
+{
+  self = [super init];
+  return self;
+}
+
+- (id) initWithCoder: (NSCoder *) decoder
+{
+  self = [super init];
+  return self;
+}
+
+- (void) encodeWithCoder: (NSCoder *) encoder
+{
+}
+
+- (void) read: (id <TProtocol>) inProtocol
+{
+  NSString * fieldName;
+  int fieldType;
+  int fieldID;
+
+  [inProtocol readStructBeginReturningName: NULL];
+  while (true)
+  {
+    [inProtocol readFieldBeginReturningName: &fieldName type: &fieldType fieldID: &fieldID];
+    if (fieldType == TType_STOP) { 
+      break;
+    }
+    switch (fieldID)
+    {
+      default:
+        [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+        break;
+    }
+    [inProtocol readFieldEnd];
+  }
+  [inProtocol readStructEnd];
+}
+
+- (void) write: (id <TProtocol>) outProtocol {
+  [outProtocol writeStructBeginWithName: @"getListRevision_args"];
+  [outProtocol writeFieldStop];
+  [outProtocol writeStructEnd];
+}
+
+- (void) validate {
+  // check for required fields
+}
+
+- (NSString *) description {
+  NSMutableString * ms = [NSMutableString stringWithString: @"getListRevision_args("];
+  [ms appendString: @")"];
+  return [NSString stringWithString: ms];
+}
+
+@end
+
+@interface GetListRevision_result : NSObject <TBase, NSCoding> {
+  int32_t __success;
+
+  BOOL __success_isset;
+}
+
+#if TARGET_OS_IPHONE || (MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5)
+@property (nonatomic, getter=success, setter=setSuccess:) int32_t success;
+#endif
+
+- (id) init;
+- (id) initWithSuccess: (int32_t) success;
+
+- (void) read: (id <TProtocol>) inProtocol;
+- (void) write: (id <TProtocol>) outProtocol;
+
+- (void) validate;
+
+#if !__has_feature(objc_arc)
+- (int32_t) success;
+- (void) setSuccess: (int32_t) success;
+#endif
+- (BOOL) successIsSet;
+
+@end
+
+@implementation GetListRevision_result
+
+- (id) init
+{
+  self = [super init];
+#if TARGET_OS_IPHONE || (MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5)
+#endif
+  return self;
+}
+
+- (id) initWithSuccess: (int32_t) success
+{
+  self = [super init];
+  __success = success;
+  __success_isset = YES;
+  return self;
+}
+
+- (id) initWithCoder: (NSCoder *) decoder
+{
+  self = [super init];
+  if ([decoder containsValueForKey: @"success"])
+  {
+    __success = [decoder decodeInt32ForKey: @"success"];
+    __success_isset = YES;
+  }
+  return self;
+}
+
+- (void) encodeWithCoder: (NSCoder *) encoder
+{
+  if (__success_isset)
+  {
+    [encoder encodeInt32: __success forKey: @"success"];
+  }
+}
+
+- (void) dealloc
+{
+  [super dealloc_stub];
+}
+
+- (int32_t) success {
+  return __success;
+}
+
+- (void) setSuccess: (int32_t) success {
+  __success = success;
+  __success_isset = YES;
+}
+
+- (BOOL) successIsSet {
+  return __success_isset;
+}
+
+- (void) unsetSuccess {
+  __success_isset = NO;
+}
+
+- (void) read: (id <TProtocol>) inProtocol
+{
+  NSString * fieldName;
+  int fieldType;
+  int fieldID;
+
+  [inProtocol readStructBeginReturningName: NULL];
+  while (true)
+  {
+    [inProtocol readFieldBeginReturningName: &fieldName type: &fieldType fieldID: &fieldID];
+    if (fieldType == TType_STOP) { 
+      break;
+    }
+    switch (fieldID)
+    {
+      case 0:
+        if (fieldType == TType_I32) {
+          int32_t fieldValue = [inProtocol readI32];
+          [self setSuccess: fieldValue];
+        } else { 
+          [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+        }
+        break;
+      default:
+        [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+        break;
+    }
+    [inProtocol readFieldEnd];
+  }
+  [inProtocol readStructEnd];
+}
+
+- (void) write: (id <TProtocol>) outProtocol {
+  [outProtocol writeStructBeginWithName: @"GetListRevision_result"];
+
+  if (__success_isset) {
+    [outProtocol writeFieldBeginWithName: @"success" type: TType_I32 fieldID: 0];
+    [outProtocol writeI32: __success];
+    [outProtocol writeFieldEnd];
+  }
+  [outProtocol writeFieldStop];
+  [outProtocol writeStructEnd];
+}
+
+- (void) validate {
+  // check for required fields
+}
+
+- (NSString *) description {
+  NSMutableString * ms = [NSMutableString stringWithString: @"GetListRevision_result("];
+  [ms appendString: @"success:"];
+  [ms appendFormat: @"%i", __success];
+  [ms appendString: @")"];
+  return [NSString stringWithString: ms];
+}
+
+@end
+
+@interface getList_args : NSObject <TBase, NSCoding> {
+}
+
+- (id) init;
+
+- (void) read: (id <TProtocol>) inProtocol;
+- (void) write: (id <TProtocol>) outProtocol;
+
+- (void) validate;
+
+@end
+
+@implementation getList_args
+
+- (id) init
+{
+  self = [super init];
+  return self;
+}
+
+- (id) initWithCoder: (NSCoder *) decoder
+{
+  self = [super init];
+  return self;
+}
+
+- (void) encodeWithCoder: (NSCoder *) encoder
+{
+}
+
+- (void) read: (id <TProtocol>) inProtocol
+{
+  NSString * fieldName;
+  int fieldType;
+  int fieldID;
+
+  [inProtocol readStructBeginReturningName: NULL];
+  while (true)
+  {
+    [inProtocol readFieldBeginReturningName: &fieldName type: &fieldType fieldID: &fieldID];
+    if (fieldType == TType_STOP) { 
+      break;
+    }
+    switch (fieldID)
+    {
+      default:
+        [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+        break;
+    }
+    [inProtocol readFieldEnd];
+  }
+  [inProtocol readStructEnd];
+}
+
+- (void) write: (id <TProtocol>) outProtocol {
+  [outProtocol writeStructBeginWithName: @"getList_args"];
+  [outProtocol writeFieldStop];
+  [outProtocol writeStructEnd];
+}
+
+- (void) validate {
+  // check for required fields
+}
+
+- (NSString *) description {
+  NSMutableString * ms = [NSMutableString stringWithString: @"getList_args("];
+  [ms appendString: @")"];
+  return [NSString stringWithString: ms];
+}
+
+@end
+
+@interface GetList_result : NSObject <TBase, NSCoding> {
+  List * __success;
+
+  BOOL __success_isset;
+}
+
+#if TARGET_OS_IPHONE || (MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5)
+@property (nonatomic, retain, getter=success, setter=setSuccess:) List * success;
+#endif
+
+- (id) init;
+- (id) initWithSuccess: (List *) success;
+
+- (void) read: (id <TProtocol>) inProtocol;
+- (void) write: (id <TProtocol>) outProtocol;
+
+- (void) validate;
+
+#if !__has_feature(objc_arc)
+- (List *) success;
+- (void) setSuccess: (List *) success;
+#endif
+- (BOOL) successIsSet;
+
+@end
+
+@implementation GetList_result
+
+- (id) init
+{
+  self = [super init];
+#if TARGET_OS_IPHONE || (MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5)
+#endif
+  return self;
+}
+
+- (id) initWithSuccess: (List *) success
+{
+  self = [super init];
+  __success = [success retain_stub];
+  __success_isset = YES;
+  return self;
+}
+
+- (id) initWithCoder: (NSCoder *) decoder
+{
+  self = [super init];
+  if ([decoder containsValueForKey: @"success"])
+  {
+    __success = [[decoder decodeObjectForKey: @"success"] retain_stub];
+    __success_isset = YES;
+  }
+  return self;
+}
+
+- (void) encodeWithCoder: (NSCoder *) encoder
+{
+  if (__success_isset)
+  {
+    [encoder encodeObject: __success forKey: @"success"];
+  }
+}
+
+- (void) dealloc
+{
+  [__success release_stub];
+  [super dealloc_stub];
+}
+
+- (List *) success {
+  return [[__success retain_stub] autorelease_stub];
+}
+
+- (void) setSuccess: (List *) success {
+  [success retain_stub];
+  [__success release_stub];
+  __success = success;
+  __success_isset = YES;
+}
+
+- (BOOL) successIsSet {
+  return __success_isset;
+}
+
+- (void) unsetSuccess {
+  [__success release_stub];
+  __success = nil;
+  __success_isset = NO;
+}
+
+- (void) read: (id <TProtocol>) inProtocol
+{
+  NSString * fieldName;
+  int fieldType;
+  int fieldID;
+
+  [inProtocol readStructBeginReturningName: NULL];
+  while (true)
+  {
+    [inProtocol readFieldBeginReturningName: &fieldName type: &fieldType fieldID: &fieldID];
+    if (fieldType == TType_STOP) { 
+      break;
+    }
+    switch (fieldID)
+    {
+      case 0:
+        if (fieldType == TType_STRUCT) {
+          List *fieldValue = [[List alloc] init];
+          [fieldValue read: inProtocol];
+          [self setSuccess: fieldValue];
+          [fieldValue release_stub];
+        } else { 
+          [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+        }
+        break;
+      default:
+        [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
+        break;
+    }
+    [inProtocol readFieldEnd];
+  }
+  [inProtocol readStructEnd];
+}
+
+- (void) write: (id <TProtocol>) outProtocol {
+  [outProtocol writeStructBeginWithName: @"GetList_result"];
+
+  if (__success_isset) {
+    if (__success != nil) {
+      [outProtocol writeFieldBeginWithName: @"success" type: TType_STRUCT fieldID: 0];
+      [__success write: outProtocol];
+      [outProtocol writeFieldEnd];
+    }
+  }
+  [outProtocol writeFieldStop];
+  [outProtocol writeStructEnd];
+}
+
+- (void) validate {
+  // check for required fields
+}
+
+- (NSString *) description {
+  NSMutableString * ms = [NSMutableString stringWithString: @"GetList_result("];
+  [ms appendString: @"success:"];
+  [ms appendFormat: @"%@", __success];
   [ms appendString: @")"];
   return [NSString stringWithString: ms];
 }
@@ -481,7 +1114,7 @@
   [[outProtocol transport] flush];
 }
 
-- (BOOL) recv_addListItem
+- (int32_t) recv_addListItem
 {
   int msgType = 0;
   [inProtocol readMessageBeginReturningName: nil type: &msgType sequenceID: NULL];
@@ -500,10 +1133,80 @@
                                            reason: @"addListItem failed: unknown result"];
 }
 
-- (BOOL) addListItem: (ListItem *) listItem
+- (int32_t) addListItem: (ListItem *) listItem
 {
   [self send_addListItem : listItem];
   return [self recv_addListItem];
+}
+
+- (void) send_getListRevision
+{
+  [outProtocol writeMessageBeginWithName: @"getListRevision" type: TMessageType_CALL sequenceID: 0];
+  [outProtocol writeStructBeginWithName: @"getListRevision_args"];
+  [outProtocol writeFieldStop];
+  [outProtocol writeStructEnd];
+  [outProtocol writeMessageEnd];
+  [[outProtocol transport] flush];
+}
+
+- (int32_t) recv_getListRevision
+{
+  int msgType = 0;
+  [inProtocol readMessageBeginReturningName: nil type: &msgType sequenceID: NULL];
+  if (msgType == TMessageType_EXCEPTION) {
+    TApplicationException * x = [TApplicationException read: inProtocol];
+    [inProtocol readMessageEnd];
+    @throw x;
+  }
+  GetListRevision_result * result = [[[GetListRevision_result alloc] init] autorelease_stub];
+  [result read: inProtocol];
+  [inProtocol readMessageEnd];
+  if ([result successIsSet]) {
+    return [result success];
+  }
+  @throw [TApplicationException exceptionWithType: TApplicationException_MISSING_RESULT
+                                           reason: @"getListRevision failed: unknown result"];
+}
+
+- (int32_t) getListRevision
+{
+  [self send_getListRevision];
+  return [self recv_getListRevision];
+}
+
+- (void) send_getList
+{
+  [outProtocol writeMessageBeginWithName: @"getList" type: TMessageType_CALL sequenceID: 0];
+  [outProtocol writeStructBeginWithName: @"getList_args"];
+  [outProtocol writeFieldStop];
+  [outProtocol writeStructEnd];
+  [outProtocol writeMessageEnd];
+  [[outProtocol transport] flush];
+}
+
+- (List *) recv_getList
+{
+  int msgType = 0;
+  [inProtocol readMessageBeginReturningName: nil type: &msgType sequenceID: NULL];
+  if (msgType == TMessageType_EXCEPTION) {
+    TApplicationException * x = [TApplicationException read: inProtocol];
+    [inProtocol readMessageEnd];
+    @throw x;
+  }
+  GetList_result * result = [[[GetList_result alloc] init] autorelease_stub];
+  [result read: inProtocol];
+  [inProtocol readMessageEnd];
+  if ([result successIsSet]) {
+    return [result success];
+  }
+  @throw [TApplicationException exceptionWithType: TApplicationException_MISSING_RESULT
+                                           reason: @"getList failed: unknown result"];
+}
+
+- (List *) getList
+{
+  [self send_getList];
+  return [self recv_getList];
 }
 
 @end
@@ -525,6 +1228,22 @@
     [invocation setSelector: s];
     [invocation retainArguments];
     [mMethodMap setValue: invocation forKey: @"addListItem"];
+  }
+  {
+    SEL s = @selector(process_getListRevision_withSequenceID:inProtocol:outProtocol:);
+    NSMethodSignature * sig = [self methodSignatureForSelector: s];
+    NSInvocation * invocation = [NSInvocation invocationWithMethodSignature: sig];
+    [invocation setSelector: s];
+    [invocation retainArguments];
+    [mMethodMap setValue: invocation forKey: @"getListRevision"];
+  }
+  {
+    SEL s = @selector(process_getList_withSequenceID:inProtocol:outProtocol:);
+    NSMethodSignature * sig = [self methodSignatureForSelector: s];
+    NSInvocation * invocation = [NSInvocation invocationWithMethodSignature: sig];
+    [invocation setSelector: s];
+    [invocation retainArguments];
+    [mMethodMap setValue: invocation forKey: @"getList"];
   }
   return self;
 }
@@ -575,6 +1294,40 @@
   AddListItem_result * result = [[AddListItem_result alloc] init];
   [result setSuccess: [mService addListItem: [args listItem]]];
   [outProtocol writeMessageBeginWithName: @"addListItem"
+                                    type: TMessageType_REPLY
+                              sequenceID: seqID];
+  [result write: outProtocol];
+  [outProtocol writeMessageEnd];
+  [[outProtocol transport] flush];
+  [result release_stub];
+  [args release_stub];
+}
+
+- (void) process_getListRevision_withSequenceID: (int32_t) seqID inProtocol: (id<TProtocol>) inProtocol outProtocol: (id<TProtocol>) outProtocol
+{
+  getListRevision_args * args = [[getListRevision_args alloc] init];
+  [args read: inProtocol];
+  [inProtocol readMessageEnd];
+  GetListRevision_result * result = [[GetListRevision_result alloc] init];
+  [result setSuccess: [mService getListRevision]];
+  [outProtocol writeMessageBeginWithName: @"getListRevision"
+                                    type: TMessageType_REPLY
+                              sequenceID: seqID];
+  [result write: outProtocol];
+  [outProtocol writeMessageEnd];
+  [[outProtocol transport] flush];
+  [result release_stub];
+  [args release_stub];
+}
+
+- (void) process_getList_withSequenceID: (int32_t) seqID inProtocol: (id<TProtocol>) inProtocol outProtocol: (id<TProtocol>) outProtocol
+{
+  getList_args * args = [[getList_args alloc] init];
+  [args read: inProtocol];
+  [inProtocol readMessageEnd];
+  GetList_result * result = [[GetList_result alloc] init];
+  [result setSuccess: [mService getList]];
+  [outProtocol writeMessageBeginWithName: @"getList"
                                     type: TMessageType_REPLY
                               sequenceID: seqID];
   [result write: outProtocol];

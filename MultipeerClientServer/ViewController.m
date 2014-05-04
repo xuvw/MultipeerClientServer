@@ -10,7 +10,6 @@
 #import "ListAppClient.h"
 #import "ListAppServer.h"
 #import "ListAppAPI.h"
-#import "listAppState.h"
 #import "ServerBrowserViewController.h"
 #import "ListViewController.h"
 
@@ -18,7 +17,7 @@
 
 @property (nonatomic, strong) ListAppClient *client;
 @property (nonatomic, strong) ListAppServer *server;
-@property (nonatomic, strong) ListAppState *state;
+@property (nonatomic, strong) List *list;
 
 - (IBAction)startClient:(id)sender;
 - (IBAction)startServer:(id)sender;
@@ -31,7 +30,7 @@
 {
 	[super viewDidLoad];
 	
-	self.state = [[ListAppState alloc] init];
+	self.list = [[List alloc] initWithRevision:0 listItems:[NSMutableArray array]];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
@@ -45,21 +44,21 @@
 				|| [segue.identifier isEqualToString:@"joinServerSegue"]) {
 		ListViewController *viewController = segue.destinationViewController;
 		viewController.listAppAPI = self.server ? self.server : self.client;
-		viewController.listAppState = self.state;
+		viewController.list = self.list;
 	}
 }
 
 - (IBAction)startClient:(id)sender
 {
-	self.state = [[ListAppState alloc] init];
+	self.list = [[List alloc] initWithRevision:0 listItems:[NSMutableArray array]];
 	self.client = [[ListAppClient alloc] initWithServiceType:@"ms-multilist" maxConcurrentOperationCount:3];
 	[self performSegueWithIdentifier:@"startClientSegue" sender:sender];
 }
 
 - (IBAction)startServer:(id)sender
 {
-	self.state = [[ListAppState alloc] init];
-	self.server = [[ListAppServer alloc] initWithServiceType:@"ms-multilist" listAppState:self.state];
+	self.list = [[List alloc] initWithRevision:0 listItems:[NSMutableArray array]];
+	self.server = [[ListAppServer alloc] initWithServiceType:@"ms-multilist" list:self.list];
 	[self performSegueWithIdentifier:@"startServerSegue" sender:sender];
 }
 

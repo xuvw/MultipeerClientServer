@@ -7,7 +7,7 @@
 //
 
 #import "ListDataSource.h"
-#import "ListAppState.h"
+#import "ListAppAPI.h"
 #import "UILabelCollectionViewCell.h"
 
 static void *ListItemsContext = &ListItemsContext;
@@ -15,20 +15,20 @@ static void *ListItemsContext = &ListItemsContext;
 @interface ListDataSource () <UICollectionViewDataSource>
 
 @property (nonatomic, strong) UICollectionView *collectionView;
-@property (nonatomic, strong) ListAppState *listAppState;
+@property (nonatomic, strong) List *list;
 @end
 
 @implementation ListDataSource
 
-- (id)initWithCollectionView:(UICollectionView *)collectionView listAppState:(ListAppState *)listAppState
+- (id)initWithCollectionView:(UICollectionView *)collectionView list:(List *)list
 {
 	self = [super init];
 	if (self) {
 		self.collectionView = collectionView;
 		self.collectionView.dataSource = self;
-		
-		self.listAppState = listAppState;
-		[self.listAppState addObserver:self forKeyPath:@"listItems" options:NSKeyValueObservingOptionNew context:ListItemsContext];
+
+		self.list = list;
+		[self.list addObserver:self forKeyPath:@"revision" options:NSKeyValueObservingOptionNew context:ListItemsContext];
 	}
 	
 	return self;
@@ -36,7 +36,7 @@ static void *ListItemsContext = &ListItemsContext;
 
 - (void)dealloc
 {
-	[self.listAppState removeObserver:self forKeyPath:@"listItems"];
+	[self.list removeObserver:self forKeyPath:@"revision"];
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
@@ -55,7 +55,7 @@ static void *ListItemsContext = &ListItemsContext;
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-	return self.listAppState.listItems.count;
+	return self.list.listItems.count;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
@@ -63,8 +63,9 @@ static void *ListItemsContext = &ListItemsContext;
 	UILabelCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"listItemCell" forIndexPath:indexPath];
 	if (cell) {
 		NSString *text = @"Invalid";
-		if (indexPath.row < self.listAppState.listItems.count) {
-			text = self.listAppState.listItems[ indexPath.row ];
+		if (indexPath.row < self.list.listItems.count) {
+			ListItem *listItem = self.list.listItems[ indexPath.row ];
+			text = listItem.text;
 		}
 		
 		cell.label.text = text;

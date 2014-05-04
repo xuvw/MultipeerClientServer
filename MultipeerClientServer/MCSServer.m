@@ -17,6 +17,16 @@ static void *ConnectedPeersContext = &ConnectedPeersContext;
 
 @end
 
+static dispatch_queue_t server_processor_queue() {
+	static dispatch_queue_t server_processor_queue;
+	static dispatch_once_t onceToken;
+	dispatch_once(&onceToken, ^{
+		server_processor_queue = dispatch_queue_create("com.multipeerclientserver.mcsserver.processor", DISPATCH_QUEUE_CONCURRENT);
+	});
+	
+	return server_processor_queue;
+}
+
 @implementation MCSServer
 
 - (id)initWithServiceType:(NSString *)serviceType
@@ -66,12 +76,16 @@ static void *ConnectedPeersContext = &ConnectedPeersContext;
 	stream.delegate = self;
 	[stream open];
 	
+	NSLog(@"Server received stream named %@ from peer %@", streamName, peerID.displayName);
+	
 	if (error) {
 		NSLog(@"error: %@", error.localizedDescription);
 	}
 	else {
 		if ([self.delegate respondsToSelector:@selector(multipeerServer:didStartInputStream:outputStream:forPeer:)]) {
-			[self.delegate multipeerServer:self didStartInputStream:stream outputStream:outputStream forPeer:peerID];
+			dispatch_async(server_processor_queue(), ^{
+				[self.delegate multipeerServer:self didStartInputStream:stream outputStream:outputStream forPeer:peerID];
+			});
 		}
 	}
 }

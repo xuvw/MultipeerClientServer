@@ -15,7 +15,7 @@
 
 @interface ListAppServer () <ListAppAPI, MCSServerDelegate>
 
-@property (nonatomic, strong) ListAppState *listAppState;
+@property (nonatomic, strong) List *list;
 @property (nonatomic, strong) NSMutableDictionary *peerProcessorMap;
 
 - (void)addProcessor:(id<TProcessor>)processor forPeer:(MCPeerID *)peerID;
@@ -24,11 +24,11 @@
 
 @implementation ListAppServer
 
-- (id)initWithServiceType:(NSString *)serviceType listAppState:(ListAppState *)listAppState
+- (id)initWithServiceType:(NSString *)serviceType list:(List *)list
 {
 	self = [super initWithServiceType:serviceType];
 	if (self) {
-		self.listAppState = listAppState;
+		self.list = list;
 		self.peerProcessorMap = [NSMutableDictionary dictionary];
 		self.delegate = self;
 	}
@@ -49,20 +49,47 @@
 
 #pragma mark ListAppAsyncAPI
 
-- (void)addListItem:(ListItem *)listItem withCompletion:(void(^)(BOOL success))completion
+- (void)addListItem:(ListItem *)listItem withCompletion:(void(^)(int32_t revision))completion
 {
-	BOOL result = [self addListItem:listItem];
 	if (completion) {
+		int32_t result = [self addListItem:listItem];
 		completion(result);
+	}
+}
+
+- (void)getListRevisionWithCompletion:(void(^)(int32_t revision))completion
+{
+	if (completion) {
+		int32_t revision = [self getListRevision];
+		completion(revision);
+	}
+}
+
+- (void)getListWithCompletion:(void(^)(List *list))completion
+{
+	if (completion) {
+		List *list = [self getList];
+		completion(list);
 	}
 }
 
 #pragma mark ListAppAPI
 
-- (BOOL)addListItem:(ListItem *)listItem
+- (int32_t)addListItem:(ListItem *)listItem
 {
-	self.listAppState.listItems = [self.listAppState.listItems arrayByAddingObject:listItem.text];
-	return NO;
+	[self.list.listItems addObject:listItem];
+	self.list.revision = self.list.revision + 1;
+	return self.list.revision;
+}
+
+- (int32_t)getListRevision
+{
+	return self.list.revision;
+}
+
+- (List *)getList
+{
+	return self.list;
 }
 
 #pragma mark MCSServerDelegate
@@ -77,7 +104,8 @@
 	TNSStreamTransport *transport = [[TNSStreamTransport alloc] initWithInputStream:inputStream outputStream:outputStream];
 	TBinaryProtocol *protocol = [[TBinaryProtocol alloc] initWithTransport:transport strictRead:YES strictWrite:YES];
 	ListAppAPIProcessor *processor = [[ListAppAPIProcessor alloc] initWithListAppAPI:self];
-	
+	[self addProcessor:processor forPeer:peerID];
+
 	@try {
 		BOOL result = NO;
 		do {
@@ -89,8 +117,6 @@
 	@catch (TTransportException *exception) {
 		NSLog(@"Caught transport exception, abandoning client connection: %@", exception);
 	}
-	
-	[self addProcessor:processor forPeer:peerID];
 }
 
 @end

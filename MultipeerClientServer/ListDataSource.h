@@ -8,10 +8,10 @@
 
 @import Foundation;
 
-@class ListAppState;
+@class List;
 
 @interface ListDataSource : NSObject
 
-- (id)initWithCollectionView:(UICollectionView *)collectionView listAppState:(ListAppState *)listAppState;
+- (id)initWithCollectionView:(UICollectionView *)collectionView list:(List *)list;
 
 @end

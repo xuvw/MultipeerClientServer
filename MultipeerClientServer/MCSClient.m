@@ -81,13 +81,19 @@ static void *ConnectedContext = &ConnectedContext;
 - (void)createStreamToHostWithCompletion:(void(^)(NSInputStream *inputStream, NSOutputStream *outputStream))completion
 {
 	NSString *uuid = [[NSUUID UUID] UUIDString];
-	
 	NSError *error = nil;
 	NSOutputStream *outputStream = [self.session startStreamWithName:uuid toPeer:self.hostPeerID error:&error];
-	outputStream.delegate = self;
-	[outputStream open];
-	MCSStreamRequest *request = [[MCSStreamRequest alloc] initWithOutputStream:outputStream completion:completion];
-	self.streamRequests[ uuid ] = request;
+	if (error || !outputStream) {
+		NSLog(@"Error: %@", error.localizedDescription);
+	}
+	else {
+		NSLog(@"Client: started stream named %@ with host %@", uuid, self.hostPeerID.displayName);
+		
+		outputStream.delegate = self;
+		[outputStream open];
+		MCSStreamRequest *request = [[MCSStreamRequest alloc] initWithOutputStream:outputStream completion:completion];
+		self.streamRequests[ uuid ] = request;
+	}
 }
 
 #pragma mark MCSessionDelegate

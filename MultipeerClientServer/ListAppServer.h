@@ -8,10 +8,9 @@
 
 #import "MCSServer.h"
 #import "ListAppAsyncAPI.h"
-#import "ListAppState.h"
 
 @interface ListAppServer : MCSServer <ListAppAsyncAPI>
 
-- (id)initWithServiceType:(NSString *)serviceType listAppState:(ListAppState *)listAppState;
+- (id)initWithServiceType:(NSString *)serviceType list:(List *)list;
 
 @end

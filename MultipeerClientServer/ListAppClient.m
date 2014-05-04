@@ -17,6 +17,7 @@ static void *ConnectedContext = &ConnectedContext;
 
 @property (nonatomic, strong) NSMutableSet *clients;
 @property (nonatomic, strong) NSMutableSet *activeClients;
+@property (nonatomic, strong) NSOperation *listPollingOperation;
 @property (nonatomic, strong) NSOperationQueue *operationQueue;
 @property (nonatomic, assign) NSUInteger maxConcurrentOperationCount;
 
@@ -81,21 +82,78 @@ static void *ConnectedContext = &ConnectedContext;
 
 #pragma mark ListAppAsyncAPI
 
-- (void)addListItem:(ListItem *)listItem withCompletion:(void(^)(BOOL success))completion;
+- (void)addListItem:(ListItem *)listItem withCompletion:(void(^)(int32_t revision))completion
 {
-	ListAppAPIClient *client = [self dequeueClient];
-	NSBlockOperation *operation = [NSBlockOperation blockOperationWithBlock:^{
-		BOOL result = [client addListItem:listItem];
-		if (completion) {
-			completion(result);
+	if (completion) {
+		ListAppAPIClient *client = [self dequeueClient];
+		if (!client) {
+			completion(0);
 		}
-	}];
-	
-	operation.completionBlock = ^{
-		[self.clients addObject:client];
-	};
-	
-	[self.operationQueue addOperation:operation];
+		else {
+			NSBlockOperation *operation = [NSBlockOperation blockOperationWithBlock:^{
+				int32_t result = [client addListItem:listItem];
+				completion(result);
+			}];
+			
+			operation.completionBlock = ^{
+				dispatch_async(dispatch_get_main_queue(), ^{
+					[self.clients addObject:client];
+				});
+			};
+			
+			[self.operationQueue addOperation:operation];
+		}
+	}
+}
+
+- (void)getListRevisionWithCompletion:(void(^)(int32_t revision))completion
+{
+	if (completion) {
+		ListAppAPIClient *client = [self dequeueClient];
+		if (!client) {
+			completion(0);
+		}
+		else {
+			NSBlockOperation *operation = [NSBlockOperation blockOperationWithBlock:^{
+				int32_t revision = [client getListRevision];
+				completion(revision);
+			}];
+			
+			operation.completionBlock = ^{
+				dispatch_async(dispatch_get_main_queue(), ^{
+					[self.clients addObject:client];
+				});
+			};
+			
+			[self.operationQueue addOperation:operation];
+		}
+	}
+}
+
+- (void)getListWithCompletion:(void(^)(List *list))completion
+{
+	if (completion) {
+		dispatch_async(dispatch_get_main_queue(), ^{
+			ListAppAPIClient *client = [self dequeueClient];
+			if (!client) {
+				completion(nil);
+			}
+			else {
+				NSBlockOperation *operation = [NSBlockOperation blockOperationWithBlock:^{
+					List *list = [client getList];
+					if (completion) {
+						completion(list);
+					}
+				}];
+				
+				operation.completionBlock = ^{
+					[self.clients addObject:client];
+				};
+				
+				[self.operationQueue addOperation:operation];
+			}
+		});
+	}
 }
 
 @end

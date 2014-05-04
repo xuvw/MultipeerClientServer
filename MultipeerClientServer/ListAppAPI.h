@@ -42,8 +42,45 @@
 
 @end
 
+@interface List : NSObject <TBase, NSCoding> {
+  int32_t __revision;
+  NSMutableArray * __listItems;
+
+  BOOL __revision_isset;
+  BOOL __listItems_isset;
+}
+
+#if TARGET_OS_IPHONE || (MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5)
+@property (nonatomic, getter=revision, setter=setRevision:) int32_t revision;
+@property (nonatomic, retain, getter=listItems, setter=setListItems:) NSMutableArray * listItems;
+#endif
+
+- (id) init;
+- (id) initWithRevision: (int32_t) revision listItems: (NSMutableArray *) listItems;
+
+- (void) read: (id <TProtocol>) inProtocol;
+- (void) write: (id <TProtocol>) outProtocol;
+
+- (void) validate;
+
+#if !__has_feature(objc_arc)
+- (int32_t) revision;
+- (void) setRevision: (int32_t) revision;
+#endif
+- (BOOL) revisionIsSet;
+
+#if !__has_feature(objc_arc)
+- (NSMutableArray *) listItems;
+- (void) setListItems: (NSMutableArray *) listItems;
+#endif
+- (BOOL) listItemsIsSet;
+
+@end
+
 @protocol ListAppAPI <NSObject>
-- (BOOL) addListItem: (ListItem *) listItem;  // throws TException
+- (int32_t) addListItem: (ListItem *) listItem;  // throws TException
+- (int32_t) getListRevision;  // throws TException
+- (List *) getList;  // throws TException
 @end
 
 @interface ListAppAPIClient : NSObject <ListAppAPI> {
