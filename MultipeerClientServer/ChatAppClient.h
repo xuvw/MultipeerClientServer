@@ -1,5 +1,5 @@
 //
-//  ListAppClient.h
+//  ChatAppClient.h
 //  MultipeerClientServer
 //
 //  Created by Mark Stultz on 4/30/14.
@@ -7,9 +7,9 @@
 //
 
 #import "MCSClient.h"
-#import "ListAppAsyncAPI.h"
+#import "ChatAppAsyncAPI.h"
 
-@interface ListAppClient : MCSClient <ListAppAsyncAPI>
+@interface ChatAppClient : MCSClient <ChatAppAsyncAPI>
 
 - (id)initWithServiceType:(NSString *)serviceType maxConcurrentOperationCount:(NSUInteger)maxConcurrentOperationCount;
 

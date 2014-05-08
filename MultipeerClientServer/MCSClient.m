@@ -18,7 +18,7 @@ static void *ConnectedContext = &ConnectedContext;
 @property (nonatomic, strong) NSArray *nearbyServers;
 @property (nonatomic, strong) MCPeerID *hostPeerID;
 @property (nonatomic, assign) BOOL connected;
-@property (nonatomic, strong) void (^onConnectBlock)(void);
+@property (nonatomic, copy) void (^onConnectBlock)(void);
 @property (nonatomic, strong) NSMutableDictionary *streamRequests;
 
 @end

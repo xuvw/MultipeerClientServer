@@ -29,13 +29,17 @@
 		D868023018FE344A0035CE60 /* ServerBrowserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D868022C18FE344A0035CE60 /* ServerBrowserViewController.m */; };
 		D868023518FE34540035CE60 /* NearbyServersDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = D868023118FE34540035CE60 /* NearbyServersDataSource.m */; };
 		D868023618FE34540035CE60 /* UILabelCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D868023418FE34540035CE60 /* UILabelCollectionViewCell.m */; };
-		D8AB854E190754150030F19A /* ListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D8AB854D190754150030F19A /* ListViewController.m */; };
-		D8AB8551190754A40030F19A /* ListDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = D8AB8550190754A40030F19A /* ListDataSource.m */; };
-		D8AB857B190D8B9E0030F19A /* ListAppAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = D8AB8579190D8B9E0030F19A /* ListAppAPI.m */; };
-		D8AB857C190D8B9E0030F19A /* ListAppAPI.thrift in Resources */ = {isa = PBXBuildFile; fileRef = D8AB857A190D8B9E0030F19A /* ListAppAPI.thrift */; };
+		D8AB8551190754A40030F19A /* ChatDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = D8AB8550190754A40030F19A /* ChatDataSource.m */; };
+		D8AB857B190D8B9E0030F19A /* ChatAppAPI.m in Sources */ = {isa = PBXBuildFile; fileRef = D8AB8579190D8B9E0030F19A /* ChatAppAPI.m */; };
+		D8AB857C190D8B9E0030F19A /* ChatAppAPI.thrift in Resources */ = {isa = PBXBuildFile; fileRef = D8AB857A190D8B9E0030F19A /* ChatAppAPI.thrift */; };
 		D8AB8582190F69C60030F19A /* MCSStreamRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = D8AB8581190F69C60030F19A /* MCSStreamRequest.m */; };
-		D8B3D9F21911DE4F00368238 /* ListAppServer.m in Sources */ = {isa = PBXBuildFile; fileRef = D8B3D9F11911DE4F00368238 /* ListAppServer.m */; };
-		D8B3D9F61911FCD700368238 /* ListAppClient.m in Sources */ = {isa = PBXBuildFile; fileRef = D8B3D9F51911FCD700368238 /* ListAppClient.m */; };
+		D8B3D9F21911DE4F00368238 /* ChatAppServer.m in Sources */ = {isa = PBXBuildFile; fileRef = D8B3D9F11911DE4F00368238 /* ChatAppServer.m */; };
+		D8B3D9F61911FCD700368238 /* ChatAppClient.m in Sources */ = {isa = PBXBuildFile; fileRef = D8B3D9F51911FCD700368238 /* ChatAppClient.m */; };
+		D8B3D9FA1917659B00368238 /* ChatInputView.m in Sources */ = {isa = PBXBuildFile; fileRef = D8B3D9F91917659B00368238 /* ChatInputView.m */; };
+		D8B3D9FD191765B000368238 /* ChatInputController.m in Sources */ = {isa = PBXBuildFile; fileRef = D8B3D9FC191765B000368238 /* ChatInputController.m */; };
+		D8B3DA001918AD3300368238 /* ChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D8B3D9FF1918AD3300368238 /* ChatViewController.m */; };
+		D8B3DA031918AE7300368238 /* ChatController.m in Sources */ = {isa = PBXBuildFile; fileRef = D8B3DA021918AE7300368238 /* ChatController.m */; };
+		D8B3DA071919C71200368238 /* ChatInputView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D8B3DA061919C71200368238 /* ChatInputView.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -84,20 +88,27 @@
 		D868023218FE34540035CE60 /* ServerBrowserViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServerBrowserViewController.h; sourceTree = "<group>"; };
 		D868023318FE34540035CE60 /* UILabelCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UILabelCollectionViewCell.h; sourceTree = "<group>"; };
 		D868023418FE34540035CE60 /* UILabelCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UILabelCollectionViewCell.m; sourceTree = "<group>"; };
-		D8AB854C190754150030F19A /* ListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ListViewController.h; sourceTree = "<group>"; };
-		D8AB854D190754150030F19A /* ListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ListViewController.m; sourceTree = "<group>"; };
-		D8AB854F190754A40030F19A /* ListDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ListDataSource.h; sourceTree = "<group>"; };
-		D8AB8550190754A40030F19A /* ListDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ListDataSource.m; sourceTree = "<group>"; };
-		D8AB8578190D8B9E0030F19A /* ListAppAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ListAppAPI.h; sourceTree = "<group>"; };
-		D8AB8579190D8B9E0030F19A /* ListAppAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ListAppAPI.m; sourceTree = "<group>"; };
-		D8AB857A190D8B9E0030F19A /* ListAppAPI.thrift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ListAppAPI.thrift; sourceTree = "<group>"; };
+		D8AB854F190754A40030F19A /* ChatDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatDataSource.h; sourceTree = "<group>"; };
+		D8AB8550190754A40030F19A /* ChatDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatDataSource.m; sourceTree = "<group>"; };
+		D8AB8578190D8B9E0030F19A /* ChatAppAPI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatAppAPI.h; sourceTree = "<group>"; };
+		D8AB8579190D8B9E0030F19A /* ChatAppAPI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatAppAPI.m; sourceTree = "<group>"; };
+		D8AB857A190D8B9E0030F19A /* ChatAppAPI.thrift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ChatAppAPI.thrift; sourceTree = "<group>"; };
 		D8AB8580190F69C60030F19A /* MCSStreamRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCSStreamRequest.h; sourceTree = "<group>"; };
 		D8AB8581190F69C60030F19A /* MCSStreamRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCSStreamRequest.m; sourceTree = "<group>"; };
-		D8B3D9F01911DE4F00368238 /* ListAppServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ListAppServer.h; sourceTree = "<group>"; };
-		D8B3D9F11911DE4F00368238 /* ListAppServer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ListAppServer.m; sourceTree = "<group>"; };
-		D8B3D9F41911FCD700368238 /* ListAppClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ListAppClient.h; sourceTree = "<group>"; };
-		D8B3D9F51911FCD700368238 /* ListAppClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ListAppClient.m; sourceTree = "<group>"; };
-		D8B3D9F71912110600368238 /* ListAppAsyncAPI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ListAppAsyncAPI.h; sourceTree = "<group>"; };
+		D8B3D9F01911DE4F00368238 /* ChatAppServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatAppServer.h; sourceTree = "<group>"; };
+		D8B3D9F11911DE4F00368238 /* ChatAppServer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatAppServer.m; sourceTree = "<group>"; };
+		D8B3D9F41911FCD700368238 /* ChatAppClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatAppClient.h; sourceTree = "<group>"; };
+		D8B3D9F51911FCD700368238 /* ChatAppClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatAppClient.m; sourceTree = "<group>"; };
+		D8B3D9F71912110600368238 /* ChatAppAsyncAPI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ChatAppAsyncAPI.h; sourceTree = "<group>"; };
+		D8B3D9F81917659B00368238 /* ChatInputView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatInputView.h; sourceTree = "<group>"; };
+		D8B3D9F91917659B00368238 /* ChatInputView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatInputView.m; sourceTree = "<group>"; };
+		D8B3D9FB191765B000368238 /* ChatInputController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatInputController.h; sourceTree = "<group>"; };
+		D8B3D9FC191765B000368238 /* ChatInputController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatInputController.m; sourceTree = "<group>"; };
+		D8B3D9FE1918AD3300368238 /* ChatViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatViewController.h; sourceTree = "<group>"; };
+		D8B3D9FF1918AD3300368238 /* ChatViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatViewController.m; sourceTree = "<group>"; };
+		D8B3DA011918AE7300368238 /* ChatController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatController.h; sourceTree = "<group>"; };
+		D8B3DA021918AE7300368238 /* ChatController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatController.m; sourceTree = "<group>"; };
+		D8B3DA061919C71200368238 /* ChatInputView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChatInputView.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -199,8 +210,12 @@
 		D868023718FE34570035CE60 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				D8AB854C190754150030F19A /* ListViewController.h */,
-				D8AB854D190754150030F19A /* ListViewController.m */,
+				D8B3DA011918AE7300368238 /* ChatController.h */,
+				D8B3DA021918AE7300368238 /* ChatController.m */,
+				D8B3D9FB191765B000368238 /* ChatInputController.h */,
+				D8B3D9FC191765B000368238 /* ChatInputController.m */,
+				D8B3D9FE1918AD3300368238 /* ChatViewController.h */,
+				D8B3D9FF1918AD3300368238 /* ChatViewController.m */,
 				D868020218FE32C90035CE60 /* Main.storyboard */,
 				D868023218FE34540035CE60 /* ServerBrowserViewController.h */,
 				D868022C18FE344A0035CE60 /* ServerBrowserViewController.m */,
@@ -230,6 +245,9 @@
 		D868023918FE34840035CE60 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				D8B3D9F81917659B00368238 /* ChatInputView.h */,
+				D8B3D9F91917659B00368238 /* ChatInputView.m */,
+				D8B3DA061919C71200368238 /* ChatInputView.xib */,
 				D868023318FE34540035CE60 /* UILabelCollectionViewCell.h */,
 				D868023418FE34540035CE60 /* UILabelCollectionViewCell.m */,
 			);
@@ -251,30 +269,30 @@
 		D8AB856B1908C6450030F19A /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				D8B3D9F31911ECBF00368238 /* ListApp */,
+				D8B3D9F31911ECBF00368238 /* ChatApp */,
 				D86801FF18FE32C90035CE60 /* AppDelegate.h */,
 				D868020018FE32C90035CE60 /* AppDelegate.m */,
-				D8AB854F190754A40030F19A /* ListDataSource.h */,
-				D8AB8550190754A40030F19A /* ListDataSource.m */,
+				D8AB854F190754A40030F19A /* ChatDataSource.h */,
+				D8AB8550190754A40030F19A /* ChatDataSource.m */,
 				D868022B18FE344A0035CE60 /* NearbyServersDataSource.h */,
 				D868023118FE34540035CE60 /* NearbyServersDataSource.m */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
 		};
-		D8B3D9F31911ECBF00368238 /* ListApp */ = {
+		D8B3D9F31911ECBF00368238 /* ChatApp */ = {
 			isa = PBXGroup;
 			children = (
-				D8AB8578190D8B9E0030F19A /* ListAppAPI.h */,
-				D8AB8579190D8B9E0030F19A /* ListAppAPI.m */,
-				D8AB857A190D8B9E0030F19A /* ListAppAPI.thrift */,
-				D8B3D9F71912110600368238 /* ListAppAsyncAPI.h */,
-				D8B3D9F41911FCD700368238 /* ListAppClient.h */,
-				D8B3D9F51911FCD700368238 /* ListAppClient.m */,
-				D8B3D9F01911DE4F00368238 /* ListAppServer.h */,
-				D8B3D9F11911DE4F00368238 /* ListAppServer.m */,
+				D8AB8578190D8B9E0030F19A /* ChatAppAPI.h */,
+				D8AB8579190D8B9E0030F19A /* ChatAppAPI.m */,
+				D8AB857A190D8B9E0030F19A /* ChatAppAPI.thrift */,
+				D8B3D9F71912110600368238 /* ChatAppAsyncAPI.h */,
+				D8B3D9F41911FCD700368238 /* ChatAppClient.h */,
+				D8B3D9F51911FCD700368238 /* ChatAppClient.m */,
+				D8B3D9F01911DE4F00368238 /* ChatAppServer.h */,
+				D8B3D9F11911DE4F00368238 /* ChatAppServer.m */,
 			);
-			name = ListApp;
+			name = ChatApp;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -355,9 +373,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D8B3DA071919C71200368238 /* ChatInputView.xib in Resources */,
 				D868020918FE32C90035CE60 /* Images.xcassets in Resources */,
 				D86801FB18FE32C90035CE60 /* InfoPlist.strings in Resources */,
-				D8AB857C190D8B9E0030F19A /* ListAppAPI.thrift in Resources */,
+				D8AB857C190D8B9E0030F19A /* ChatAppAPI.thrift in Resources */,
 				D868020418FE32C90035CE60 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -411,20 +430,23 @@
 			buildActionMask = 2147483647;
 			files = (
 				D846F4F61903942C003792AC /* MCSClient.m in Sources */,
-				D8AB854E190754150030F19A /* ListViewController.m in Sources */,
-				D8B3D9F21911DE4F00368238 /* ListAppServer.m in Sources */,
+				D8B3D9F21911DE4F00368238 /* ChatAppServer.m in Sources */,
+				D8B3DA031918AE7300368238 /* ChatController.m in Sources */,
 				D868020718FE32C90035CE60 /* ViewController.m in Sources */,
 				D8AB8582190F69C60030F19A /* MCSStreamRequest.m in Sources */,
 				D846F4F3190391AF003792AC /* MCSPeer.m in Sources */,
-				D8AB8551190754A40030F19A /* ListDataSource.m in Sources */,
+				D8AB8551190754A40030F19A /* ChatDataSource.m in Sources */,
 				D846F4F919039613003792AC /* MCSServer.m in Sources */,
 				D868020118FE32C90035CE60 /* AppDelegate.m in Sources */,
 				D868023518FE34540035CE60 /* NearbyServersDataSource.m in Sources */,
 				D868023018FE344A0035CE60 /* ServerBrowserViewController.m in Sources */,
+				D8B3D9FA1917659B00368238 /* ChatInputView.m in Sources */,
+				D8B3D9FD191765B000368238 /* ChatInputController.m in Sources */,
+				D8B3DA001918AD3300368238 /* ChatViewController.m in Sources */,
 				D868022F18FE344A0035CE60 /* MCSNearbyServer.m in Sources */,
 				D86801FD18FE32C90035CE60 /* main.m in Sources */,
-				D8AB857B190D8B9E0030F19A /* ListAppAPI.m in Sources */,
-				D8B3D9F61911FCD700368238 /* ListAppClient.m in Sources */,
+				D8AB857B190D8B9E0030F19A /* ChatAppAPI.m in Sources */,
+				D8B3D9F61911FCD700368238 /* ChatAppClient.m in Sources */,
 				D868023618FE34540035CE60 /* UILabelCollectionViewCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

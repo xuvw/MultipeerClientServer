@@ -1,34 +1,35 @@
 //
-//  ListDataSource.m
+//  ChatDataSource.m
 //  MultipeerClientServer
 //
 //  Created by Mark Stultz on 4/22/14.
 //  Copyright (c) 2014 Mark Stultz. All rights reserved.
 //
 
-#import "ListDataSource.h"
-#import "ListAppAPI.h"
+#import "ChatDataSource.h"
+#import "ChatAppAPI.h"
 #import "UILabelCollectionViewCell.h"
 
-static void *ListItemsContext = &ListItemsContext;
+static void *ChatRevisionContext = &ChatRevisionContext;
 
-@interface ListDataSource () <UICollectionViewDataSource>
+@interface ChatDataSource () <UICollectionViewDataSource>
 
 @property (nonatomic, strong) UICollectionView *collectionView;
-@property (nonatomic, strong) List *list;
+@property (nonatomic, strong) Chat *chat;
+
 @end
 
-@implementation ListDataSource
+@implementation ChatDataSource
 
-- (id)initWithCollectionView:(UICollectionView *)collectionView list:(List *)list
+- (id)initWithCollectionView:(UICollectionView *)collectionView chat:(Chat *)chat
 {
 	self = [super init];
 	if (self) {
 		self.collectionView = collectionView;
 		self.collectionView.dataSource = self;
 
-		self.list = list;
-		[self.list addObserver:self forKeyPath:@"revision" options:NSKeyValueObservingOptionNew context:ListItemsContext];
+		self.chat = chat;
+		[self.chat addObserver:self forKeyPath:@"revision" options:NSKeyValueObservingOptionNew context:ChatRevisionContext];
 	}
 	
 	return self;
@@ -36,12 +37,12 @@ static void *ListItemsContext = &ListItemsContext;
 
 - (void)dealloc
 {
-	[self.list removeObserver:self forKeyPath:@"revision"];
+	[self.chat removeObserver:self forKeyPath:@"revision"];
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
-	if (context == ListItemsContext) {
+	if (context == ChatRevisionContext) {
 		dispatch_async(dispatch_get_main_queue(), ^{
 			[self.collectionView reloadData];
 		});
@@ -55,17 +56,17 @@ static void *ListItemsContext = &ListItemsContext;
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-	return self.list.listItems.count;
+	return self.chat.messages.count;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-	UILabelCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"listItemCell" forIndexPath:indexPath];
+	UILabelCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"chatMessageCell" forIndexPath:indexPath];
 	if (cell) {
 		NSString *text = @"Invalid";
-		if (indexPath.row < self.list.listItems.count) {
-			ListItem *listItem = self.list.listItems[ indexPath.row ];
-			text = listItem.text;
+		if (indexPath.row < self.chat.messages.count) {
+			Message *message = self.chat.messages[ indexPath.row ];
+			text = message.text;
 		}
 		
 		cell.label.text = text;

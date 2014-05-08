@@ -16,7 +16,7 @@
 #import "TBase.h"
 
 
-@interface ListItem : NSObject <TBase, NSCoding> {
+@interface Message : NSObject <TBase, NSCoding> {
   NSString * __text;
 
   BOOL __text_isset;
@@ -42,21 +42,21 @@
 
 @end
 
-@interface List : NSObject <TBase, NSCoding> {
+@interface Chat : NSObject <TBase, NSCoding> {
   int32_t __revision;
-  NSMutableArray * __listItems;
+  NSMutableArray * __messages;
 
   BOOL __revision_isset;
-  BOOL __listItems_isset;
+  BOOL __messages_isset;
 }
 
 #if TARGET_OS_IPHONE || (MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5)
 @property (nonatomic, getter=revision, setter=setRevision:) int32_t revision;
-@property (nonatomic, retain, getter=listItems, setter=setListItems:) NSMutableArray * listItems;
+@property (nonatomic, retain, getter=messages, setter=setMessages:) NSMutableArray * messages;
 #endif
 
 - (id) init;
-- (id) initWithRevision: (int32_t) revision listItems: (NSMutableArray *) listItems;
+- (id) initWithRevision: (int32_t) revision messages: (NSMutableArray *) messages;
 
 - (void) read: (id <TProtocol>) inProtocol;
 - (void) write: (id <TProtocol>) outProtocol;
@@ -70,20 +70,20 @@
 - (BOOL) revisionIsSet;
 
 #if !__has_feature(objc_arc)
-- (NSMutableArray *) listItems;
-- (void) setListItems: (NSMutableArray *) listItems;
+- (NSMutableArray *) messages;
+- (void) setMessages: (NSMutableArray *) messages;
 #endif
-- (BOOL) listItemsIsSet;
+- (BOOL) messagesIsSet;
 
 @end
 
-@protocol ListAppAPI <NSObject>
-- (int32_t) addListItem: (ListItem *) listItem;  // throws TException
-- (int32_t) getListRevision;  // throws TException
-- (List *) getList;  // throws TException
+@protocol ChatAppAPI <NSObject>
+- (int32_t) addMessage: (Message *) message;  // throws TException
+- (int32_t) getChatRevision;  // throws TException
+- (Chat *) getChat;  // throws TException
 @end
 
-@interface ListAppAPIClient : NSObject <ListAppAPI> {
+@interface ChatAppAPIClient : NSObject <ChatAppAPI> {
   id <TProtocol> inProtocol;
   id <TProtocol> outProtocol;
 }
@@ -91,14 +91,14 @@
 - (id) initWithInProtocol: (id <TProtocol>) inProtocol outProtocol: (id <TProtocol>) outProtocol;
 @end
 
-@interface ListAppAPIProcessor : NSObject <TProcessor> {
-  id <ListAppAPI> mService;
+@interface ChatAppAPIProcessor : NSObject <TProcessor> {
+  id <ChatAppAPI> mService;
   NSDictionary * mMethodMap;
 }
-- (id) initWithListAppAPI: (id <ListAppAPI>) service;
-- (id<ListAppAPI>) service;
+- (id) initWithChatAppAPI: (id <ChatAppAPI>) service;
+- (id<ChatAppAPI>) service;
 @end
 
-@interface ListAppAPIConstants : NSObject {
+@interface ChatAppAPIConstants : NSObject {
 }
 @end

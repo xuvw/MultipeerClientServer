@@ -1,5 +1,5 @@
 //
-//  ListDataSource.h
+//  ChatDataSource.h
 //  MultipeerClientServer
 //
 //  Created by Mark Stultz on 4/22/14.
@@ -8,10 +8,10 @@
 
 @import Foundation;
 
-@class List;
+@class Chat;
 
-@interface ListDataSource : NSObject
+@interface ChatDataSource : NSObject
 
-- (id)initWithCollectionView:(UICollectionView *)collectionView list:(List *)list;
+- (id)initWithCollectionView:(UICollectionView *)collectionView chat:(Chat *)chat;
 
 @end

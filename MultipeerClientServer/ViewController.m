@@ -7,17 +7,17 @@
 //
 
 #import "ViewController.h"
-#import "ListAppClient.h"
-#import "ListAppServer.h"
-#import "ListAppAPI.h"
+#import "ChatAppClient.h"
+#import "ChatAppServer.h"
+#import "ChatAppAPI.h"
 #import "ServerBrowserViewController.h"
-#import "ListViewController.h"
+#import "ChatViewController.h"
 
 @interface ViewController () <ServerBrowserViewControllerDelegate>
 
-@property (nonatomic, strong) ListAppClient *client;
-@property (nonatomic, strong) ListAppServer *server;
-@property (nonatomic, strong) List *list;
+@property (nonatomic, strong) ChatAppClient *client;
+@property (nonatomic, strong) ChatAppServer *server;
+@property (nonatomic, strong) Chat *chat;
 
 - (IBAction)startClient:(id)sender;
 - (IBAction)startServer:(id)sender;
@@ -30,7 +30,7 @@
 {
 	[super viewDidLoad];
 	
-	self.list = [[List alloc] initWithRevision:0 listItems:[NSMutableArray array]];
+	self.chat = [[Chat alloc] initWithRevision:0 messages:[NSMutableArray array]];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
@@ -42,23 +42,23 @@
 	}
 	else if ([segue.identifier isEqualToString:@"startServerSegue"]
 				|| [segue.identifier isEqualToString:@"joinServerSegue"]) {
-		ListViewController *viewController = segue.destinationViewController;
-		viewController.listAppAPI = self.server ? self.server : self.client;
-		viewController.list = self.list;
+		ChatViewController *viewController = segue.destinationViewController;
+		viewController.chatAppAPI = self.server ? self.server : self.client;
+		viewController.chat = self.chat;
 	}
 }
 
 - (IBAction)startClient:(id)sender
 {
-	self.list = [[List alloc] initWithRevision:0 listItems:[NSMutableArray array]];
-	self.client = [[ListAppClient alloc] initWithServiceType:@"ms-multilist" maxConcurrentOperationCount:3];
+	self.chat = [[Chat alloc] initWithRevision:0 messages:[NSMutableArray array]];
+	self.client = [[ChatAppClient alloc] initWithServiceType:@"ms-multichat" maxConcurrentOperationCount:3];
 	[self performSegueWithIdentifier:@"startClientSegue" sender:sender];
 }
 
 - (IBAction)startServer:(id)sender
 {
-	self.list = [[List alloc] initWithRevision:0 listItems:[NSMutableArray array]];
-	self.server = [[ListAppServer alloc] initWithServiceType:@"ms-multilist" list:self.list];
+	self.chat = [[Chat alloc] initWithRevision:0 messages:[NSMutableArray array]];
+	self.server = [[ChatAppServer alloc] initWithServiceType:@"ms-multichat" chat:self.chat];
 	[self performSegueWithIdentifier:@"startServerSegue" sender:sender];
 }
 

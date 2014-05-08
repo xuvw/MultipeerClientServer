@@ -1,32 +1,32 @@
 //
-//  ListAppClient.m
+//  ChatAppClient.m
 //  MultipeerClientServer
 //
 //  Created by Mark Stultz on 4/30/14.
 //  Copyright (c) 2014 Mark Stultz. All rights reserved.
 //
 
-#import "ListAppClient.h"
-#import "ListAppAPI.h"
+#import "ChatAppClient.h"
+#import "ChatAppAPI.h"
 #import "TBinaryProtocol.h"
 #import "TNSStreamTransport.h"
 
 static void *ConnectedContext = &ConnectedContext;
 
-@interface ListAppClient ()
+@interface ChatAppClient ()
 
 @property (nonatomic, strong) NSMutableSet *clients;
 @property (nonatomic, strong) NSMutableSet *activeClients;
-@property (nonatomic, strong) NSOperation *listPollingOperation;
+@property (nonatomic, strong) NSOperation *chatPollingOperation;
 @property (nonatomic, strong) NSOperationQueue *operationQueue;
 @property (nonatomic, assign) NSUInteger maxConcurrentOperationCount;
 
 - (void)createStreams;
-- (ListAppAPIClient *)dequeueClient;
+- (ChatAppAPIClient *)dequeueClient;
 
 @end
 
-@implementation ListAppClient
+@implementation ChatAppClient
 
 - (id)initWithServiceType:(NSString *)serviceType maxConcurrentOperationCount:(NSUInteger)maxConcurrentOperationCount
 {
@@ -62,16 +62,16 @@ static void *ConnectedContext = &ConnectedContext;
 		[self createStreamToHostWithCompletion:^(NSInputStream *inputStream, NSOutputStream *outputStream) {
 			TNSStreamTransport *transport = [[TNSStreamTransport alloc] initWithInputStream:inputStream outputStream:outputStream];
 			TBinaryProtocol *protocol = [[TBinaryProtocol alloc] initWithTransport:transport strictRead:YES strictWrite:YES];
-			ListAppAPIClient *client = [[ListAppAPIClient alloc] initWithProtocol:protocol];
+			ChatAppAPIClient *client = [[ChatAppAPIClient alloc] initWithProtocol:protocol];
 			[self.clients addObject:client];
 			self.operationQueue.maxConcurrentOperationCount = self.clients.count;
 		}];
 	}
 }
 
-- (ListAppAPIClient *)dequeueClient
+- (ChatAppAPIClient *)dequeueClient
 {
-	ListAppAPIClient *client = self.clients.anyObject;
+	ChatAppAPIClient *client = self.clients.anyObject;
 	if (client) {
 		[self.activeClients addObject:client];
 		[self.clients removeObject:client];
@@ -80,18 +80,18 @@ static void *ConnectedContext = &ConnectedContext;
 	return client;
 }
 
-#pragma mark ListAppAsyncAPI
+#pragma mark ChatAppAsyncAPI
 
-- (void)addListItem:(ListItem *)listItem withCompletion:(void(^)(int32_t revision))completion
+- (void)addMessage:(Message *)message withCompletion:(void(^)(int32_t revision))completion
 {
 	if (completion) {
-		ListAppAPIClient *client = [self dequeueClient];
+		ChatAppAPIClient *client = [self dequeueClient];
 		if (!client) {
 			completion(0);
 		}
 		else {
 			NSBlockOperation *operation = [NSBlockOperation blockOperationWithBlock:^{
-				int32_t result = [client addListItem:listItem];
+				int32_t result = [client addMessage:message];
 				completion(result);
 			}];
 			
@@ -106,16 +106,16 @@ static void *ConnectedContext = &ConnectedContext;
 	}
 }
 
-- (void)getListRevisionWithCompletion:(void(^)(int32_t revision))completion
+- (void)getChatRevisionWithCompletion:(void(^)(int32_t revision))completion
 {
 	if (completion) {
-		ListAppAPIClient *client = [self dequeueClient];
+		ChatAppAPIClient *client = [self dequeueClient];
 		if (!client) {
 			completion(0);
 		}
 		else {
 			NSBlockOperation *operation = [NSBlockOperation blockOperationWithBlock:^{
-				int32_t revision = [client getListRevision];
+				int32_t revision = [client getChatRevision];
 				completion(revision);
 			}];
 			
@@ -130,19 +130,19 @@ static void *ConnectedContext = &ConnectedContext;
 	}
 }
 
-- (void)getListWithCompletion:(void(^)(List *list))completion
+- (void)getChatWithCompletion:(void(^)(Chat *chat))completion
 {
 	if (completion) {
 		dispatch_async(dispatch_get_main_queue(), ^{
-			ListAppAPIClient *client = [self dequeueClient];
+			ChatAppAPIClient *client = [self dequeueClient];
 			if (!client) {
 				completion(nil);
 			}
 			else {
 				NSBlockOperation *operation = [NSBlockOperation blockOperationWithBlock:^{
-					List *list = [client getList];
+					Chat *chat = [client getChat];
 					if (completion) {
-						completion(list);
+						completion(chat);
 					}
 				}];
 				

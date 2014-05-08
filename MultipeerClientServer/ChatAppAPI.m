@@ -16,9 +16,9 @@
 #import "TBase.h"
 
 
-#import "ListAppAPI.h"
+#import "ChatAppAPI.h"
 
-@implementation ListItem
+@implementation Message
 
 - (id) init
 {
@@ -115,7 +115,7 @@
 }
 
 - (void) write: (id <TProtocol>) outProtocol {
-  [outProtocol writeStructBeginWithName: @"ListItem"];
+  [outProtocol writeStructBeginWithName: @"Message"];
   if (__text_isset) {
     if (__text != nil) {
       [outProtocol writeFieldBeginWithName: @"text" type: TType_STRING fieldID: 1];
@@ -136,7 +136,7 @@
 }
 
 - (NSString *) description {
-  NSMutableString * ms = [NSMutableString stringWithString: @"ListItem("];
+  NSMutableString * ms = [NSMutableString stringWithString: @"Message("];
   [ms appendString: @"text:"];
   [ms appendFormat: @"\"%@\"", __text];
   [ms appendString: @")"];
@@ -145,7 +145,7 @@
 
 @end
 
-@implementation List
+@implementation Chat
 
 - (id) init
 {
@@ -155,13 +155,13 @@
   return self;
 }
 
-- (id) initWithRevision: (int32_t) revision listItems: (NSMutableArray *) listItems
+- (id) initWithRevision: (int32_t) revision messages: (NSMutableArray *) messages
 {
   self = [super init];
   __revision = revision;
   __revision_isset = YES;
-  __listItems = [listItems retain_stub];
-  __listItems_isset = YES;
+  __messages = [messages retain_stub];
+  __messages_isset = YES;
   return self;
 }
 
@@ -173,10 +173,10 @@
     __revision = [decoder decodeInt32ForKey: @"revision"];
     __revision_isset = YES;
   }
-  if ([decoder containsValueForKey: @"listItems"])
+  if ([decoder containsValueForKey: @"messages"])
   {
-    __listItems = [[decoder decodeObjectForKey: @"listItems"] retain_stub];
-    __listItems_isset = YES;
+    __messages = [[decoder decodeObjectForKey: @"messages"] retain_stub];
+    __messages_isset = YES;
   }
   return self;
 }
@@ -187,15 +187,15 @@
   {
     [encoder encodeInt32: __revision forKey: @"revision"];
   }
-  if (__listItems_isset)
+  if (__messages_isset)
   {
-    [encoder encodeObject: __listItems forKey: @"listItems"];
+    [encoder encodeObject: __messages forKey: @"messages"];
   }
 }
 
 - (void) dealloc
 {
-  [__listItems release_stub];
+  [__messages release_stub];
   [super dealloc_stub];
 }
 
@@ -216,25 +216,25 @@
   __revision_isset = NO;
 }
 
-- (NSMutableArray *) listItems {
-  return [[__listItems retain_stub] autorelease_stub];
+- (NSMutableArray *) messages {
+  return [[__messages retain_stub] autorelease_stub];
 }
 
-- (void) setListItems: (NSMutableArray *) listItems {
-  [listItems retain_stub];
-  [__listItems release_stub];
-  __listItems = listItems;
-  __listItems_isset = YES;
+- (void) setMessages: (NSMutableArray *) messages {
+  [messages retain_stub];
+  [__messages release_stub];
+  __messages = messages;
+  __messages_isset = YES;
 }
 
-- (BOOL) listItemsIsSet {
-  return __listItems_isset;
+- (BOOL) messagesIsSet {
+  return __messages_isset;
 }
 
-- (void) unsetListItems {
-  [__listItems release_stub];
-  __listItems = nil;
-  __listItems_isset = NO;
+- (void) unsetMessages {
+  [__messages release_stub];
+  __messages = nil;
+  __messages_isset = NO;
 }
 
 - (void) read: (id <TProtocol>) inProtocol
@@ -268,13 +268,13 @@
           int _i1;
           for (_i1 = 0; _i1 < _size0; ++_i1)
           {
-            ListItem *_elem2 = [[ListItem alloc] init];
+            Message *_elem2 = [[Message alloc] init];
             [_elem2 read: inProtocol];
             [fieldValue addObject: _elem2];
             [_elem2 release_stub];
           }
           [inProtocol readListEnd];
-          [self setListItems: fieldValue];
+          [self setMessages: fieldValue];
           [fieldValue release_stub];
         } else { 
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
@@ -290,21 +290,21 @@
 }
 
 - (void) write: (id <TProtocol>) outProtocol {
-  [outProtocol writeStructBeginWithName: @"List"];
+  [outProtocol writeStructBeginWithName: @"Chat"];
   if (__revision_isset) {
     [outProtocol writeFieldBeginWithName: @"revision" type: TType_I32 fieldID: 1];
     [outProtocol writeI32: __revision];
     [outProtocol writeFieldEnd];
   }
-  if (__listItems_isset) {
-    if (__listItems != nil) {
-      [outProtocol writeFieldBeginWithName: @"listItems" type: TType_LIST fieldID: 2];
+  if (__messages_isset) {
+    if (__messages != nil) {
+      [outProtocol writeFieldBeginWithName: @"messages" type: TType_LIST fieldID: 2];
       {
-        [outProtocol writeListBeginWithElementType: TType_STRUCT size: [__listItems count]];
+        [outProtocol writeListBeginWithElementType: TType_STRUCT size: [__messages count]];
         int i4;
-        for (i4 = 0; i4 < [__listItems count]; i4++)
+        for (i4 = 0; i4 < [__messages count]; i4++)
         {
-          [[__listItems objectAtIndex: i4] write: outProtocol];
+          [[__messages objectAtIndex: i4] write: outProtocol];
         }
         [outProtocol writeListEnd];
       }
@@ -321,18 +321,18 @@
     @throw [TProtocolException exceptionWithName: @"TProtocolException"
                                reason: @"Required field 'revision' is not set."];
   }
-  if (!__listItems_isset) {
+  if (!__messages_isset) {
     @throw [TProtocolException exceptionWithName: @"TProtocolException"
-                               reason: @"Required field 'listItems' is not set."];
+                               reason: @"Required field 'messages' is not set."];
   }
 }
 
 - (NSString *) description {
-  NSMutableString * ms = [NSMutableString stringWithString: @"List("];
+  NSMutableString * ms = [NSMutableString stringWithString: @"Chat("];
   [ms appendString: @"revision:"];
   [ms appendFormat: @"%i", __revision];
-  [ms appendString: @",listItems:"];
-  [ms appendFormat: @"%@", __listItems];
+  [ms appendString: @",messages:"];
+  [ms appendFormat: @"%@", __messages];
   [ms appendString: @")"];
   return [NSString stringWithString: ms];
 }
@@ -340,23 +340,23 @@
 @end
 
 
-@implementation ListAppAPIConstants
+@implementation ChatAppAPIConstants
 + (void) initialize {
 }
 @end
 
-@interface addListItem_args : NSObject <TBase, NSCoding> {
-  ListItem * __listItem;
+@interface addMessage_args : NSObject <TBase, NSCoding> {
+  Message * __message;
 
-  BOOL __listItem_isset;
+  BOOL __message_isset;
 }
 
 #if TARGET_OS_IPHONE || (MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5)
-@property (nonatomic, retain, getter=listItem, setter=setListItem:) ListItem * listItem;
+@property (nonatomic, retain, getter=message, setter=setMessage:) Message * message;
 #endif
 
 - (id) init;
-- (id) initWithListItem: (ListItem *) listItem;
+- (id) initWithMessage: (Message *) message;
 
 - (void) read: (id <TProtocol>) inProtocol;
 - (void) write: (id <TProtocol>) outProtocol;
@@ -364,14 +364,14 @@
 - (void) validate;
 
 #if !__has_feature(objc_arc)
-- (ListItem *) listItem;
-- (void) setListItem: (ListItem *) listItem;
+- (Message *) message;
+- (void) setMessage: (Message *) message;
 #endif
-- (BOOL) listItemIsSet;
+- (BOOL) messageIsSet;
 
 @end
 
-@implementation addListItem_args
+@implementation addMessage_args
 
 - (id) init
 {
@@ -381,58 +381,58 @@
   return self;
 }
 
-- (id) initWithListItem: (ListItem *) listItem
+- (id) initWithMessage: (Message *) message
 {
   self = [super init];
-  __listItem = [listItem retain_stub];
-  __listItem_isset = YES;
+  __message = [message retain_stub];
+  __message_isset = YES;
   return self;
 }
 
 - (id) initWithCoder: (NSCoder *) decoder
 {
   self = [super init];
-  if ([decoder containsValueForKey: @"listItem"])
+  if ([decoder containsValueForKey: @"message"])
   {
-    __listItem = [[decoder decodeObjectForKey: @"listItem"] retain_stub];
-    __listItem_isset = YES;
+    __message = [[decoder decodeObjectForKey: @"message"] retain_stub];
+    __message_isset = YES;
   }
   return self;
 }
 
 - (void) encodeWithCoder: (NSCoder *) encoder
 {
-  if (__listItem_isset)
+  if (__message_isset)
   {
-    [encoder encodeObject: __listItem forKey: @"listItem"];
+    [encoder encodeObject: __message forKey: @"message"];
   }
 }
 
 - (void) dealloc
 {
-  [__listItem release_stub];
+  [__message release_stub];
   [super dealloc_stub];
 }
 
-- (ListItem *) listItem {
-  return [[__listItem retain_stub] autorelease_stub];
+- (Message *) message {
+  return [[__message retain_stub] autorelease_stub];
 }
 
-- (void) setListItem: (ListItem *) listItem {
-  [listItem retain_stub];
-  [__listItem release_stub];
-  __listItem = listItem;
-  __listItem_isset = YES;
+- (void) setMessage: (Message *) message {
+  [message retain_stub];
+  [__message release_stub];
+  __message = message;
+  __message_isset = YES;
 }
 
-- (BOOL) listItemIsSet {
-  return __listItem_isset;
+- (BOOL) messageIsSet {
+  return __message_isset;
 }
 
-- (void) unsetListItem {
-  [__listItem release_stub];
-  __listItem = nil;
-  __listItem_isset = NO;
+- (void) unsetMessage {
+  [__message release_stub];
+  __message = nil;
+  __message_isset = NO;
 }
 
 - (void) read: (id <TProtocol>) inProtocol
@@ -452,9 +452,9 @@
     {
       case 1:
         if (fieldType == TType_STRUCT) {
-          ListItem *fieldValue = [[ListItem alloc] init];
+          Message *fieldValue = [[Message alloc] init];
           [fieldValue read: inProtocol];
-          [self setListItem: fieldValue];
+          [self setMessage: fieldValue];
           [fieldValue release_stub];
         } else { 
           [TProtocolUtil skipType: fieldType onProtocol: inProtocol];
@@ -470,11 +470,11 @@
 }
 
 - (void) write: (id <TProtocol>) outProtocol {
-  [outProtocol writeStructBeginWithName: @"addListItem_args"];
-  if (__listItem_isset) {
-    if (__listItem != nil) {
-      [outProtocol writeFieldBeginWithName: @"listItem" type: TType_STRUCT fieldID: 1];
-      [__listItem write: outProtocol];
+  [outProtocol writeStructBeginWithName: @"addMessage_args"];
+  if (__message_isset) {
+    if (__message != nil) {
+      [outProtocol writeFieldBeginWithName: @"message" type: TType_STRUCT fieldID: 1];
+      [__message write: outProtocol];
       [outProtocol writeFieldEnd];
     }
   }
@@ -487,16 +487,16 @@
 }
 
 - (NSString *) description {
-  NSMutableString * ms = [NSMutableString stringWithString: @"addListItem_args("];
-  [ms appendString: @"listItem:"];
-  [ms appendFormat: @"%@", __listItem];
+  NSMutableString * ms = [NSMutableString stringWithString: @"addMessage_args("];
+  [ms appendString: @"message:"];
+  [ms appendFormat: @"%@", __message];
   [ms appendString: @")"];
   return [NSString stringWithString: ms];
 }
 
 @end
 
-@interface AddListItem_result : NSObject <TBase, NSCoding> {
+@interface AddMessage_result : NSObject <TBase, NSCoding> {
   int32_t __success;
 
   BOOL __success_isset;
@@ -522,7 +522,7 @@
 
 @end
 
-@implementation AddListItem_result
+@implementation AddMessage_result
 
 - (id) init
 {
@@ -614,7 +614,7 @@
 }
 
 - (void) write: (id <TProtocol>) outProtocol {
-  [outProtocol writeStructBeginWithName: @"AddListItem_result"];
+  [outProtocol writeStructBeginWithName: @"AddMessage_result"];
 
   if (__success_isset) {
     [outProtocol writeFieldBeginWithName: @"success" type: TType_I32 fieldID: 0];
@@ -630,7 +630,7 @@
 }
 
 - (NSString *) description {
-  NSMutableString * ms = [NSMutableString stringWithString: @"AddListItem_result("];
+  NSMutableString * ms = [NSMutableString stringWithString: @"AddMessage_result("];
   [ms appendString: @"success:"];
   [ms appendFormat: @"%i", __success];
   [ms appendString: @")"];
@@ -639,7 +639,7 @@
 
 @end
 
-@interface getListRevision_args : NSObject <TBase, NSCoding> {
+@interface getChatRevision_args : NSObject <TBase, NSCoding> {
 }
 
 - (id) init;
@@ -651,7 +651,7 @@
 
 @end
 
-@implementation getListRevision_args
+@implementation getChatRevision_args
 
 - (id) init
 {
@@ -694,7 +694,7 @@
 }
 
 - (void) write: (id <TProtocol>) outProtocol {
-  [outProtocol writeStructBeginWithName: @"getListRevision_args"];
+  [outProtocol writeStructBeginWithName: @"getChatRevision_args"];
   [outProtocol writeFieldStop];
   [outProtocol writeStructEnd];
 }
@@ -704,14 +704,14 @@
 }
 
 - (NSString *) description {
-  NSMutableString * ms = [NSMutableString stringWithString: @"getListRevision_args("];
+  NSMutableString * ms = [NSMutableString stringWithString: @"getChatRevision_args("];
   [ms appendString: @")"];
   return [NSString stringWithString: ms];
 }
 
 @end
 
-@interface GetListRevision_result : NSObject <TBase, NSCoding> {
+@interface GetChatRevision_result : NSObject <TBase, NSCoding> {
   int32_t __success;
 
   BOOL __success_isset;
@@ -737,7 +737,7 @@
 
 @end
 
-@implementation GetListRevision_result
+@implementation GetChatRevision_result
 
 - (id) init
 {
@@ -829,7 +829,7 @@
 }
 
 - (void) write: (id <TProtocol>) outProtocol {
-  [outProtocol writeStructBeginWithName: @"GetListRevision_result"];
+  [outProtocol writeStructBeginWithName: @"GetChatRevision_result"];
 
   if (__success_isset) {
     [outProtocol writeFieldBeginWithName: @"success" type: TType_I32 fieldID: 0];
@@ -845,7 +845,7 @@
 }
 
 - (NSString *) description {
-  NSMutableString * ms = [NSMutableString stringWithString: @"GetListRevision_result("];
+  NSMutableString * ms = [NSMutableString stringWithString: @"GetChatRevision_result("];
   [ms appendString: @"success:"];
   [ms appendFormat: @"%i", __success];
   [ms appendString: @")"];
@@ -854,7 +854,7 @@
 
 @end
 
-@interface getList_args : NSObject <TBase, NSCoding> {
+@interface getChat_args : NSObject <TBase, NSCoding> {
 }
 
 - (id) init;
@@ -866,7 +866,7 @@
 
 @end
 
-@implementation getList_args
+@implementation getChat_args
 
 - (id) init
 {
@@ -909,7 +909,7 @@
 }
 
 - (void) write: (id <TProtocol>) outProtocol {
-  [outProtocol writeStructBeginWithName: @"getList_args"];
+  [outProtocol writeStructBeginWithName: @"getChat_args"];
   [outProtocol writeFieldStop];
   [outProtocol writeStructEnd];
 }
@@ -919,25 +919,25 @@
 }
 
 - (NSString *) description {
-  NSMutableString * ms = [NSMutableString stringWithString: @"getList_args("];
+  NSMutableString * ms = [NSMutableString stringWithString: @"getChat_args("];
   [ms appendString: @")"];
   return [NSString stringWithString: ms];
 }
 
 @end
 
-@interface GetList_result : NSObject <TBase, NSCoding> {
-  List * __success;
+@interface GetChat_result : NSObject <TBase, NSCoding> {
+  Chat * __success;
 
   BOOL __success_isset;
 }
 
 #if TARGET_OS_IPHONE || (MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_X_VERSION_10_5)
-@property (nonatomic, retain, getter=success, setter=setSuccess:) List * success;
+@property (nonatomic, retain, getter=success, setter=setSuccess:) Chat * success;
 #endif
 
 - (id) init;
-- (id) initWithSuccess: (List *) success;
+- (id) initWithSuccess: (Chat *) success;
 
 - (void) read: (id <TProtocol>) inProtocol;
 - (void) write: (id <TProtocol>) outProtocol;
@@ -945,14 +945,14 @@
 - (void) validate;
 
 #if !__has_feature(objc_arc)
-- (List *) success;
-- (void) setSuccess: (List *) success;
+- (Chat *) success;
+- (void) setSuccess: (Chat *) success;
 #endif
 - (BOOL) successIsSet;
 
 @end
 
-@implementation GetList_result
+@implementation GetChat_result
 
 - (id) init
 {
@@ -962,7 +962,7 @@
   return self;
 }
 
-- (id) initWithSuccess: (List *) success
+- (id) initWithSuccess: (Chat *) success
 {
   self = [super init];
   __success = [success retain_stub];
@@ -995,11 +995,11 @@
   [super dealloc_stub];
 }
 
-- (List *) success {
+- (Chat *) success {
   return [[__success retain_stub] autorelease_stub];
 }
 
-- (void) setSuccess: (List *) success {
+- (void) setSuccess: (Chat *) success {
   [success retain_stub];
   [__success release_stub];
   __success = success;
@@ -1033,7 +1033,7 @@
     {
       case 0:
         if (fieldType == TType_STRUCT) {
-          List *fieldValue = [[List alloc] init];
+          Chat *fieldValue = [[Chat alloc] init];
           [fieldValue read: inProtocol];
           [self setSuccess: fieldValue];
           [fieldValue release_stub];
@@ -1051,7 +1051,7 @@
 }
 
 - (void) write: (id <TProtocol>) outProtocol {
-  [outProtocol writeStructBeginWithName: @"GetList_result"];
+  [outProtocol writeStructBeginWithName: @"GetChat_result"];
 
   if (__success_isset) {
     if (__success != nil) {
@@ -1069,7 +1069,7 @@
 }
 
 - (NSString *) description {
-  NSMutableString * ms = [NSMutableString stringWithString: @"GetList_result("];
+  NSMutableString * ms = [NSMutableString stringWithString: @"GetChat_result("];
   [ms appendString: @"success:"];
   [ms appendFormat: @"%@", __success];
   [ms appendString: @")"];
@@ -1078,7 +1078,7 @@
 
 @end
 
-@implementation ListAppAPIClient
+@implementation ChatAppAPIClient
 - (id) initWithProtocol: (id <TProtocol>) protocol
 {
   return [self initWithInProtocol: protocol outProtocol: protocol];
@@ -1099,13 +1099,13 @@
   [super dealloc_stub];
 }
 
-- (void) send_addListItem: (ListItem *) listItem
+- (void) send_addMessage: (Message *) message
 {
-  [outProtocol writeMessageBeginWithName: @"addListItem" type: TMessageType_CALL sequenceID: 0];
-  [outProtocol writeStructBeginWithName: @"addListItem_args"];
-  if (listItem != nil)  {
-    [outProtocol writeFieldBeginWithName: @"listItem" type: TType_STRUCT fieldID: 1];
-    [listItem write: outProtocol];
+  [outProtocol writeMessageBeginWithName: @"addMessage" type: TMessageType_CALL sequenceID: 0];
+  [outProtocol writeStructBeginWithName: @"addMessage_args"];
+  if (message != nil)  {
+    [outProtocol writeFieldBeginWithName: @"message" type: TType_STRUCT fieldID: 1];
+    [message write: outProtocol];
     [outProtocol writeFieldEnd];
   }
   [outProtocol writeFieldStop];
@@ -1114,7 +1114,7 @@
   [[outProtocol transport] flush];
 }
 
-- (int32_t) recv_addListItem
+- (int32_t) recv_addMessage
 {
   int msgType = 0;
   [inProtocol readMessageBeginReturningName: nil type: &msgType sequenceID: NULL];
@@ -1123,33 +1123,33 @@
     [inProtocol readMessageEnd];
     @throw x;
   }
-  AddListItem_result * result = [[[AddListItem_result alloc] init] autorelease_stub];
+  AddMessage_result * result = [[[AddMessage_result alloc] init] autorelease_stub];
   [result read: inProtocol];
   [inProtocol readMessageEnd];
   if ([result successIsSet]) {
     return [result success];
   }
   @throw [TApplicationException exceptionWithType: TApplicationException_MISSING_RESULT
-                                           reason: @"addListItem failed: unknown result"];
+                                           reason: @"addMessage failed: unknown result"];
 }
 
-- (int32_t) addListItem: (ListItem *) listItem
+- (int32_t) addMessage: (Message *) message
 {
-  [self send_addListItem : listItem];
-  return [self recv_addListItem];
+  [self send_addMessage : message];
+  return [self recv_addMessage];
 }
 
-- (void) send_getListRevision
+- (void) send_getChatRevision
 {
-  [outProtocol writeMessageBeginWithName: @"getListRevision" type: TMessageType_CALL sequenceID: 0];
-  [outProtocol writeStructBeginWithName: @"getListRevision_args"];
+  [outProtocol writeMessageBeginWithName: @"getChatRevision" type: TMessageType_CALL sequenceID: 0];
+  [outProtocol writeStructBeginWithName: @"getChatRevision_args"];
   [outProtocol writeFieldStop];
   [outProtocol writeStructEnd];
   [outProtocol writeMessageEnd];
   [[outProtocol transport] flush];
 }
 
-- (int32_t) recv_getListRevision
+- (int32_t) recv_getChatRevision
 {
   int msgType = 0;
   [inProtocol readMessageBeginReturningName: nil type: &msgType sequenceID: NULL];
@@ -1158,33 +1158,33 @@
     [inProtocol readMessageEnd];
     @throw x;
   }
-  GetListRevision_result * result = [[[GetListRevision_result alloc] init] autorelease_stub];
+  GetChatRevision_result * result = [[[GetChatRevision_result alloc] init] autorelease_stub];
   [result read: inProtocol];
   [inProtocol readMessageEnd];
   if ([result successIsSet]) {
     return [result success];
   }
   @throw [TApplicationException exceptionWithType: TApplicationException_MISSING_RESULT
-                                           reason: @"getListRevision failed: unknown result"];
+                                           reason: @"getChatRevision failed: unknown result"];
 }
 
-- (int32_t) getListRevision
+- (int32_t) getChatRevision
 {
-  [self send_getListRevision];
-  return [self recv_getListRevision];
+  [self send_getChatRevision];
+  return [self recv_getChatRevision];
 }
 
-- (void) send_getList
+- (void) send_getChat
 {
-  [outProtocol writeMessageBeginWithName: @"getList" type: TMessageType_CALL sequenceID: 0];
-  [outProtocol writeStructBeginWithName: @"getList_args"];
+  [outProtocol writeMessageBeginWithName: @"getChat" type: TMessageType_CALL sequenceID: 0];
+  [outProtocol writeStructBeginWithName: @"getChat_args"];
   [outProtocol writeFieldStop];
   [outProtocol writeStructEnd];
   [outProtocol writeMessageEnd];
   [[outProtocol transport] flush];
 }
 
-- (List *) recv_getList
+- (Chat *) recv_getChat
 {
   int msgType = 0;
   [inProtocol readMessageBeginReturningName: nil type: &msgType sequenceID: NULL];
@@ -1193,27 +1193,27 @@
     [inProtocol readMessageEnd];
     @throw x;
   }
-  GetList_result * result = [[[GetList_result alloc] init] autorelease_stub];
+  GetChat_result * result = [[[GetChat_result alloc] init] autorelease_stub];
   [result read: inProtocol];
   [inProtocol readMessageEnd];
   if ([result successIsSet]) {
     return [result success];
   }
   @throw [TApplicationException exceptionWithType: TApplicationException_MISSING_RESULT
-                                           reason: @"getList failed: unknown result"];
+                                           reason: @"getChat failed: unknown result"];
 }
 
-- (List *) getList
+- (Chat *) getChat
 {
-  [self send_getList];
-  return [self recv_getList];
+  [self send_getChat];
+  return [self recv_getChat];
 }
 
 @end
 
-@implementation ListAppAPIProcessor
+@implementation ChatAppAPIProcessor
 
-- (id) initWithListAppAPI: (id <ListAppAPI>) service
+- (id) initWithChatAppAPI: (id <ChatAppAPI>) service
 {
   self = [super init];
   if (!self) {
@@ -1222,33 +1222,33 @@
   mService = [service retain_stub];
   mMethodMap = [[NSMutableDictionary dictionary] retain_stub];
   {
-    SEL s = @selector(process_addListItem_withSequenceID:inProtocol:outProtocol:);
+    SEL s = @selector(process_addMessage_withSequenceID:inProtocol:outProtocol:);
     NSMethodSignature * sig = [self methodSignatureForSelector: s];
     NSInvocation * invocation = [NSInvocation invocationWithMethodSignature: sig];
     [invocation setSelector: s];
     [invocation retainArguments];
-    [mMethodMap setValue: invocation forKey: @"addListItem"];
+    [mMethodMap setValue: invocation forKey: @"addMessage"];
   }
   {
-    SEL s = @selector(process_getListRevision_withSequenceID:inProtocol:outProtocol:);
+    SEL s = @selector(process_getChatRevision_withSequenceID:inProtocol:outProtocol:);
     NSMethodSignature * sig = [self methodSignatureForSelector: s];
     NSInvocation * invocation = [NSInvocation invocationWithMethodSignature: sig];
     [invocation setSelector: s];
     [invocation retainArguments];
-    [mMethodMap setValue: invocation forKey: @"getListRevision"];
+    [mMethodMap setValue: invocation forKey: @"getChatRevision"];
   }
   {
-    SEL s = @selector(process_getList_withSequenceID:inProtocol:outProtocol:);
+    SEL s = @selector(process_getChat_withSequenceID:inProtocol:outProtocol:);
     NSMethodSignature * sig = [self methodSignatureForSelector: s];
     NSInvocation * invocation = [NSInvocation invocationWithMethodSignature: sig];
     [invocation setSelector: s];
     [invocation retainArguments];
-    [mMethodMap setValue: invocation forKey: @"getList"];
+    [mMethodMap setValue: invocation forKey: @"getChat"];
   }
   return self;
 }
 
-- (id<ListAppAPI>) service
+- (id<ChatAppAPI>) service
 {
   return [[mService retain_stub] autorelease_stub];
 }
@@ -1286,14 +1286,14 @@
   return YES;
 }
 
-- (void) process_addListItem_withSequenceID: (int32_t) seqID inProtocol: (id<TProtocol>) inProtocol outProtocol: (id<TProtocol>) outProtocol
+- (void) process_addMessage_withSequenceID: (int32_t) seqID inProtocol: (id<TProtocol>) inProtocol outProtocol: (id<TProtocol>) outProtocol
 {
-  addListItem_args * args = [[addListItem_args alloc] init];
+  addMessage_args * args = [[addMessage_args alloc] init];
   [args read: inProtocol];
   [inProtocol readMessageEnd];
-  AddListItem_result * result = [[AddListItem_result alloc] init];
-  [result setSuccess: [mService addListItem: [args listItem]]];
-  [outProtocol writeMessageBeginWithName: @"addListItem"
+  AddMessage_result * result = [[AddMessage_result alloc] init];
+  [result setSuccess: [mService addMessage: [args message]]];
+  [outProtocol writeMessageBeginWithName: @"addMessage"
                                     type: TMessageType_REPLY
                               sequenceID: seqID];
   [result write: outProtocol];
@@ -1303,14 +1303,14 @@
   [args release_stub];
 }
 
-- (void) process_getListRevision_withSequenceID: (int32_t) seqID inProtocol: (id<TProtocol>) inProtocol outProtocol: (id<TProtocol>) outProtocol
+- (void) process_getChatRevision_withSequenceID: (int32_t) seqID inProtocol: (id<TProtocol>) inProtocol outProtocol: (id<TProtocol>) outProtocol
 {
-  getListRevision_args * args = [[getListRevision_args alloc] init];
+  getChatRevision_args * args = [[getChatRevision_args alloc] init];
   [args read: inProtocol];
   [inProtocol readMessageEnd];
-  GetListRevision_result * result = [[GetListRevision_result alloc] init];
-  [result setSuccess: [mService getListRevision]];
-  [outProtocol writeMessageBeginWithName: @"getListRevision"
+  GetChatRevision_result * result = [[GetChatRevision_result alloc] init];
+  [result setSuccess: [mService getChatRevision]];
+  [outProtocol writeMessageBeginWithName: @"getChatRevision"
                                     type: TMessageType_REPLY
                               sequenceID: seqID];
   [result write: outProtocol];
@@ -1320,14 +1320,14 @@
   [args release_stub];
 }
 
-- (void) process_getList_withSequenceID: (int32_t) seqID inProtocol: (id<TProtocol>) inProtocol outProtocol: (id<TProtocol>) outProtocol
+- (void) process_getChat_withSequenceID: (int32_t) seqID inProtocol: (id<TProtocol>) inProtocol outProtocol: (id<TProtocol>) outProtocol
 {
-  getList_args * args = [[getList_args alloc] init];
+  getChat_args * args = [[getChat_args alloc] init];
   [args read: inProtocol];
   [inProtocol readMessageEnd];
-  GetList_result * result = [[GetList_result alloc] init];
-  [result setSuccess: [mService getList]];
-  [outProtocol writeMessageBeginWithName: @"getList"
+  GetChat_result * result = [[GetChat_result alloc] init];
+  [result setSuccess: [mService getChat]];
+  [outProtocol writeMessageBeginWithName: @"getChat"
                                     type: TMessageType_REPLY
                               sequenceID: seqID];
   [result write: outProtocol];

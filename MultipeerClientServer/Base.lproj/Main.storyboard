@@ -4,7 +4,7 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
     </dependencies>
     <scenes>
-        <!--View Controller - MultipeerClientServer-->
+        <!--View Controller - Multipeer Chat-->
         <scene sceneID="ufC-wZ-h7g">
             <objects>
                 <viewController id="vXZ-lx-hvc" customClass="ViewController" sceneMemberID="viewController">
@@ -47,7 +47,7 @@
                             <constraint firstAttribute="centerX" secondItem="lbk-qx-U5I" secondAttribute="centerX" id="s5K-ra-aF5"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="MultipeerClientServer" id="veP-0k-tIs"/>
+                    <navigationItem key="navigationItem" title="Multipeer Chat" id="veP-0k-tIs"/>
                     <connections>
                         <segue destination="RlC-V9-NQB" kind="modal" identifier="startClientSegue" id="8HB-V2-PVr"/>
                         <segue destination="jFq-ET-Ay3" kind="push" identifier="startServerSegue" id="vYq-Ji-NAO"/>
@@ -144,10 +144,10 @@
             </objects>
             <point key="canvasLocation" x="885" y="-480"/>
         </scene>
-        <!--List View Controller - Collaborative List-->
+        <!--Chat View Controller - Chat-->
         <scene sceneID="gxq-aF-XiO">
             <objects>
-                <viewController storyboardIdentifier="ListViewController" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="jFq-ET-Ay3" customClass="ListViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ListViewController" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="jFq-ET-Ay3" customClass="ChatViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="RRS-sk-gxx"/>
                         <viewControllerLayoutGuide type="bottom" id="PMT-UR-fdF"/>
@@ -167,7 +167,7 @@
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="listItemCell" id="xRY-vc-6Se" customClass="UILabelCollectionViewCell">
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="chatMessageCell" id="xRY-vc-6Se" customClass="UILabelCollectionViewCell">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="48"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
@@ -193,29 +193,37 @@
                                     </collectionViewCell>
                                 </cells>
                             </collectionView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XYd-hk-fB5" customClass="ChatInputView">
+                                <rect key="frame" x="0.0" y="522" width="320" height="46"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="46" id="ZAn-Rx-h2z"/>
+                                </constraints>
+                            </view>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="PMT-UR-fdF" firstAttribute="top" secondItem="ER0-Rt-3ho" secondAttribute="bottom" id="0k0-c3-kqB"/>
-                            <constraint firstItem="ER0-Rt-3ho" firstAttribute="leading" secondItem="tcD-yB-hqE" secondAttribute="leading" id="5xw-QR-rBv"/>
-                            <constraint firstAttribute="trailing" secondItem="ER0-Rt-3ho" secondAttribute="trailing" id="EOu-Ju-Rq8"/>
-                            <constraint firstItem="ER0-Rt-3ho" firstAttribute="top" secondItem="RRS-sk-gxx" secondAttribute="bottom" id="sR1-cm-H1q"/>
+                            <constraint firstItem="PMT-UR-fdF" firstAttribute="top" secondItem="ER0-Rt-3ho" secondAttribute="bottom" id="75k-bd-7IL"/>
+                            <constraint firstAttribute="trailing" secondItem="XYd-hk-fB5" secondAttribute="trailing" id="FMn-Ct-MZ4"/>
+                            <constraint firstItem="ER0-Rt-3ho" firstAttribute="leading" secondItem="tcD-yB-hqE" secondAttribute="leading" id="H1D-tf-unb"/>
+                            <constraint firstItem="PMT-UR-fdF" firstAttribute="top" secondItem="XYd-hk-fB5" secondAttribute="bottom" id="Y8x-HV-Kj0"/>
+                            <constraint firstItem="ER0-Rt-3ho" firstAttribute="top" secondItem="RRS-sk-gxx" secondAttribute="bottom" id="upW-U2-5Of"/>
+                            <constraint firstAttribute="trailing" secondItem="ER0-Rt-3ho" secondAttribute="trailing" id="vOj-QX-gZ7"/>
+                            <constraint firstItem="XYd-hk-fB5" firstAttribute="leading" secondItem="tcD-yB-hqE" secondAttribute="leading" id="z1y-eb-5bi"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Collaborative List" id="ADv-c7-D61">
+                    <navigationItem key="navigationItem" title="Chat" id="ADv-c7-D61">
                         <barButtonItem key="backBarButtonItem" title="Back" id="4se-nS-wDo">
                             <connections>
                                 <action selector="backPressed:" destination="jFq-ET-Ay3" id="s9M-2W-RVb"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="3Kt-5O-lsu">
-                            <connections>
-                                <action selector="addItem:" destination="jFq-ET-Ay3" id="kL9-mu-Rf4"/>
-                            </connections>
-                        </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="collectionView" destination="ER0-Rt-3ho" id="c07-d9-n8t"/>
+                        <outlet property="chatCollectionView" destination="ER0-Rt-3ho" id="h9G-8c-opT"/>
+                        <outlet property="chatInputView" destination="XYd-hk-fB5" id="T3A-N9-5zW"/>
+                        <outlet property="chatInputViewConstraint" destination="ZAn-Rx-h2z" id="LXm-oS-ne2"/>
+                        <outlet property="keyboardConstraint" destination="Y8x-HV-Kj0" id="40V-CY-CF7"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="V5M-U0-G5o" userLabel="First Responder" sceneMemberID="firstResponder"/>

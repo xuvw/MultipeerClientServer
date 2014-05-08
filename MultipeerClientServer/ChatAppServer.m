@@ -1,34 +1,34 @@
 //
-//  ListAppServer.m
+//  ChatAppServer.m
 //  MultipeerClientServer
 //
 //  Created by Mark Stultz on 4/30/14.
 //  Copyright (c) 2014 Mark Stultz. All rights reserved.
 //
 
-#import "ListAppServer.h"
-#import "ListAppAPI.h"
+#import "ChatAppServer.h"
+#import "ChatAppAPI.h"
 #import "TSharedProcessorFactory.h"
 #import "TBinaryProtocol.h"
 #import "TNSStreamTransport.h"
 #import "TTransportException.h"
 
-@interface ListAppServer () <ListAppAPI, MCSServerDelegate>
+@interface ChatAppServer () <ChatAppAPI, MCSServerDelegate>
 
-@property (nonatomic, strong) List *list;
+@property (nonatomic, strong) Chat *chat;
 @property (nonatomic, strong) NSMutableDictionary *peerProcessorMap;
 
 - (void)addProcessor:(id<TProcessor>)processor forPeer:(MCPeerID *)peerID;
 
 @end
 
-@implementation ListAppServer
+@implementation ChatAppServer
 
-- (id)initWithServiceType:(NSString *)serviceType list:(List *)list
+- (id)initWithServiceType:(NSString *)serviceType chat:(Chat *)chat
 {
 	self = [super initWithServiceType:serviceType];
 	if (self) {
-		self.list = list;
+		self.chat = chat;
 		self.peerProcessorMap = [NSMutableDictionary dictionary];
 		self.delegate = self;
 	}
@@ -47,49 +47,49 @@
 	[processors addObject:processor];
 }
 
-#pragma mark ListAppAsyncAPI
+#pragma mark ChatAppAsyncAPI
 
-- (void)addListItem:(ListItem *)listItem withCompletion:(void(^)(int32_t revision))completion
+- (void)addMessage:(Message *)message withCompletion:(void(^)(int32_t revision))completion
 {
 	if (completion) {
-		int32_t result = [self addListItem:listItem];
+		int32_t result = [self addMessage:message];
 		completion(result);
 	}
 }
 
-- (void)getListRevisionWithCompletion:(void(^)(int32_t revision))completion
+- (void)getChatRevisionWithCompletion:(void(^)(int32_t revision))completion
 {
 	if (completion) {
-		int32_t revision = [self getListRevision];
+		int32_t revision = [self getChatRevision];
 		completion(revision);
 	}
 }
 
-- (void)getListWithCompletion:(void(^)(List *list))completion
+- (void)getChatWithCompletion:(void(^)(Chat *chat))completion
 {
 	if (completion) {
-		List *list = [self getList];
-		completion(list);
+		Chat *chat = [self getChat];
+		completion(chat);
 	}
 }
 
-#pragma mark ListAppAPI
+#pragma mark ChatAppAPI
 
-- (int32_t)addListItem:(ListItem *)listItem
+- (int32_t)addMessage:(Message *)message
 {
-	[self.list.listItems addObject:listItem];
-	self.list.revision = self.list.revision + 1;
-	return self.list.revision;
+	[self.chat.messages addObject:message];
+	self.chat.revision = self.chat.revision + 1;
+	return self.chat.revision;
 }
 
-- (int32_t)getListRevision
+- (int32_t)getChatRevision
 {
-	return self.list.revision;
+	return self.chat.revision;
 }
 
-- (List *)getList
+- (Chat *)getChat
 {
-	return self.list;
+	return self.chat;
 }
 
 #pragma mark MCSServerDelegate
@@ -103,7 +103,7 @@
 {
 	TNSStreamTransport *transport = [[TNSStreamTransport alloc] initWithInputStream:inputStream outputStream:outputStream];
 	TBinaryProtocol *protocol = [[TBinaryProtocol alloc] initWithTransport:transport strictRead:YES strictWrite:YES];
-	ListAppAPIProcessor *processor = [[ListAppAPIProcessor alloc] initWithListAppAPI:self];
+	ChatAppAPIProcessor *processor = [[ChatAppAPIProcessor alloc] initWithChatAppAPI:self];
 	[self addProcessor:processor forPeer:peerID];
 
 	@try {
