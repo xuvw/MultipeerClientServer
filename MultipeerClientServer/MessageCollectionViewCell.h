@@ -10,6 +10,6 @@
 
 @interface MessageCollectionViewCell : UICollectionViewCell
 
-@property (nonatomic, weak, readonly) IBOutlet UITextView *textView;
+@property (nonatomic, weak, readonly) UITextView *textView;
 
 @end

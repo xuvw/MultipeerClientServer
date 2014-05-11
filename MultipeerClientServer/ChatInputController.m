@@ -8,20 +8,6 @@
 
 #import "ChatInputController.h"
 
-static inline UIViewAnimationOptions UIViewAnimationOptionsFromUIViewAnimationCurve(UIViewAnimationCurve curve)
-{
-	switch (curve) {
-		case UIViewAnimationCurveEaseInOut:
-			return UIViewAnimationOptionCurveEaseInOut;
-		case UIViewAnimationCurveEaseIn:
-			return UIViewAnimationOptionCurveEaseIn;
-		case UIViewAnimationCurveEaseOut:
-			return UIViewAnimationOptionCurveEaseOut;
-		case UIViewAnimationCurveLinear:
-			return UIViewAnimationOptionCurveLinear;
-	}
-}
-
 @interface ChatInputController () <UITextViewDelegate>
 
 @property (nonatomic, strong) id<ChatAppAsyncAPI> chatAppAPI;
@@ -126,6 +112,7 @@ static inline UIViewAnimationOptions UIViewAnimationOptionsFromUIViewAnimationCu
 	[UIView animateWithDuration:0.1f animations:^{
 		[self.chatInputView scrollToCaret];
 		[self.chatInputView invalidateIntrinsicContentSize];
+		[self.chatInputView layoutIfNeeded];
 	}];
 }
 
