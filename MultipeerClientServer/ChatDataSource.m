@@ -8,7 +8,7 @@
 
 #import "ChatDataSource.h"
 #import "ChatAppAPI.h"
-#import "UILabelCollectionViewCell.h"
+#import "MessageCollectionViewCell.h"
 
 static void *ChatRevisionContext = &ChatRevisionContext;
 
@@ -52,6 +52,11 @@ static void *ChatRevisionContext = &ChatRevisionContext;
 	}
 }
 
+- (Message *)messageAtIndexPath:(NSIndexPath *)indexPath
+{
+	return self.chat.messages[ indexPath.row ];
+}
+
 #pragma mark UICollectionViewDataSource
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
@@ -61,7 +66,7 @@ static void *ChatRevisionContext = &ChatRevisionContext;
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-	UILabelCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"chatMessageCell" forIndexPath:indexPath];
+	MessageCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"chatMessageCell" forIndexPath:indexPath];
 	if (cell) {
 		NSString *text = @"Invalid";
 		if (indexPath.row < self.chat.messages.count) {
@@ -69,7 +74,7 @@ static void *ChatRevisionContext = &ChatRevisionContext;
 			text = message.text;
 		}
 		
-		cell.label.text = text;
+		cell.textView.text = text;
 	}
 	
 	return cell;

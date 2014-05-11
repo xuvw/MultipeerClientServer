@@ -159,7 +159,7 @@
                             <collectionView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" minimumZoomScale="0.0" maximumZoomScale="0.0" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="ER0-Rt-3ho">
                                 <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="fCW-xP-iuf">
                                     <size key="itemSize" width="320" height="48"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -167,49 +167,53 @@
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="chatMessageCell" id="xRY-vc-6Se" customClass="UILabelCollectionViewCell">
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="chatMessageCell" id="xRY-vc-6Se" customClass="MessageCollectionViewCell">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="48"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="48"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4wZ-vO-RrM">
-                                                    <rect key="frame" x="24" y="13" width="45" height="22"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
+                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CdO-tg-AXn">
+                                                    <rect key="frame" x="0.0" y="0.0" width="320" height="48"/>
+                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                    <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                                </textView>
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
                                         <constraints>
-                                            <constraint firstAttribute="centerY" secondItem="4wZ-vO-RrM" secondAttribute="centerY" id="6ai-K5-xu3"/>
-                                            <constraint firstItem="4wZ-vO-RrM" firstAttribute="leading" secondItem="xRY-vc-6Se" secondAttribute="leading" constant="24" id="Ao3-tE-Tdx"/>
+                                            <constraint firstAttribute="bottom" secondItem="CdO-tg-AXn" secondAttribute="bottom" id="2ps-X4-h32"/>
+                                            <constraint firstItem="CdO-tg-AXn" firstAttribute="top" secondItem="xRY-vc-6Se" secondAttribute="top" id="HFN-7m-av1"/>
+                                            <constraint firstAttribute="trailing" secondItem="CdO-tg-AXn" secondAttribute="trailing" id="ODL-Lz-HBv"/>
+                                            <constraint firstItem="CdO-tg-AXn" firstAttribute="leading" secondItem="xRY-vc-6Se" secondAttribute="leading" id="cab-OY-0vG"/>
                                         </constraints>
                                         <connections>
-                                            <outlet property="label" destination="4wZ-vO-RrM" id="LLG-x6-kuD"/>
+                                            <outlet property="textView" destination="CdO-tg-AXn" id="WzI-0c-nA9"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
                             </collectionView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XYd-hk-fB5" customClass="ChatInputView">
-                                <rect key="frame" x="0.0" y="522" width="320" height="46"/>
+                                <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="46" id="ZAn-Rx-h2z"/>
-                                </constraints>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="PMT-UR-fdF" firstAttribute="top" secondItem="ER0-Rt-3ho" secondAttribute="bottom" id="75k-bd-7IL"/>
+                            <constraint firstItem="XYd-hk-fB5" firstAttribute="top" relation="lessThanOrEqual" secondItem="RRS-sk-gxx" secondAttribute="bottom" priority="500" constant="460" id="EpO-fJ-PMR"/>
                             <constraint firstAttribute="trailing" secondItem="XYd-hk-fB5" secondAttribute="trailing" id="FMn-Ct-MZ4"/>
                             <constraint firstItem="ER0-Rt-3ho" firstAttribute="leading" secondItem="tcD-yB-hqE" secondAttribute="leading" id="H1D-tf-unb"/>
                             <constraint firstItem="PMT-UR-fdF" firstAttribute="top" secondItem="XYd-hk-fB5" secondAttribute="bottom" id="Y8x-HV-Kj0"/>
                             <constraint firstItem="ER0-Rt-3ho" firstAttribute="top" secondItem="RRS-sk-gxx" secondAttribute="bottom" id="upW-U2-5Of"/>
                             <constraint firstAttribute="trailing" secondItem="ER0-Rt-3ho" secondAttribute="trailing" id="vOj-QX-gZ7"/>
+                            <constraint firstItem="XYd-hk-fB5" firstAttribute="top" relation="greaterThanOrEqual" secondItem="RRS-sk-gxx" secondAttribute="bottom" id="wzn-pc-Y90"/>
                             <constraint firstItem="XYd-hk-fB5" firstAttribute="leading" secondItem="tcD-yB-hqE" secondAttribute="leading" id="z1y-eb-5bi"/>
+                            <constraint firstItem="XYd-hk-fB5" firstAttribute="top" secondItem="ER0-Rt-3ho" secondAttribute="top" priority="1" id="zHu-HH-8xu"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Chat" id="ADv-c7-D61">
@@ -222,7 +226,6 @@
                     <connections>
                         <outlet property="chatCollectionView" destination="ER0-Rt-3ho" id="h9G-8c-opT"/>
                         <outlet property="chatInputView" destination="XYd-hk-fB5" id="T3A-N9-5zW"/>
-                        <outlet property="chatInputViewConstraint" destination="ZAn-Rx-h2z" id="LXm-oS-ne2"/>
                         <outlet property="keyboardConstraint" destination="Y8x-HV-Kj0" id="40V-CY-CF7"/>
                     </connections>
                 </viewController>

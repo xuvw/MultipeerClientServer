@@ -18,7 +18,6 @@
 
 @property (nonatomic, weak) IBOutlet UICollectionView *chatCollectionView;
 @property (nonatomic, weak) IBOutlet ChatInputView *chatInputView;
-@property (nonatomic, weak) IBOutlet NSLayoutConstraint *chatInputViewConstraint;
 @property (nonatomic, weak) IBOutlet NSLayoutConstraint *keyboardConstraint;
 
 @end
@@ -30,10 +29,8 @@
 	[super viewWillLayoutSubviews];
 	
 	if (!self.chatController) {
-		CGFloat navBarHeight = self.navigationController.navigationBarHidden ? self.navigationController.navigationBar.frame.origin.y : self.navigationController.navigationBar.frame.origin.y + self.navigationController.navigationBar.frame.size.height;
-		CGFloat maxHeight = self.chatInputView.frame.origin.y + self.chatInputView.frame.size.height - navBarHeight;
 		self.chatController = [[ChatController alloc] initWithChatAppAPI:self.chatAppAPI chat:self.chat collectionView:self.chatCollectionView];
-		self.chatInputController = [[ChatInputController alloc] initWithChatAppAPI:self.chatAppAPI chatInputView:self.chatInputView maxChatInputViewHeight:maxHeight chatInputViewConstraint:self.chatInputViewConstraint keyboardConstraint:self.keyboardConstraint];
+		self.chatInputController = [[ChatInputController alloc] initWithChatAppAPI:self.chatAppAPI chatInputView:self.chatInputView keyboardConstraint:self.keyboardConstraint];
 	}
 }
 

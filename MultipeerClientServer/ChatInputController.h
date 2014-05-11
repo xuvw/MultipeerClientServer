@@ -11,6 +11,6 @@
 
 @interface ChatInputController : NSObject
 
-- (id)initWithChatAppAPI:(id<ChatAppAsyncAPI>)chatAppAPI chatInputView:(ChatInputView *)chatInputView maxChatInputViewHeight:(CGFloat)maxChatInputViewHeight chatInputViewConstraint:(NSLayoutConstraint *)chatInputViewConstraint keyboardConstraint:(NSLayoutConstraint *)keyboardConstraint;
+- (id)initWithChatAppAPI:(id<ChatAppAsyncAPI>)chatAppAPI chatInputView:(ChatInputView *)chatInputView keyboardConstraint:(NSLayoutConstraint *)keyboardConstraint;
 
 @end

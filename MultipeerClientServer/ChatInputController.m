@@ -8,40 +8,45 @@
 
 #import "ChatInputController.h"
 
+static inline UIViewAnimationOptions UIViewAnimationOptionsFromUIViewAnimationCurve(UIViewAnimationCurve curve)
+{
+	switch (curve) {
+		case UIViewAnimationCurveEaseInOut:
+			return UIViewAnimationOptionCurveEaseInOut;
+		case UIViewAnimationCurveEaseIn:
+			return UIViewAnimationOptionCurveEaseIn;
+		case UIViewAnimationCurveEaseOut:
+			return UIViewAnimationOptionCurveEaseOut;
+		case UIViewAnimationCurveLinear:
+			return UIViewAnimationOptionCurveLinear;
+	}
+}
+
 @interface ChatInputController () <UITextViewDelegate>
 
 @property (nonatomic, strong) id<ChatAppAsyncAPI> chatAppAPI;
 @property (nonatomic, strong) ChatInputView *chatInputView;
-@property (nonatomic, assign) CGFloat maxChatInputViewHeight;
-@property (nonatomic, strong) NSLayoutConstraint *chatInputViewConstraint;
 @property (nonatomic, strong) NSLayoutConstraint *keyboardConstraint;
-@property (nonatomic, strong) NSMutableParagraphStyle *paragraphStyle;
 
 - (IBAction)sendPressed:(id)sender;
 
 - (void)keyboardWillShow:(NSNotification *)notification;
 - (void)keyboardWillHide:(NSNotification *)notification;
-- (CGFloat)chatInputViewHeight;
 
 @end
 
 @implementation ChatInputController
 
-- (id)initWithChatAppAPI:(id<ChatAppAsyncAPI>)chatAppAPI chatInputView:(ChatInputView *)chatInputView maxChatInputViewHeight:(CGFloat)maxChatInputViewHeight chatInputViewConstraint:(NSLayoutConstraint *)chatInputViewConstraint keyboardConstraint:(NSLayoutConstraint *)keyboardConstraint
+- (id)initWithChatAppAPI:(id<ChatAppAsyncAPI>)chatAppAPI chatInputView:(ChatInputView *)chatInputView keyboardConstraint:(NSLayoutConstraint *)keyboardConstraint
 {
 	self = [super init];
 	if (self) {
 		self.chatAppAPI = chatAppAPI;
 		self.chatInputView = chatInputView;
-		self.chatInputViewConstraint = chatInputViewConstraint;
 		self.keyboardConstraint = keyboardConstraint;
 		
 		self.chatInputView.inputTextView.delegate = self;
 		[self.chatInputView.sendButton addTarget:self action:@selector(sendPressed:) forControlEvents:UIControlEventTouchUpInside];
-		self.maxChatInputViewHeight = maxChatInputViewHeight;
-		
-		self.paragraphStyle = [[NSMutableParagraphStyle alloc] init];
-		[self.paragraphStyle setLineBreakMode:NSLineBreakByWordWrapping];
 		
 		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
 		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardDidHideNotification object:nil];
@@ -76,7 +81,7 @@
 	[[[notification userInfo] objectForKey:UIKeyboardAnimationDurationUserInfoKey] getValue:&animationDuration];
 	[[[notification userInfo] objectForKey:UIKeyboardFrameEndUserInfoKey] getValue:&keyboardRect];
 	
-	self.maxChatInputViewHeight -= keyboardRect.size.height;
+	self.keyboardConstraint.constant = keyboardRect.size.height;
 	
 	[UIView beginAnimations:nil context:nil];
 	[UIView setAnimationDuration:animationDuration];
@@ -84,8 +89,7 @@
 	[UIView setAnimationBeginsFromCurrentState:YES];
 	
 	{
-		self.keyboardConstraint.constant = keyboardRect.size.height;
-		[self.chatInputView layoutIfNeeded];
+		[self.chatInputView.superview layoutIfNeeded];
 	}
 	
 	[UIView commitAnimations];
@@ -101,7 +105,7 @@
 	[[[notification userInfo] objectForKey:UIKeyboardAnimationDurationUserInfoKey] getValue:&animationDuration];
 	[[[notification userInfo] objectForKey:UIKeyboardFrameEndUserInfoKey] getValue:&keyboardRect];
 
-	self.maxChatInputViewHeight += keyboardRect.size.height;
+	self.keyboardConstraint.constant = 0.f;
 	
 	[UIView beginAnimations:nil context:nil];
 	[UIView setAnimationDuration:animationDuration];
@@ -109,33 +113,19 @@
 	[UIView setAnimationBeginsFromCurrentState:YES];
 	
 	{
-		self.keyboardConstraint.constant = 0.f;
-		[self.chatInputView layoutIfNeeded];
+		[self.chatInputView.superview layoutIfNeeded];
 	}
 	
 	[UIView commitAnimations];
-}
-
-- (CGFloat)chatInputViewHeight
-{
-	UITextView *textView = self.chatInputView.inputTextView;
-	NSString *string = [textView.text hasSuffix:@"\n"] ? [textView.text stringByAppendingString:@" "] : textView.text;
-	CGRect size = [string boundingRectWithSize:CGSizeMake(CGRectGetWidth(textView.bounds), MAXFLOAT)
-												  options:NSStringDrawingUsesLineFragmentOrigin
-											  attributes:@{ NSFontAttributeName: textView.font, NSParagraphStyleAttributeName: self.paragraphStyle }
-												  context:nil];
-	
-	return MIN(self.maxChatInputViewHeight, MAX( 46.f, ceilf(CGRectGetHeight(size) + textView.textContainerInset.top + 20.0)));
 }
 
 #pragma mark UITextViewDelegate
 
 - (void)textViewDidChange:(UITextView *)textView
 {
-	CGFloat inputTextViewHeight = [self chatInputViewHeight];
 	[UIView animateWithDuration:0.1f animations:^{
-		self.chatInputViewConstraint.constant = inputTextViewHeight;
 		[self.chatInputView scrollToCaret];
+		[self.chatInputView invalidateIntrinsicContentSize];
 	}];
 }
 

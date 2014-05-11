@@ -8,8 +8,9 @@
 
 #import "ChatController.h"
 #import "ChatDataSource.h"
+#import "MessageCollectionViewCell.h"
 
-@interface ChatController () <UICollectionViewDelegate>
+@interface ChatController () <UICollectionViewDelegateFlowLayout>
 
 @property (nonatomic, strong) id<ChatAppAsyncAPI> chatAppAPI;
 @property (nonatomic, strong) Chat *chat;
@@ -40,6 +41,13 @@
 		UIEdgeInsets scrollIndicatorInsets = self.collectionView.scrollIndicatorInsets;
 		scrollIndicatorInsets.bottom += 46.f;
 		self.collectionView.scrollIndicatorInsets = scrollIndicatorInsets;
+		
+		CAGradientLayer *gradientLayer = [CAGradientLayer layer];
+		[gradientLayer setFrame:[self.collectionView.layer bounds]];
+		UIColor *topColor = [UIColor colorWithRed:90.f/255.f green:200.f/255.f blue:250.0/255.f alpha:1.f];
+		UIColor *bottomColor = [UIColor colorWithRed:0.f/255.f green:122.f/255.f blue:25050/255.f alpha:1.f];
+		gradientLayer.colors = @[ (id)topColor.CGColor, (id)bottomColor.CGColor ];
+		//[self.collectionView.layer addSublayer:gradientLayer];
 		
 		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
 		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardDidHideNotification object:nil];
@@ -128,28 +136,35 @@
 	[UIView commitAnimations];
 }
 
-#pragma mark UICollectionViewDelegate
+#pragma mark UICollectionViewDelegateFlowLayout
 
-- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section
 {
-	/*
-	 if (indexPath.row < self.peer.session.connectedPeers.count) {
-	 UICollectionViewCell *cell = [collectionView cellForItemAtIndexPath:indexPath];
-	 cell.backgroundColor = [UIColor colorWithHue:0.f saturation:0.f brightness:0.85f alpha:1.f];
-	 }
-	 */
+	return 0.f;
 }
 
-- (void)collectionView:(UICollectionView *)collectionView didHighlightItemAtIndexPath:(NSIndexPath *)indexPath
+- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section;
 {
-	UICollectionViewCell *cell = [collectionView cellForItemAtIndexPath:indexPath];
-	cell.backgroundColor = [UIColor colorWithHue:0.f saturation:0.f brightness:0.85f alpha:1.f];
+	return 0.f;
 }
 
-- (void)collectionView:(UICollectionView *)collectionView didUnhighlightItemAtIndexPath:(NSIndexPath *)indexPath
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-	UICollectionViewCell *cell = [collectionView cellForItemAtIndexPath:indexPath];
-	cell.backgroundColor = [UIColor whiteColor];
+	UIEdgeInsets messageInsets = UIEdgeInsetsMake(0.f, 29.f, 0.f, 120.f);
+	
+	CGSize size = CGSizeMake( self.collectionView.frame.size.width, 0.f );
+	UIFont *font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
+	Message *message = [self.dataSource messageAtIndexPath:indexPath];
+	
+	CGFloat width = size.width - messageInsets.left - messageInsets.right;
+	CGRect rect = [message.text boundingRectWithSize:CGSizeMake(width, MAXFLOAT)
+														  options:NSStringDrawingUsesLineFragmentOrigin
+													  attributes:@{ NSFontAttributeName: font, NSParagraphStyleAttributeName: [[NSParagraphStyle alloc] init] }
+														  context:nil];
+	
+	size.height = rect.size.height + 6.f;
+	
+	return size;
 }
 
 @end
