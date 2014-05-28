@@ -35,11 +35,8 @@
 		D8AB8582190F69C60030F19A /* MCSStreamRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = D8AB8581190F69C60030F19A /* MCSStreamRequest.m */; };
 		D8B3D9F21911DE4F00368238 /* ChatAppServer.m in Sources */ = {isa = PBXBuildFile; fileRef = D8B3D9F11911DE4F00368238 /* ChatAppServer.m */; };
 		D8B3D9F61911FCD700368238 /* ChatAppClient.m in Sources */ = {isa = PBXBuildFile; fileRef = D8B3D9F51911FCD700368238 /* ChatAppClient.m */; };
-		D8B3D9FA1917659B00368238 /* ChatInputView.m in Sources */ = {isa = PBXBuildFile; fileRef = D8B3D9F91917659B00368238 /* ChatInputView.m */; };
-		D8B3D9FD191765B000368238 /* ChatInputController.m in Sources */ = {isa = PBXBuildFile; fileRef = D8B3D9FC191765B000368238 /* ChatInputController.m */; };
 		D8B3DA001918AD3300368238 /* ChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D8B3D9FF1918AD3300368238 /* ChatViewController.m */; };
 		D8B3DA031918AE7300368238 /* ChatController.m in Sources */ = {isa = PBXBuildFile; fileRef = D8B3DA021918AE7300368238 /* ChatController.m */; };
-		D8B3DA0B191C6B5C00368238 /* MessageCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D8B3DA0A191C6B5C00368238 /* MessageCollectionViewCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -100,16 +97,10 @@
 		D8B3D9F41911FCD700368238 /* ChatAppClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatAppClient.h; sourceTree = "<group>"; };
 		D8B3D9F51911FCD700368238 /* ChatAppClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatAppClient.m; sourceTree = "<group>"; };
 		D8B3D9F71912110600368238 /* ChatAppAsyncAPI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ChatAppAsyncAPI.h; sourceTree = "<group>"; };
-		D8B3D9F81917659B00368238 /* ChatInputView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatInputView.h; sourceTree = "<group>"; };
-		D8B3D9F91917659B00368238 /* ChatInputView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatInputView.m; sourceTree = "<group>"; };
-		D8B3D9FB191765B000368238 /* ChatInputController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatInputController.h; sourceTree = "<group>"; };
-		D8B3D9FC191765B000368238 /* ChatInputController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatInputController.m; sourceTree = "<group>"; };
 		D8B3D9FE1918AD3300368238 /* ChatViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatViewController.h; sourceTree = "<group>"; };
 		D8B3D9FF1918AD3300368238 /* ChatViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatViewController.m; sourceTree = "<group>"; };
 		D8B3DA011918AE7300368238 /* ChatController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatController.h; sourceTree = "<group>"; };
 		D8B3DA021918AE7300368238 /* ChatController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatController.m; sourceTree = "<group>"; };
-		D8B3DA09191C6B5C00368238 /* MessageCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageCollectionViewCell.h; sourceTree = "<group>"; };
-		D8B3DA0A191C6B5C00368238 /* MessageCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageCollectionViewCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -213,8 +204,6 @@
 			children = (
 				D8B3DA011918AE7300368238 /* ChatController.h */,
 				D8B3DA021918AE7300368238 /* ChatController.m */,
-				D8B3D9FB191765B000368238 /* ChatInputController.h */,
-				D8B3D9FC191765B000368238 /* ChatInputController.m */,
 				D8B3D9FE1918AD3300368238 /* ChatViewController.h */,
 				D8B3D9FF1918AD3300368238 /* ChatViewController.m */,
 				D868020218FE32C90035CE60 /* Main.storyboard */,
@@ -246,10 +235,6 @@
 		D868023918FE34840035CE60 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				D8B3D9F81917659B00368238 /* ChatInputView.h */,
-				D8B3D9F91917659B00368238 /* ChatInputView.m */,
-				D8B3DA09191C6B5C00368238 /* MessageCollectionViewCell.h */,
-				D8B3DA0A191C6B5C00368238 /* MessageCollectionViewCell.m */,
 				D868023318FE34540035CE60 /* UILabelCollectionViewCell.h */,
 				D868023418FE34540035CE60 /* UILabelCollectionViewCell.m */,
 			);
@@ -432,7 +417,6 @@
 			files = (
 				D846F4F61903942C003792AC /* MCSClient.m in Sources */,
 				D8B3D9F21911DE4F00368238 /* ChatAppServer.m in Sources */,
-				D8B3DA0B191C6B5C00368238 /* MessageCollectionViewCell.m in Sources */,
 				D8B3DA031918AE7300368238 /* ChatController.m in Sources */,
 				D868020718FE32C90035CE60 /* ViewController.m in Sources */,
 				D8AB8582190F69C60030F19A /* MCSStreamRequest.m in Sources */,
@@ -442,8 +426,6 @@
 				D868020118FE32C90035CE60 /* AppDelegate.m in Sources */,
 				D868023518FE34540035CE60 /* NearbyServersDataSource.m in Sources */,
 				D868023018FE344A0035CE60 /* ServerBrowserViewController.m in Sources */,
-				D8B3D9FA1917659B00368238 /* ChatInputView.m in Sources */,
-				D8B3D9FD191765B000368238 /* ChatInputController.m in Sources */,
 				D8B3DA001918AD3300368238 /* ChatViewController.m in Sources */,
 				D868022F18FE344A0035CE60 /* MCSNearbyServer.m in Sources */,
 				D86801FD18FE32C90035CE60 /* main.m in Sources */,

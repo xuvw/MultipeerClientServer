@@ -8,7 +8,6 @@
 
 #import "ChatDataSource.h"
 #import "ChatAppAPI.h"
-#import "MessageCollectionViewCell.h"
 
 static void *ChatRevisionContext = &ChatRevisionContext;
 
@@ -66,18 +65,7 @@ static void *ChatRevisionContext = &ChatRevisionContext;
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-	MessageCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"chatMessageCell" forIndexPath:indexPath];
-	if (cell) {
-		NSString *text = @"Invalid";
-		if (indexPath.row < self.chat.messages.count) {
-			Message *message = self.chat.messages[ indexPath.row ];
-			text = message.text;
-		}
-		
-		cell.textView.text = text;
-	}
-	
-	return cell;
+	return nil;
 }
 
 @end

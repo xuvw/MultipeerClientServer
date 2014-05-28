@@ -10,7 +10,7 @@
 
 @interface ChatController : NSObject
 
-- (id)initWithChatAppAPI:(id<ChatAppAsyncAPI>)chatAppAPI chat:(Chat *)chat collectionView:(UICollectionView *)collectionView;
+- (id)initWithChatAppAPI:(id<ChatAppAsyncAPI>)chatAppAPI chat:(Chat *)chat;
 
 - (void)scheduleChatPolling;
 

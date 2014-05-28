@@ -1,16 +1,19 @@
 PODS:
   - DCKeyValueObjectMapping (1.4)
+  - MSMessaging (0.0.1)
   - SVProgressHUD (1.0)
   - thrift (0.9.1)
 
 DEPENDENCIES:
   - DCKeyValueObjectMapping
+  - MSMessaging
   - SVProgressHUD
   - thrift
 
 SPEC CHECKSUMS:
-  DCKeyValueObjectMapping: 39adaf0a54ff6368a22d9221db60f0696d81ad7b
-  SVProgressHUD: 5e10939a296debf5fe5a5895eda9539b8b2114f1
-  thrift: 9bbb435f27db135e8cc8f1f619560e2f8eab63d2
+  DCKeyValueObjectMapping: c3561709f296ddffba7768a9d7ccf234307fd3c9
+  MSMessaging: 2f6f9f82636bc14a0a193a990c793b3336402b85
+  SVProgressHUD: 5034c6e22b8c2ca3e09402e48d41ed0340aa1c50
+  thrift: b69f9820045ffa76eabe35674cdcc8daa5b1f75c
 
 COCOAPODS: 0.32.1
