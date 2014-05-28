@@ -155,7 +155,23 @@
                     <view key="view" contentMode="scaleToFill" id="tcD-yB-hqE">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <containerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SbT-XR-8Sz">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                <connections>
+                                    <segue destination="TUM-eP-jcl" kind="embed" identifier="embedMessageViewSegue" id="LpZ-jw-8Dk"/>
+                                </connections>
+                            </containerView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="PMT-UR-fdF" firstAttribute="top" secondItem="SbT-XR-8Sz" secondAttribute="bottom" id="ESp-AK-7lh"/>
+                            <constraint firstItem="SbT-XR-8Sz" firstAttribute="leading" secondItem="tcD-yB-hqE" secondAttribute="leading" id="Ewn-Cw-b6j"/>
+                            <constraint firstAttribute="trailing" secondItem="SbT-XR-8Sz" secondAttribute="trailing" id="ouB-Ld-Tds"/>
+                            <constraint firstItem="SbT-XR-8Sz" firstAttribute="top" secondItem="tcD-yB-hqE" secondAttribute="top" id="ttW-o2-0rl"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Multipeer Chat" id="ADv-c7-D61">
                         <barButtonItem key="backBarButtonItem" title="Back" id="4se-nS-wDo">
@@ -183,6 +199,25 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VTX-jw-Yq3" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-135" y="-146"/>
+        </scene>
+        <!--Message View Controller-->
+        <scene sceneID="fsC-mC-FSX">
+            <objects>
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="TUM-eP-jcl" customClass="MSMessageViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="5Nf-3B-q1i"/>
+                        <viewControllerLayoutGuide type="bottom" id="AlQ-oY-97l"/>
+                    </layoutGuides>
+                    <view key="view" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="Fy9-Ya-heG">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <toolbarItems/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="09Q-Xl-Arc" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1357" y="214"/>
         </scene>
     </scenes>
     <color key="tintColor" red="0.50196081400000003" green="0.0" blue="0.50196081400000003" alpha="1" colorSpace="calibratedRGB"/>

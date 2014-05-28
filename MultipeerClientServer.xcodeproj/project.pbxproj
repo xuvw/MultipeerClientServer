@@ -36,7 +36,6 @@
 		D8B3D9F21911DE4F00368238 /* ChatAppServer.m in Sources */ = {isa = PBXBuildFile; fileRef = D8B3D9F11911DE4F00368238 /* ChatAppServer.m */; };
 		D8B3D9F61911FCD700368238 /* ChatAppClient.m in Sources */ = {isa = PBXBuildFile; fileRef = D8B3D9F51911FCD700368238 /* ChatAppClient.m */; };
 		D8B3DA001918AD3300368238 /* ChatViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D8B3D9FF1918AD3300368238 /* ChatViewController.m */; };
-		D8B3DA031918AE7300368238 /* ChatController.m in Sources */ = {isa = PBXBuildFile; fileRef = D8B3DA021918AE7300368238 /* ChatController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -99,8 +98,6 @@
 		D8B3D9F71912110600368238 /* ChatAppAsyncAPI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ChatAppAsyncAPI.h; sourceTree = "<group>"; };
 		D8B3D9FE1918AD3300368238 /* ChatViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatViewController.h; sourceTree = "<group>"; };
 		D8B3D9FF1918AD3300368238 /* ChatViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatViewController.m; sourceTree = "<group>"; };
-		D8B3DA011918AE7300368238 /* ChatController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatController.h; sourceTree = "<group>"; };
-		D8B3DA021918AE7300368238 /* ChatController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -202,8 +199,6 @@
 		D868023718FE34570035CE60 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				D8B3DA011918AE7300368238 /* ChatController.h */,
-				D8B3DA021918AE7300368238 /* ChatController.m */,
 				D8B3D9FE1918AD3300368238 /* ChatViewController.h */,
 				D8B3D9FF1918AD3300368238 /* ChatViewController.m */,
 				D868020218FE32C90035CE60 /* Main.storyboard */,
@@ -417,7 +412,6 @@
 			files = (
 				D846F4F61903942C003792AC /* MCSClient.m in Sources */,
 				D8B3D9F21911DE4F00368238 /* ChatAppServer.m in Sources */,
-				D8B3DA031918AE7300368238 /* ChatController.m in Sources */,
 				D868020718FE32C90035CE60 /* ViewController.m in Sources */,
 				D8AB8582190F69C60030F19A /* MCSStreamRequest.m in Sources */,
 				D846F4F3190391AF003792AC /* MCSPeer.m in Sources */,
